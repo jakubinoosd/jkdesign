@@ -373,12 +373,12 @@
             <h2 class="section-title reveal">Moje práce</h2>
             <div class="grid portfolio-grid">
                 
-                <a href="#" target="_blank" class="project-card reveal">
+                <a href="https://jakubinoosd.github.io/aura/" target="_blank" class="project-card reveal">
                     <div class="card-img p1">
-                        <span style="font-size: 1.2rem; color: #555;">E-shop Nábytok</span>
+                        <span style="font-size: 1.2rem; color: #555;">E-shop Oblečenie</span>
                     </div>
                     <div class="card-body">
-                        <h3>E-shop s nábytkom</h3>
+                        <h3>E-shop s oblečením</h3>
                         <p>Kompletný redesign s cieľom zjednodušiť nákupný proces.</p>
                         <div class="result-box">
                             ✅ Výsledok: O 30% viac dokončených objednávok.
@@ -386,7 +386,7 @@
                     </div>
                 </a>
 
-                <a href="#" target="_blank" class="project-card reveal">
+                <a href="https://jakubinoosd.github.io/nexoreality/" target="_blank" class="project-card reveal">
                     <div class="card-img p2">
                         <span style="font-size: 1.2rem; color: #555;">Realitný Portál</span>
                     </div>
@@ -648,5 +648,57 @@
             });
         });
     </script>
+<style>
+        /* 1. Zákaz označovania textu a obrázkov */
+        body {
+            -webkit-user-select: none; /* Chrome/Safari */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* IE */
+            user-select: none; /* Standard */
+            -webkit-touch-callout: none; /* iOS Safari */
+        }
+        
+        /* Povolenie písania do inputov (aby fungoval newsletter a search) */
+        input, textarea {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+    </style>
+
+    <script>
+        // 2. Zákaz pravého kliknutia (Context Menu)
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            // Voliteľné: Môžeš tu dať SweetAlert, ak chceš byť drzí :D
+            // Swal.fire('Protected', 'Tento obsah je chránený autorským právom.', 'warning');
+        });
+
+        // 3. Zákaz klávesových skratiek pre inšpektorov kódu
+        document.onkeydown = function(e) {
+            // F12
+            if(e.keyCode == 123) {
+                return false;
+            }
+            // Ctrl+I (DevTools)
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
+                return false;
+            }
+            // Ctrl+J (Console)
+            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
+                return false;
+            }
+            // Ctrl+U (Zdrojový kód)
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
+                return false;
+            }
+            // Ctrl+C (Kopírovanie) - voliteľné, ak chceš byť extra prísny
+            if(e.ctrlKey && e.keyCode == 'C'.charCodeAt(0)) {
+                 return false;
+            }
+        }
+    </script>
+    
 </body>
 </html>
