@@ -7,6 +7,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
     <style>
         /* --- ZÁKLADNÉ PREMENNÉ A RESET --- */
         :root {
@@ -15,7 +18,7 @@
             --text-secondary: #555555;
             --accent: #000000;
             --accent-hover: #333333;
-            --highlight: #FFD700;
+            --highlight: #FFD700; /* Žltá pre psychologický efekt */
             --light-gray: #f4f4f6;
             --border: #e5e5e5;
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -46,6 +49,7 @@
             cursor: pointer;
             transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
             text-align: center;
+            border: none;
         }
 
         .btn-primary {
@@ -145,7 +149,6 @@
             color: #ff4d4d; font-weight: bold;
         }
         
-        /* Autorita statement */
         .authority-note {
             margin-top: 25px; font-style: italic; color: #888;
             border-left: 3px solid #333; padding-left: 15px;
@@ -177,7 +180,7 @@
         .project-card {
             background: white; border: 1px solid var(--border);
             border-radius: 12px; overflow: hidden;
-            transition: 0.4s var(--ease); display: block; /* Aby to fungovalo ako link */
+            transition: 0.4s var(--ease); display: block;
         }
         .project-card:hover {
             transform: translateY(-10px);
@@ -189,7 +192,6 @@
             display: flex; align-items: center; justify-content: center;
             font-weight: 600; color: #999; position: relative; overflow: hidden;
         }
-        /* Gradient overlay pre placeholder */
         .card-img.p1 { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
         .card-img.p2 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
         .card-img.p3 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
@@ -268,6 +270,23 @@
         footer { background: #000; color: white; padding: 60px 0; text-align: center; }
         .footer-quote { font-size: 1.5rem; font-weight: 600; max-width: 600px; margin: 0 auto 40px auto; line-height: 1.4; }
 
+        /* --- SweetAlert2 Customizácia --- */
+        .swal2-popup {
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            border-radius: 16px !important;
+        }
+        .swal2-confirm.btn-primary {
+            background-color: var(--accent) !important;
+            border-color: var(--accent) !important;
+        }
+        .swal2-confirm.btn-primary:hover {
+            background-color: var(--accent-hover) !important;
+        }
+        .swal2-styled:focus {
+             box-shadow: none !important;
+        }
+
+
         /* --- MEDIA QUERIES --- */
         @media (max-width: 900px) {
             .split-grid { grid-template-columns: 1fr; }
@@ -293,7 +312,7 @@
     <header>
         <div class="container nav-container">
             <a href="#" class="logo">
-                <img src="logo jk design.jpg" alt="JK Design">
+                <img src="https://github.com/jakubinoosd/jkdesign/blob/main/logo%20jk%20design.jpg?raw=true" alt="JK Design">
             </a>
             <div class="hamburger" onclick="toggleMenu()">
                 <div class="bar"></div>
@@ -466,7 +485,7 @@
                 <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Máš záujem o web?</h2>
                 <p style="margin-bottom: 30px; color: var(--text-secondary);">Napíš mi. Stačí pár informácií. Odpíšem ti úprimne, či a ako viem pomôcť.</p>
                 
-                <form>
+                <form id="contact-form">
                     <div class="form-group">
                         <label>Meno</label>
                         <input type="text" placeholder="Tvoje meno" required>
@@ -507,8 +526,10 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <script>
-        // --- SCROLL REVEAL ANIMÁCIA ---
+        // --- 1. SCROLL REVEAL ANIMÁCIA ---
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -521,20 +542,111 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal();
+        reveal(); // Spustiť pri načítaní
 
-        // --- MOBILNÉ MENU ---
+        // --- 2. MOBILNÉ MENU ---
         function toggleMenu() {
             const nav = document.querySelector('.nav-links');
             nav.classList.toggle('active');
         }
 
-        // --- PREFILL FORM ---
+        // --- 3. PREFILL FORM (Automatický výber balíka) ---
         function prefillForm(plan) {
             const select = document.getElementById('project-type');
             select.value = plan;
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
+
+        // --- 4. ODOSLANIE NA DISCORD (WEBHOOK) + MODERNÝ ALERT ---
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // Zabráni bežnému odoslaniu
+
+            const form = e.target;
+            const name = form.querySelector('input[type="text"]').value;
+            const email = form.querySelector('input[type="email"]').value;
+            const type = document.getElementById('project-type').value;
+            const message = form.querySelector('textarea').value;
+            const btn = form.querySelector('.submit-btn');
+
+            // Zmena tlačidla
+            const originalBtnText = btn.innerText;
+            btn.innerText = "Odosielam...";
+            btn.disabled = true;
+
+            // Príprava dát pre Discord
+            const payload = {
+                username: "JK Design Bot",
+                embeds: [
+                    {
+                        title: "🚀 Nový dopyt z webu!",
+                        color: 16766720, // Zlatá farba
+                        fields: [
+                            { name: "👤 Meno", value: name, inline: true },
+                            { name: "📧 Email", value: email, inline: true },
+                            { name: "💼 Balík", value: type },
+                            { name: "📝 Správa", value: message || "Bez popisu" }
+                        ],
+                        footer: { text: "Odoslané z webstránky" },
+                        timestamp: new Date().toISOString()
+                    }
+                ]
+            };
+
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            // SEM DOLE VLOŽ SVOJ WEBHOOK URL (v úvodzovkách)
+            const webhookURL = 'https://discord.com/api/webhooks/1461308081555374133/KNV9VyK4mFJz_3WVWm9T9or0I3BKuULNn0dcNWBAZ0pBAmtJDtCZftxh4Ls2KB1Qk_vc';
+            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    // --- MODERNÝ ALERT (SweetAlert2) ---
+                    Swal.fire({
+                        title: 'Odoslané!',
+                        text: 'Tvoj dopyt bol úspešne odoslaný. Ozvem sa ti čoskoro.',
+                        icon: 'success',
+                        confirmButtonText: 'OK',
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'btn btn-primary' // Použijeme tvoju CSS triedu
+                        }
+                    });
+                    form.reset();
+                } else {
+                    Swal.fire({
+                        title: 'Chyba!',
+                        text: 'Chyba pri odosielaní. Skús mi prosím napísať priamo na email.',
+                        icon: 'error',
+                        confirmButtonText: 'Rozumiem',
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                 Swal.fire({
+                        title: 'Chyba pripojenia!',
+                        text: 'Nepodarilo sa odoslať dáta. Skontroluj pripojenie k internetu.',
+                        icon: 'error',
+                        confirmButtonText: 'Rozumiem',
+                        buttonsStyling: false,
+                        customClass: {
+                            confirmButton: 'btn btn-primary'
+                        }
+                    });
+            })
+            .finally(() => {
+                btn.innerText = originalBtnText;
+                btn.disabled = false;
+            });
+        });
     </script>
 </body>
 </html>
