@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JK Design | Weby, ktoré zarábajú</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* --- ZÁKLADNÉ PREMENNÉ A RESET --- */
+        :root {
+            --bg: #ffffff;
+            --text: #0b0b0b;
+            --text-secondary: #555555;
+            --accent: #000000;
+            --accent-hover: #333333;
+            --highlight: #FFD700;
+            --light-gray: #f4f4f6;
+            --border: #e5e5e5;
+            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; transition: all 0.3s var(--ease); }
+        ul { list-style: none; }
+        img { max-width: 100%; display: block; }
+
+        /* --- UI PRVKY --- */
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-weight: 700;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            border: 2px solid var(--accent);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: var(--accent-hover);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text);
+            background: var(--bg);
+        }
+
+        .btn-full { width: 100%; margin-top: 30px; }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 100px 0; }
+
+        /* --- ANIMÁCIE --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s var(--ease);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0;
+        }
+
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo img { height: 40px; width: auto; }
+
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { font-weight: 600; font-size: 0.95rem; position: relative; }
+        .nav-links a::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -5px; left: 0; background: var(--accent); transition: 0.3s;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        /* Hamburger */
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
+        .bar { width: 25px; height: 3px; background-color: var(--text); transition: 0.3s; }
+
+        /* --- HERO --- */
+        .hero {
+            min-height: 90vh;
+            display: flex; align-items: center;
+            padding-top: 80px;
+            background: radial-gradient(circle at 80% 20%, #f4f4f4 0%, #ffffff 60%);
+        }
+        .hero-content { max-width: 850px; }
+        h1 {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800; line-height: 1.1;
+            margin-bottom: 25px; letter-spacing: -0.03em;
+        }
+        .subheadline {
+            font-size: 1.25rem; color: var(--text-secondary);
+            margin-bottom: 40px; max-width: 650px;
+        }
+        .hero-btns { display: flex; gap: 20px; flex-wrap: wrap; }
+
+        /* --- PROBLEM / RIEŠENIE --- */
+        .pain-points { background-color: #0b0b0b; color: white; }
+        .split-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 60px; align-items: flex-start;
+        }
+        .pain-text h2 { font-size: 2.5rem; margin-bottom: 30px; }
+        .pain-list li {
+            font-size: 1.2rem; margin-bottom: 15px; padding-left: 30px;
+            position: relative; color: #ccc;
+        }
+        .pain-list li::before {
+            content: '✖'; position: absolute; left: 0;
+            color: #ff4d4d; font-weight: bold;
+        }
+        
+        /* Autorita statement */
+        .authority-note {
+            margin-top: 25px; font-style: italic; color: #888;
+            border-left: 3px solid #333; padding-left: 15px;
+        }
+
+        .solution-box {
+            background: #1a1a1a; padding: 40px;
+            border-radius: 16px; border: 1px solid #333;
+        }
+        .solution-box h3 { font-size: 1.8rem; margin-bottom: 20px; color: white; }
+        .solution-list li {
+            margin-bottom: 15px; padding-left: 30px; position: relative;
+            color: #fff; font-size: 1.05rem;
+        }
+        .solution-list li::before {
+            content: '✔'; position: absolute; left: 0; color: #00e0b0;
+        }
+        .benefit-arrow { color: #888; margin: 0 5px; }
+
+        /* --- PORTFÓLIO --- */
+        .section-title {
+            font-size: 3rem; font-weight: 800;
+            margin-bottom: 60px; text-align: center;
+        }
+        .portfolio-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        .project-card {
+            background: white; border: 1px solid var(--border);
+            border-radius: 12px; overflow: hidden;
+            transition: 0.4s var(--ease); display: block; /* Aby to fungovalo ako link */
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            border-color: var(--text);
+        }
+        .card-img {
+            height: 250px; background: #e5e5e5;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 600; color: #999; position: relative; overflow: hidden;
+        }
+        /* Gradient overlay pre placeholder */
+        .card-img.p1 { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
+        .card-img.p2 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
+        .card-img.p3 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+
+        .card-body { padding: 30px; }
+        .card-body h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .card-body p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 15px;}
+        .result-box {
+            font-size: 0.85rem; font-weight: 600; color: var(--text);
+            background: var(--light-gray); padding: 10px; border-radius: 6px;
+        }
+
+        /* --- CENNÍK --- */
+        .pricing-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; margin-top: 40px; align-items: flex-start;
+        }
+        .price-card {
+            background: white; padding: 40px; border-radius: 16px;
+            border: 1px solid var(--border); transition: 0.3s;
+            position: relative; display: flex; flex-direction: column;
+            justify-content: space-between; height: 100%;
+        }
+        .price-card.featured {
+            border: 3px solid var(--highlight);
+            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.15);
+            transform: scale(1.05); z-index: 2;
+        }
+        .badge {
+            position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
+            background: var(--highlight); color: black; padding: 8px 20px;
+            border-radius: 50px; font-size: 0.85rem; font-weight: 800;
+            text-transform: uppercase; white-space: nowrap; box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+        .price-header h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .price { font-size: 3rem; font-weight: 800; margin-bottom: 5px; }
+        .currency { font-size: 1.5rem; vertical-align: super; }
+        .price-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; font-style: italic; }
+        
+        .features-list { margin-bottom: 20px; flex-grow: 1; }
+        .features-list li {
+            margin-bottom: 15px; font-size: 0.95rem; display: flex;
+            align-items: flex-start; gap: 10px;
+        }
+        .check-icon { color: var(--text); font-weight: bold; }
+        .price-note { text-align: center; margin-top: 40px; color: var(--text-secondary); font-size: 0.9rem; }
+
+        /* --- KONTAKT FORMULÁR --- */
+        .contact-section { background: var(--light-gray); }
+        .form-wrapper {
+            max-width: 600px; margin: 0 auto; background: white;
+            padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+        input, select, textarea {
+            width: 100%; padding: 15px; border: 2px solid var(--border);
+            border-radius: 8px; font-family: inherit; font-size: 1rem; transition: 0.3s;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--text); }
+        
+        .submit-btn {
+            width: 100%; background: var(--text); color: white; border: none;
+            padding: 18px; font-size: 1.1rem; font-weight: 700; border-radius: 8px;
+            cursor: pointer; transition: 0.3s;
+        }
+        .submit-btn:hover { background: #333; transform: translateY(-2px); }
+        
+        .risk-reduction {
+            text-align: center; font-size: 0.85rem; color: #666;
+            margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 5px;
+        }
+        .lock-icon { font-size: 1rem; }
+
+        /* --- FOOTER --- */
+        footer { background: #000; color: white; padding: 60px 0; text-align: center; }
+        .footer-quote { font-size: 1.5rem; font-weight: 600; max-width: 600px; margin: 0 auto 40px auto; line-height: 1.4; }
+
+        /* --- MEDIA QUERIES --- */
+        @media (max-width: 900px) {
+            .split-grid { grid-template-columns: 1fr; }
+            .price-card.featured { transform: scale(1); border-width: 2px; }
+            h1 { font-size: 3.5rem; }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed; top: 70px; right: -100%; width: 100%;
+                height: calc(100vh - 70px); background: white; flex-direction: column;
+                justify-content: center; align-items: center; transition: 0.4s var(--ease);
+            }
+            .nav-links.active { right: 0; }
+            .hamburger { display: flex; }
+            .hero { text-align: center; justify-content: center; }
+            .hero-btns { justify-content: center; }
+            .form-wrapper { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <img src="logo jk design.jpg" alt="JK Design">
+            </a>
+            <div class="hamburger" onclick="toggleMenu()">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#why" onclick="toggleMenu()">Prečo ja</a></li>
+                    <li><a href="#portfolio" onclick="toggleMenu()">Ukážky</a></li>
+                    <li><a href="#pricing" onclick="toggleMenu()">Cenník</a></li>
+                    <li><a href="#contact" class="btn btn-primary" style="padding: 10px 20px;" onclick="toggleMenu()">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container hero-content reveal">
+            <h1>Pomáham firmám získať viac dopytov <br><span style="color: var(--text-secondary); opacity: 0.6; font-size: 0.8em;">pomocou rýchlych webov.</span></h1>
+            <p class="subheadline">Väčšina webov je len pekná vizitka. Ja tvorím nástroje, ktoré sú rýchle, prehľadné a končia objednávkou.</p>
+            <div class="hero-btns">
+                <a href="#contact" class="btn btn-primary">Chcem web, čo zarába →</a>
+                <a href="#portfolio" class="btn btn-secondary">Pozrieť výsledky</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="why" class="pain-points">
+        <div class="container split-grid">
+            <div class="pain-text reveal">
+                <h2>Väčšina webov dnes:</h2>
+                <ul class="pain-list">
+                    <li>sa načítava pomaly (klient odchádza)</li>
+                    <li>je neprehľadná a chaotická</li>
+                    <li>nefunguje dobre na mobile</li>
+                    <li>firme neprináša žiadne dopyty</li>
+                </ul>
+                <div class="authority-note">
+                    "Vidím to bohužiaľ pri 80% webov, ktoré mi klienti posielajú na redizajn."
+                </div>
+            </div>
+            
+            <div class="solution-box reveal">
+                <h3>Moje riešenie</h3>
+                <ul class="solution-list">
+                    <li>Rýchle načítanie <span class="benefit-arrow">→</span> viac ľudí zostane na webe</li>
+                    <li>Čistý kód <span class="benefit-arrow">→</span> web sa nerozpadne o rok</li>
+                    <li>Mobilná optimalizácia <span class="benefit-arrow">→</span> neprídeš o klientov na telefóne</li>
+                    <li>Dizajn pre predaj <span class="benefit-arrow">→</span> návštevník vie, kam kliknúť</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <div class="container">
+            <h2 class="section-title reveal">Moje práce</h2>
+            <div class="grid portfolio-grid">
+                
+                <a href="#" target="_blank" class="project-card reveal">
+                    <div class="card-img p1">
+                        <span style="font-size: 1.2rem; color: #555;">E-shop Nábytok</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>E-shop s nábytkom</h3>
+                        <p>Kompletný redesign s cieľom zjednodušiť nákupný proces.</p>
+                        <div class="result-box">
+                            ✅ Výsledok: O 30% viac dokončených objednávok.
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="project-card reveal">
+                    <div class="card-img p2">
+                        <span style="font-size: 1.2rem; color: #555;">Realitný Portál</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Realitný Portál</h3>
+                        <p>Prehľadný katalóg nehnuteľností s pokročilým filtrovaním.</p>
+                        <div class="result-box">
+                            ✅ Výsledok: Prehľadná štruktúra a rýchle načítanie fotiek.
+                        </div>
+                    </div>
+                </a>
+
+                <a href="#" target="_blank" class="project-card reveal">
+                    <div class="card-img p3">
+                        <span style="font-size: 1.2rem; color: #555;">Tech Startup</span>
+                    </div>
+                    <div class="card-body">
+                        <h3>Startup Landing Page</h3>
+                        <p>Minimalistická stránka pre IT firmu budujúca dôveru.</p>
+                        <div class="result-box">
+                            ✅ Výsledok: Profesionálny imidž pre zahraničných investorov.
+                        </div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="pricing" style="background: var(--light-gray);">
+        <div class="container">
+            <h2 class="section-title reveal">Investícia do webu</h2>
+            
+            <div class="pricing-grid">
+                <div class="price-card reveal">
+                    <div>
+                        <div class="price-header">
+                            <h3>START</h3>
+                            <div class="price">250 <span class="currency">€</span></div>
+                            <p class="price-desc">Ideálne riešenie, ak chceš web rýchlo a bez zbytočných výdavkov.</p>
+                        </div>
+                        <ul class="features-list">
+                            <li><span class="check-icon">✓</span> Jednostránkový web</li>
+                            <li><span class="check-icon">✓</span> Moderný dizajn na mieru</li>
+                            <li><span class="check-icon">✓</span> Responzívnosť (Mobil/Tablet)</li>
+                            <li><span class="check-icon">✓</span> Kontaktný formulár</li>
+                        </ul>
+                    </div>
+                    <a href="javascript:void(0)" onclick="prefillForm('START')" class="btn btn-secondary btn-full">Vybrať START</a>
+                </div>
+
+                <div class="price-card featured reveal">
+                    <div class="badge">⭐ Najčastejšia voľba</div>
+                    <div>
+                        <div class="price-header">
+                            <h3>PRO</h3>
+                            <div class="price">500 <span class="currency">€</span></div>
+                            <p class="price-desc">Web navrhnutý tak, aby návštevníkov viedol k akcii (kontakt, objednávka).</p>
+                        </div>
+                        <ul class="features-list">
+                            <li><span class="check-icon">✓</span> 3–5 podstránok</li>
+                            <li><span class="check-icon">✓</span> Plynulé animácie (dôvera)</li>
+                            <li><span class="check-icon">✓</span> UX Dizajn zameraný na predaj</li>
+                            <li><span class="check-icon">✓</span> Optimalizácia rýchlosti</li>
+                            <li><span class="check-icon">✓</span> Základné SEO</li>
+                        </ul>
+                    </div>
+                    <a href="javascript:void(0)" onclick="prefillForm('PRO')" class="btn btn-primary btn-full" style="background: black; border-color: black;">Vybrať PRO</a>
+                </div>
+
+                <div class="price-card reveal">
+                    <div>
+                        <div class="price-header">
+                            <h3>PREMIUM</h3>
+                            <div class="price">700 <span class="currency">€</span></div>
+                            <p class="price-desc">Pre projekty, ktoré chcú ísť nad rámec a potrebujú špeciálne funkcie.</p>
+                        </div>
+                        <ul class="features-list">
+                            <li><span class="check-icon">✓</span> Individuálne riešenie</li>
+                            <li><span class="check-icon">✓</span> Komplexné animácie</li>
+                            <li><span class="check-icon">✓</span> UX Konzultácia</li>
+                            <li><span class="check-icon">✓</span> Prioritná komunikácia</li>
+                        </ul>
+                    </div>
+                    <a href="javascript:void(0)" onclick="prefillForm('PREMIUM')" class="btn btn-secondary btn-full">Vybrať PREMIUM</a>
+                </div>
+            </div>
+            
+            <p class="price-note reveal">Uvedené ceny sú orientačné. Finálna cena závisí od rozsahu a náročnosti projektu.</p>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="form-wrapper reveal">
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Máš záujem o web?</h2>
+                <p style="margin-bottom: 30px; color: var(--text-secondary);">Napíš mi. Stačí pár informácií. Odpíšem ti úprimne, či a ako viem pomôcť.</p>
+                
+                <form>
+                    <div class="form-group">
+                        <label>Meno</label>
+                        <input type="text" placeholder="Tvoje meno" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" placeholder="tvoj@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label>O aký web / balík ide?</label>
+                        <select id="project-type">
+                            <option value="Neurčené">Vyber možnosť...</option>
+                            <option value="START">Balík START (250€)</option>
+                            <option value="PRO">Balík PRO (500€)</option>
+                            <option value="PREMIUM">Balík PREMIUM (700€)</option>
+                            <option value="Iné">Iné / Špeciálny projekt</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Stručný popis projektu</label>
+                        <textarea rows="4" placeholder="Čo potrebujeme vyriešiť?"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Odoslať nezáväzný dopyt</button>
+                    
+                    <div class="risk-reduction">
+                        <span class="lock-icon">🔒</span> Odpoveď do 24 hodín. Žiadne spamovanie.
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="footer-quote">"Ak chceš moderný web bez zbytočných komplikácií, si na správnom mieste."</p>
+            <p style="color: #666; font-size: 0.9rem;">&copy; 2026 JK Design. Všetky práva vyhradené.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- SCROLL REVEAL ANIMÁCIA ---
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal();
+
+        // --- MOBILNÉ MENU ---
+        function toggleMenu() {
+            const nav = document.querySelector('.nav-links');
+            nav.classList.toggle('active');
+        }
+
+        // --- PREFILL FORM ---
+        function prefillForm(plan) {
+            const select = document.getElementById('project-type');
+            select.value = plan;
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
