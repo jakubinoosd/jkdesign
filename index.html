@@ -34,11 +34,25 @@
             color: var(--text);
             line-height: 1.6;
             overflow-x: hidden;
+            
+            /* --- OCHRANA: ZÁKAZ OZNAČOVANIA TEXTU --- */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        /* --- VÝNIMKA: POVOLIŤ PÍSANIE DO FORMULÁRA --- */
+        input, textarea, select {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
         }
 
         a { text-decoration: none; color: inherit; transition: all 0.3s var(--ease); }
         ul { list-style: none; }
-        img { max-width: 100%; display: block; }
+        img { max-width: 100%; display: block; -webkit-user-drag: none; user-drag: none; }
 
         /* --- UI PRVKY --- */
         .btn {
@@ -99,26 +113,11 @@
             padding: 15px 0;
         }
 
-        .nav-container { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-        }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .logo img { height: 40px; width: auto; }
 
-        /* NOVÁ SKUPINA PRE PRAVÚ STRANU (MENU + OVLÁDANIE) */
-        .header-right {
-            display: flex;
-            align-items: center;
-            gap: 40px; /* Medzera medzi menu a prepínačom */
-        }
-
-        /* OVLÁDACIE PRVKY (JAZYK + HAMBURGER) */
-        .header-controls {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
+        .header-right { display: flex; align-items: center; gap: 30px; }
+        .header-controls { display: flex; align-items: center; gap: 20px; }
 
         .nav-links { display: flex; gap: 30px; align-items: center; }
         .nav-links a { font-weight: 600; font-size: 0.95rem; position: relative; }
@@ -128,301 +127,176 @@
         }
         .nav-links a.nav-item:hover::after { width: 100%; }
 
-        /* Jazykový prepínač - ČIERNY DIZAJN */
-        .lang-switch {
-            appearance: none;
-            -webkit-appearance: none;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 8px 12px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            background-color: #000000;
-            color: #ffffff;
-            font-family: inherit;
-            text-align: center;
-            transition: 0.3s;
-            min-width: 70px;
+        /* Jazykový prepínač */
+        .language-selector { position: relative; z-index: 2000; min-width: 90px; }
+        .lang-btn {
+            background: #000; color: #fff; border: 1px solid #333; border-radius: 8px;
+            padding: 8px 12px; display: flex; align-items: center; gap: 8px;
+            cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: 0.3s;
         }
-        .lang-switch:hover {
-            border-color: #ffffff;
-            transform: scale(1.05);
+        .lang-btn:hover { border-color: #fff; transform: scale(1.05); }
+        .lang-btn img { width: 20px; height: 15px; object-fit: cover; border-radius: 2px; }
+
+        .lang-dropdown {
+            position: absolute; top: 120%; right: 0; background: #000;
+            border: 1px solid #333; border-radius: 8px; overflow: hidden;
+            display: none; flex-direction: column; width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        .lang-switch:focus { outline: none; border-color: var(--highlight); }
+        .lang-dropdown.show { display: flex; }
+        .lang-option {
+            padding: 10px 12px; display: flex; align-items: center; gap: 8px;
+            color: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .lang-option:hover { background: #333; color: var(--highlight); }
+        .lang-option img { width: 20px; height: 15px; object-fit: cover; border-radius: 2px; }
 
-
-        /* Hamburger */
         .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
         .bar { width: 25px; height: 3px; background-color: var(--text); transition: 0.3s; }
 
         /* --- HERO --- */
         .hero {
-            min-height: 90vh;
-            display: flex; align-items: center;
-            padding-top: 80px;
+            min-height: 90vh; display: flex; align-items: center; padding-top: 80px;
             background: radial-gradient(circle at 80% 20%, #f4f4f4 0%, #ffffff 60%);
         }
         .hero-content { max-width: 850px; }
         h1 {
-            font-size: clamp(3rem, 6vw, 5rem);
-            font-weight: 800; line-height: 1.1;
+            font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; line-height: 1.1;
             margin-bottom: 25px; letter-spacing: -0.03em;
         }
-        .subheadline {
-            font-size: 1.25rem; color: var(--text-secondary);
-            margin-bottom: 40px; max-width: 650px;
-        }
+        .subheadline { font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 40px; max-width: 650px; }
         .hero-btns { display: flex; gap: 20px; flex-wrap: wrap; }
 
         /* --- PROBLEM / RIEŠENIE --- */
         .pain-points { background-color: #0b0b0b; color: white; }
-        .split-grid {
-            display: grid; grid-template-columns: 1fr 1fr;
-            gap: 60px; align-items: flex-start;
-        }
+        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: flex-start; }
         .pain-text h2 { font-size: 2.5rem; margin-bottom: 30px; }
         .pain-list li {
             font-size: 1.2rem; margin-bottom: 15px; padding-left: 30px;
             position: relative; color: #ccc;
         }
-        .pain-list li::before {
-            content: '✖'; position: absolute; left: 0;
-            color: #ff4d4d; font-weight: bold;
-        }
-        
-        .authority-note {
-            margin-top: 25px; font-style: italic; color: #888;
-            border-left: 3px solid #333; padding-left: 15px;
-        }
+        .pain-list li::before { content: '✖'; position: absolute; left: 0; color: #ff4d4d; font-weight: bold; }
+        .authority-note { margin-top: 25px; font-style: italic; color: #888; border-left: 3px solid #333; padding-left: 15px; }
 
-        .solution-box {
-            background: #1a1a1a; padding: 40px;
-            border-radius: 16px; border: 1px solid #333;
-        }
+        .solution-box { background: #1a1a1a; padding: 40px; border-radius: 16px; border: 1px solid #333; }
         .solution-box h3 { font-size: 1.8rem; margin-bottom: 20px; color: white; }
         .solution-list li {
             margin-bottom: 15px; padding-left: 30px; position: relative;
             color: #fff; font-size: 1.05rem;
         }
-        .solution-list li::before {
-            content: '✔'; position: absolute; left: 0; color: #00e0b0;
-        }
+        .solution-list li::before { content: '✔'; position: absolute; left: 0; color: #00e0b0; }
         .benefit-arrow { color: #888; margin: 0 5px; }
 
-        /* --- PORTFÓLIO --- */
-        .section-title {
-            font-size: 3rem; font-weight: 800;
-            margin-bottom: 60px; text-align: center;
-        }
-        .portfolio-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 40px;
-        }
+        /* --- PORTFÓLIO & PRICING --- */
+        .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 60px; text-align: center; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
         .project-card {
-            background: white; border: 1px solid var(--border);
-            border-radius: 12px; overflow: hidden;
-            transition: 0.4s var(--ease); display: block;
+            background: white; border: 1px solid var(--border); border-radius: 12px;
+            overflow: hidden; transition: 0.4s var(--ease); display: block;
         }
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-            border-color: var(--text);
-        }
-        .card-img {
-            height: 250px; background: #e5e5e5;
-            display: flex; align-items: center; justify-content: center;
-            font-weight: 600; color: #999; position: relative; overflow: hidden;
-        }
+        .project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--text); }
+        .card-img { height: 250px; background: #e5e5e5; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #999; }
         .card-img.p1 { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
         .card-img.p2 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
         .card-img.p3 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-
         .card-body { padding: 30px; }
         .card-body h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .card-body p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 15px;}
-        .result-box {
-            font-size: 0.85rem; font-weight: 600; color: var(--text);
-            background: var(--light-gray); padding: 10px; border-radius: 6px;
-        }
+        .result-box { font-size: 0.85rem; font-weight: 600; color: var(--text); background: var(--light-gray); padding: 10px; border-radius: 6px; }
 
-        /* --- CENNÍK --- */
-        .pricing-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px; margin-top: 40px; align-items: flex-start;
-        }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; align-items: flex-start; }
         .price-card {
-            background: white; padding: 40px; border-radius: 16px;
-            border: 1px solid var(--border); transition: 0.3s;
-            position: relative; display: flex; flex-direction: column;
-            justify-content: space-between; height: 100%;
+            background: white; padding: 40px; border-radius: 16px; border: 1px solid var(--border);
+            transition: 0.3s; position: relative; display: flex; flex-direction: column; justify-content: space-between; height: 100%;
         }
-        .price-card.featured {
-            border: 3px solid var(--highlight);
-            box-shadow: 0 20px 40px rgba(255, 215, 0, 0.15);
-            transform: scale(1.05); z-index: 2;
-        }
+        .price-card.featured { border: 3px solid var(--highlight); box-shadow: 0 20px 40px rgba(255, 215, 0, 0.15); transform: scale(1.05); z-index: 2; }
         .badge {
             position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
-            background: var(--highlight); color: black; padding: 8px 20px;
-            border-radius: 50px; font-size: 0.85rem; font-weight: 800;
-            text-transform: uppercase; white-space: nowrap; box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            background: var(--highlight); color: black; padding: 8px 20px; border-radius: 50px;
+            font-size: 0.85rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; box-shadow: 0 5px 10px rgba(0,0,0,0.1);
         }
-        .price-header h3 { font-size: 1.5rem; margin-bottom: 10px; }
         .price { font-size: 3rem; font-weight: 800; margin-bottom: 5px; }
-        .currency { font-size: 1.5rem; vertical-align: super; }
         .price-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; font-style: italic; }
-        
-        .features-list { margin-bottom: 20px; flex-grow: 1; }
-        .features-list li {
-            margin-bottom: 15px; font-size: 0.95rem; display: flex;
-            align-items: flex-start; gap: 10px;
-        }
+        .features-list li { margin-bottom: 15px; font-size: 0.95rem; display: flex; align-items: flex-start; gap: 10px; }
         .check-icon { color: var(--text); font-weight: bold; }
         .price-note { text-align: center; margin-top: 40px; color: var(--text-secondary); font-size: 0.9rem; }
 
-        /* --- KONTAKT FORMULÁR --- */
+        /* --- KONTAKT --- */
         .contact-section { background: var(--light-gray); }
-        .form-wrapper {
-            max-width: 600px; margin: 0 auto; background: white;
-            padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
+        .form-wrapper { max-width: 600px; margin: 0 auto; background: white; padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
         input, select, textarea {
-            width: 100%; padding: 15px; border: 2px solid var(--border);
-            border-radius: 8px; font-family: inherit; font-size: 1rem; transition: 0.3s;
+            width: 100%; padding: 15px; border: 2px solid var(--border); border-radius: 8px;
+            font-family: inherit; font-size: 1rem; transition: 0.3s;
         }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--text); }
-        
         .submit-btn {
-            width: 100%; background: var(--text); color: white; border: none;
-            padding: 18px; font-size: 1.1rem; font-weight: 700; border-radius: 8px;
-            cursor: pointer; transition: 0.3s;
+            width: 100%; background: var(--text); color: white; border: none; padding: 18px;
+            font-size: 1.1rem; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.3s;
         }
         .submit-btn:hover { background: #333; transform: translateY(-2px); }
-        
-        .risk-reduction {
-            text-align: center; font-size: 0.85rem; color: #666;
-            margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 5px;
-        }
-        .lock-icon { font-size: 1rem; }
+        .risk-reduction { text-align: center; font-size: 0.85rem; color: #666; margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        .gdpr-checkbox-wrapper { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 25px; font-size: 0.85rem; color: var(--text-secondary); }
+        .gdpr-checkbox-wrapper input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; cursor: pointer; flex-shrink: 0; }
 
-        /* --- GDPR CHECKBOX --- */
-        .gdpr-checkbox-wrapper {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 25px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-        .gdpr-checkbox-wrapper input[type="checkbox"] {
-            width: 20px;
-            height: 20px;
-            margin-top: 2px;
-            cursor: pointer;
-            flex-shrink: 0;
-        }
-
-        /* --- COOKIE BAR (Spodná lišta) --- */
+        /* --- GDPR COOKIE LIŠTA (COMPLIANT) --- */
         .cookie-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: #000;
-            color: #fff;
-            padding: 20px 30px;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 40px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
-            transform: translateY(100%);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #000; color: #fff; padding: 25px 30px;
+            z-index: 9999; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
+            gap: 20px; box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+            transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             border-top: 1px solid #333;
         }
         .cookie-bar.active { transform: translateY(0); }
         
-        .cookie-text { font-size: 0.85rem; max-width: 900px; line-height: 1.5; color: #ccc; }
-        .cookie-btn {
-            background: #fff;
-            color: #000;
-            padding: 10px 25px;
-            border-radius: 4px;
-            font-weight: 800;
-            border: none;
-            cursor: pointer;
-            font-size: 0.85rem;
-            white-space: nowrap;
-            letter-spacing: 0.5px;
-            text-transform: uppercase;
-        }
-        .cookie-btn:hover { background: var(--highlight); }
+        .cookie-content { flex: 1; min-width: 300px; }
+        .cookie-text { font-size: 0.9rem; line-height: 1.5; color: #ddd; margin-bottom: 5px; }
+        
+        /* ODKAZ NA PRIVACY POLICY - BIELY */
+        .cookie-link { color: #fff; text-decoration: underline; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
+        .cookie-link:hover { color: #ddd; }
 
-        /* --- PROMO NOTIFIKÁCIA (Toast) --- */
-        .promo-notification {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: white;
-            border-radius: 12px;
-            width: 320px;
-            padding: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            border: 1px solid var(--border);
-            z-index: 9998;
-            transform: translateY(150%);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
+        .cookie-buttons { display: flex; gap: 15px; }
+        
+        .cookie-btn {
+            padding: 10px 25px; border-radius: 4px; font-weight: 800; border: none;
+            cursor: pointer; font-size: 0.85rem; white-space: nowrap; letter-spacing: 0.5px;
+            text-transform: uppercase; transition: 0.2s;
         }
         
-        .promo-notification.show { transform: translateY(0); }
+        .cookie-accept { background: #fff; color: #000; }
+        .cookie-accept:hover { background: #ddd; }
 
-        .promo-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 5px;
+        .cookie-reject { background: transparent; color: #fff; border: 1px solid #666; }
+        .cookie-reject:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+
+        /* --- PROMO TOAST --- */
+        .promo-notification {
+            position: fixed; bottom: 30px; right: 30px; background: white;
+            border-radius: 12px; width: 320px; padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 1px solid var(--border);
+            z-index: 9998; transform: translateY(150%);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex; flex-direction: column; gap: 10px;
         }
+        .promo-notification.show { transform: translateY(0); }
+        .promo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
         .promo-title { font-weight: 800; font-size: 1rem; color: var(--text); }
         .promo-close { cursor: pointer; color: #999; font-weight: bold; font-size: 1.2rem; line-height: 1; }
-        .promo-close:hover { color: #000; }
-        
-        .promo-body { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4; }
         .promo-action {
-            margin-top: 5px;
-            align-self: flex-start;
-            font-size: 0.85rem; font-weight: 700;
-            color: var(--accent);
-            border-bottom: 2px solid var(--highlight);
+            margin-top: 5px; align-self: flex-start; font-size: 0.85rem; font-weight: 700;
+            color: var(--accent); border-bottom: 2px solid var(--highlight);
         }
-        .promo-action:hover { color: #555; }
-
 
         /* --- FOOTER --- */
         footer { background: #000; color: white; padding: 60px 0; text-align: center; }
         .footer-quote { font-size: 1.5rem; font-weight: 600; max-width: 600px; margin: 0 auto 40px auto; line-height: 1.4; }
 
-        /* --- SweetAlert2 --- */
-        .swal2-popup {
-            font-family: 'Plus Jakarta Sans', sans-serif !important;
-            border-radius: 16px !important;
-        }
-        .swal2-confirm.btn-primary {
-            background-color: var(--accent) !important;
-            border-color: var(--accent) !important;
-        }
-        .swal2-confirm.btn-primary:hover {
-            background-color: var(--accent-hover) !important;
-        }
-        .swal2-styled:focus {
-             box-shadow: none !important;
-        }
-
-        /* --- MEDIA QUERIES --- */
+        /* SweetAlert & Media */
+        .swal2-popup { font-family: 'Plus Jakarta Sans', sans-serif !important; border-radius: 16px !important; }
+        .swal2-confirm.btn-primary { background-color: var(--accent) !important; border-color: var(--accent) !important; }
+        
         @media (max-width: 900px) {
             .split-grid { grid-template-columns: 1fr; }
             .price-card.featured { transform: scale(1); border-width: 2px; }
@@ -430,11 +304,9 @@
         }
         @media (max-width: 768px) {
             .nav-links {
-                position: fixed; top: 70px; right: -100%; width: 100%;
-                height: calc(100vh - 70px); background: white; flex-direction: column;
-                justify-content: center; align-items: center; transition: 0.4s var(--ease);
-                gap: 20px;
-                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+                position: fixed; top: 70px; right: -100%; width: 100%; height: calc(100vh - 70px);
+                background: white; flex-direction: column; justify-content: center; align-items: center;
+                transition: 0.4s var(--ease); gap: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             }
             .nav-links.active { right: 0; }
             .hamburger { display: flex; }
@@ -442,11 +314,10 @@
             .hero-btns { justify-content: center; }
             .form-wrapper { padding: 30px 20px; }
             
-            .cookie-bar { flex-direction: column; text-align: center; gap: 15px; padding: 20px; bottom: 0; }
+            .cookie-bar { flex-direction: column; text-align: center; gap: 20px; padding: 25px; }
+            .cookie-buttons { width: 100%; justify-content: center; }
             .promo-notification { left: 20px; right: 20px; width: auto; bottom: 90px; }
-            
-            /* Prispôsobenie jazyka na mobile */
-            .lang-switch { padding: 6px 10px; font-size: 0.8rem; }
+            .header-right { gap: 15px; }
         }
     </style>
 </head>
@@ -459,7 +330,6 @@
             </a>
             
             <div class="header-right">
-                
                 <nav>
                     <ul class="nav-links">
                         <li><a href="#why" class="nav-item" onclick="toggleMenu()" data-i18n="nav_why">Prečo ja</a></li>
@@ -470,21 +340,21 @@
                 </nav>
 
                 <div class="header-controls">
-                    <select id="language-selector" class="lang-switch" onchange="changeLanguage(this.value)">
-                        <option value="sk">🇸🇰 SK</option>
-                        <option value="en" selected>🇬🇧 EN</option>
-                        <option value="de">🇩🇪 DE</option>
-                        <option value="es">🇪🇸 ES</option>
-                        <option value="fr">🇫🇷 FR</option>
-                    </select>
-
-                    <div class="hamburger" onclick="toggleMenu()">
-                        <div class="bar"></div>
-                        <div class="bar"></div>
-                        <div class="bar"></div>
+                    <div class="language-selector" id="lang-selector">
+                        <div class="lang-btn" onclick="toggleLangMenu()">
+                            <img id="current-flag" src="https://flagcdn.com/w40/gb.png" alt="EN">
+                            <span id="current-lang">EN</span>
+                        </div>
+                        <div class="lang-dropdown" id="lang-menu">
+                            <div class="lang-option" onclick="changeLanguage('sk'); toggleLangMenu()"><img src="https://flagcdn.com/w40/sk.png"> SK</div>
+                            <div class="lang-option" onclick="changeLanguage('en'); toggleLangMenu()"><img src="https://flagcdn.com/w40/gb.png"> EN</div>
+                            <div class="lang-option" onclick="changeLanguage('de'); toggleLangMenu()"><img src="https://flagcdn.com/w40/de.png"> DE</div>
+                            <div class="lang-option" onclick="changeLanguage('es'); toggleLangMenu()"><img src="https://flagcdn.com/w40/es.png"> ES</div>
+                            <div class="lang-option" onclick="changeLanguage('fr'); toggleLangMenu()"><img src="https://flagcdn.com/w40/fr.png"> FR</div>
+                        </div>
                     </div>
+                    <div class="hamburger" onclick="toggleMenu()"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
                 </div>
-
             </div>
         </div>
     </header>
@@ -510,11 +380,8 @@
                     <li data-i18n="pain_3">nefunguje dobre na mobile</li>
                     <li data-i18n="pain_4">firme neprináša žiadne dopyty</li>
                 </ul>
-                <div class="authority-note" data-i18n="pain_note">
-                    "Vidím to bohužiaľ pri 80% webov, ktoré mi klienti posielajú na redizajn."
-                </div>
+                <div class="authority-note" data-i18n="pain_note">"Vidím to bohužiaľ pri 80% webov, ktoré mi klienti posielajú na redizajn."</div>
             </div>
-            
             <div class="solution-box reveal">
                 <h3 data-i18n="sol_title">Moje riešenie</h3>
                 <ul class="solution-list">
@@ -533,27 +400,15 @@
             <div class="grid portfolio-grid">
                 <a href="https://jakubinoosd.github.io/aura/" target="_blank" class="project-card reveal">
                     <div class="card-img p1"><span style="font-size: 1.2rem; color: #555;">E-shop</span></div>
-                    <div class="card-body">
-                        <h3 data-i18n="proj_1_title">E-shop s oblečením</h3>
-                        <p data-i18n="proj_1_desc">Kompletný redesign s cieľom zjednodušiť nákupný proces.</p>
-                        <div class="result-box">✅ <span data-i18n="proj_1_res">Výsledok: O 30% viac dokončených objednávok.</span></div>
-                    </div>
+                    <div class="card-body"><h3 data-i18n="proj_1_title">E-shop</h3><p data-i18n="proj_1_desc">Redesign.</p><div class="result-box">✅ <span data-i18n="proj_1_res">Výsledok: +30% obj.</span></div></div>
                 </a>
                 <a href="https://jakubinoosd.github.io/nexoreality/" target="_blank" class="project-card reveal">
                     <div class="card-img p2"><span style="font-size: 1.2rem; color: #555;">Reality</span></div>
-                    <div class="card-body">
-                        <h3 data-i18n="proj_2_title">Realitný Portál</h3>
-                        <p data-i18n="proj_2_desc">Prehľadný katalóg nehnuteľností s pokročilým filtrovaním.</p>
-                        <div class="result-box">✅ <span data-i18n="proj_2_res">Výsledok: Prehľadná štruktúra a rýchle načítanie fotiek.</span></div>
-                    </div>
+                    <div class="card-body"><h3 data-i18n="proj_2_title">Portál</h3><p data-i18n="proj_2_desc">Katalóg.</p><div class="result-box">✅ <span data-i18n="proj_2_res">Výsledok: Prehľadnosť.</span></div></div>
                 </a>
                 <a href="#" target="_blank" class="project-card reveal">
                     <div class="card-img p3"><span style="font-size: 1.2rem; color: #555;">Startup</span></div>
-                    <div class="card-body">
-                        <h3 data-i18n="proj_3_title">Startup Landing Page</h3>
-                        <p data-i18n="proj_3_desc">Minimalistická stránka pre IT firmu budujúca dôveru.</p>
-                        <div class="result-box">✅ <span data-i18n="proj_3_res">Výsledok: Profesionálny imidž pre zahraničných investorov.</span></div>
-                    </div>
+                    <div class="card-body"><h3 data-i18n="proj_3_title">Landing</h3><p data-i18n="proj_3_desc">Dôvera.</p><div class="result-box">✅ <span data-i18n="proj_3_res">Výsledok: Imidž.</span></div></div>
                 </a>
             </div>
         </div>
@@ -564,70 +419,36 @@
             <h2 class="section-title reveal" data-i18n="price_title">Investícia do webu</h2>
             <div class="pricing-grid">
                 <div class="price-card reveal">
-                    <div>
-                        <div class="price-header"><h3>START</h3><div class="price">250 <span class="currency">€</span></div><p class="price-desc" data-i18n="price_1_desc">Ideálne riešenie, ak chceš web rýchlo a bez zbytočných výdavkov.</p></div>
-                        <ul class="features-list"><li><span class="check-icon">✓</span> One-page web</li><li><span class="check-icon">✓</span> Modern design</li><li><span class="check-icon">✓</span> Mobile / Tablet</li><li><span class="check-icon">✓</span> Contact Form</li></ul>
-                    </div>
+                    <div><div class="price-header"><h3>START</h3><div class="price">250 <span class="currency">€</span></div><p class="price-desc" data-i18n="price_1_desc">Rýchly web.</p></div><ul class="features-list"><li><span class="check-icon">✓</span> One-page</li><li><span class="check-icon">✓</span> Design</li></ul></div>
                     <a href="javascript:void(0)" onclick="prefillForm('START')" class="btn btn-secondary btn-full" data-i18n="btn_choose">Vybrať</a>
                 </div>
                 <div class="price-card featured reveal">
                     <div class="badge" data-i18n="badge_popular">⭐ Najčastejšia voľba</div>
-                    <div>
-                        <div class="price-header"><h3>PRO</h3><div class="price">500 <span class="currency">€</span></div><p class="price-desc" data-i18n="price_2_desc">Web navrhnutý tak, aby návštevníkov viedol k akcii (kontakt, objednávka).</p></div>
-                        <ul class="features-list"><li><span class="check-icon">✓</span> 3–5 pages</li><li><span class="check-icon">✓</span> Animations</li><li><span class="check-icon">✓</span> Sales UX Design</li><li><span class="check-icon">✓</span> Speed Optimization</li><li><span class="check-icon">✓</span> Basic SEO</li></ul>
-                    </div>
+                    <div><div class="price-header"><h3>PRO</h3><div class="price">500 <span class="currency">€</span></div><p class="price-desc" data-i18n="price_2_desc">Predajný web.</p></div><ul class="features-list"><li><span class="check-icon">✓</span> 3-5 pages</li><li><span class="check-icon">✓</span> SEO</li></ul></div>
                     <a href="javascript:void(0)" onclick="prefillForm('PRO')" class="btn btn-primary btn-full" style="background: black; border-color: black;" data-i18n="btn_choose">Vybrať</a>
                 </div>
                 <div class="price-card reveal">
-                    <div>
-                        <div class="price-header"><h3>PREMIUM</h3><div class="price">700 <span class="currency">€</span></div><p class="price-desc" data-i18n="price_3_desc">Pre projekty, ktoré chcú ísť nad rámec a potrebujú špeciálne funkcie.</p></div>
-                        <ul class="features-list"><li><span class="check-icon">✓</span> Custom Solution</li><li><span class="check-icon">✓</span> Complex Animations</li><li><span class="check-icon">✓</span> UX Consultation</li><li><span class="check-icon">✓</span> Priority Support</li></ul>
-                    </div>
+                    <div><div class="price-header"><h3>PREMIUM</h3><div class="price">700 <span class="currency">€</span></div><p class="price-desc" data-i18n="price_3_desc">Na mieru.</p></div><ul class="features-list"><li><span class="check-icon">✓</span> Custom</li><li><span class="check-icon">✓</span> Support</li></ul></div>
                     <a href="javascript:void(0)" onclick="prefillForm('PREMIUM')" class="btn btn-secondary btn-full" data-i18n="btn_choose">Vybrať</a>
                 </div>
             </div>
-            <p class="price-note reveal" data-i18n="price_note">Uvedené ceny sú orientačné. Finálna cena závisí od rozsahu a náročnosti projektu.</p>
+            <p class="price-note reveal" data-i18n="price_note">Orientačné ceny.</p>
         </div>
     </section>
 
     <section id="contact" class="contact-section">
         <div class="container">
             <div class="form-wrapper reveal">
-                <h2 style="font-size: 2.5rem; margin-bottom: 10px;" data-i18n="contact_title">Máš záujem o web?</h2>
-                <p style="margin-bottom: 30px; color: var(--text-secondary);" data-i18n="contact_sub">Napíš mi. Stačí pár informácií. Odpíšem ti úprimne, či a ako viem pomôcť.</p>
-                
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;" data-i18n="contact_title">Máš záujem?</h2>
+                <p style="margin-bottom: 30px; color: var(--text-secondary);" data-i18n="contact_sub">Napíš mi.</p>
                 <form id="contact-form">
-                    <div class="form-group">
-                        <label data-i18n="form_name">Meno</label>
-                        <input type="text" placeholder="Tvoje meno" data-i18n-placeholder="ph_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input type="email" placeholder="tvoj@email.com" data-i18n-placeholder="ph_email" required>
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="form_package">O aký web / balík ide?</label>
-                        <select id="project-type">
-                            <option value="Neurčené" data-i18n="ph_select">Vyber možnosť...</option>
-                            <option value="START">START (250€)</option>
-                            <option value="PRO">PRO (500€)</option>
-                            <option value="PREMIUM">PREMIUM (700€)</option>
-                            <option value="Iné">Iné / Špeciálny projekt</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label data-i18n="form_msg">Stručný popis projektu</label>
-                        <textarea rows="4" placeholder="..." data-i18n-placeholder="ph_msg"></textarea>
-                    </div>
-
-                    <div class="gdpr-checkbox-wrapper">
-                        <input type="checkbox" id="gdpr-consent" required>
-                        <label for="gdpr-consent" data-i18n="form_gdpr">
-                            Súhlasím so spracovaním mojich osobných údajov (meno, email) za účelom vypracovania ponuky a komunikácie ohľadom projektu. Vaše údaje sú u mňa v bezpečí a nebudú poskytnuté tretím stranám.
-                        </label>
-                    </div>
-                    <button type="submit" class="submit-btn" data-i18n="form_btn">Odoslať nezáväzný dopyt</button>
-                    <div class="risk-reduction"><span class="lock-icon">🔒</span> <span data-i18n="form_secure">Odpoveď do 24 hodín. Žiadne spamovanie.</span></div>
+                    <div class="form-group"><label data-i18n="form_name">Meno</label><input type="text" placeholder="Meno" data-i18n-placeholder="ph_name" required></div>
+                    <div class="form-group"><label>Email</label><input type="email" placeholder="email" data-i18n-placeholder="ph_email" required></div>
+                    <div class="form-group"><label data-i18n="form_package">Balík</label><select id="project-type"><option value="Neurčené" data-i18n="ph_select">Vybrať...</option><option value="START">START</option><option value="PRO">PRO</option><option value="PREMIUM">PREMIUM</option><option value="Iné">Iné</option></select></div>
+                    <div class="form-group"><label data-i18n="form_msg">Správa</label><textarea rows="4" placeholder="..." data-i18n-placeholder="ph_msg"></textarea></div>
+                    <div class="gdpr-checkbox-wrapper"><input type="checkbox" id="gdpr-consent" required><label for="gdpr-consent" data-i18n="form_gdpr">Súhlasím so spracovaním...</label></div>
+                    <button type="submit" class="submit-btn" data-i18n="form_btn">Odoslať</button>
+                    <div class="risk-reduction"><span class="lock-icon">🔒</span> <span data-i18n="form_secure">Bez spamu.</span></div>
                 </form>
             </div>
         </div>
@@ -635,45 +456,49 @@
 
     <footer>
         <div class="container">
-            <p class="footer-quote" data-i18n="footer_quote">"Ak chceš moderný web bez zbytočných komplikácií, si na správnom mieste."</p>
-            <p style="color: #666; font-size: 0.9rem;">&copy; 2026 JK Design. All rights reserved.</p>
+            <p class="footer-quote" data-i18n="footer_quote">"Web bez komplikácií."</p>
+            <p style="color: #666; font-size: 0.9rem;">&copy; 2026 JK Design.</p>
         </div>
     </footer>
 
     <div id="cookie-bar" class="cookie-bar">
-        <div class="cookie-text" data-i18n="cookie_text">We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept", you consent to our use of cookies.</div>
-        <button id="accept-cookies" class="cookie-btn" data-i18n="cookie_btn">ACCEPT</button>
+        <div class="cookie-content">
+            <p class="cookie-text" data-i18n="cookie_text">We use cookies to improve your experience. By clicking "Accept", you agree to our use of cookies.</p>
+            <a href="privacy-policy.html" class="cookie-link" data-i18n="cookie_policy">Privacy Policy</a>
+        </div>
+        <div class="cookie-buttons">
+            <button id="reject-cookies" class="cookie-btn cookie-reject" data-i18n="cookie_reject">Reject</button>
+            <button id="accept-cookies" class="cookie-btn cookie-accept" data-i18n="cookie_accept">Accept</button>
+        </div>
     </div>
 
     <div id="promo-notification" class="promo-notification">
-        <div class="promo-header">
-            <div class="promo-title" data-i18n="promo_title">🎁 Tip pre vás</div>
-            <div class="promo-close" onclick="closePromo()">✖</div>
-        </div>
-        <p class="promo-body" data-i18n="promo_text">Ešte váhate? Dohodnite si so mnou rýchly hovor. Zadarmo sa pozriem na vašu situáciu.</p>
-        <a href="#contact" class="promo-action" onclick="closePromo(); prefillForm('Konzultácia ZDARMA')" data-i18n="promo_btn">Chcem konzultáciu →</a>
+        <div class="promo-header"><div class="promo-title" data-i18n="promo_title">🎁 Tip</div><div class="promo-close" onclick="closePromo()">✖</div></div>
+        <p class="promo-body" data-i18n="promo_text">Váhate?</p>
+        <a href="#contact" class="promo-action" onclick="closePromo(); prefillForm('Konzultácia ZDARMA')" data-i18n="promo_btn">Konzultácia →</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
-        // --- PREKLADY (JAZYKOVÝ SLOVNÍK + PLACEHOLDERY) ---
+        // --- OCHRANA ---
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0))) || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0))) return false;
+        }
+
+        // --- PREKLADY ---
         const translations = {
             sk: {
                 nav_why: "Prečo ja", nav_portfolio: "Ukážky", nav_pricing: "Cenník", nav_contact: "Kontakt",
-                hero_title: "Pomáham firmám získať viac dopytov pomocou rýchlych webov.",
-                hero_subtitle: "Väčšina webov je len pekná vizitka. Ja tvorím nástroje, ktoré sú rýchle, prehľadné a končia objednávkou.",
-                hero_btn_1: "Chcem web, čo zarába →", hero_btn_2: "Pozrieť výsledky",
-                pain_title: "Väčšina webov dnes:", pain_1: "sa načítava pomaly (klient odchádza)", pain_2: "je neprehľadná a chaotická", pain_3: "nefunguje dobre na mobile", pain_4: "firme neprináša žiadne dopyty",
-                pain_note: "\"Vidím to bohužiaľ pri 80% webov, ktoré mi klienti posielajú na redizajn.\"",
+                hero_title: "Pomáham firmám získať viac dopytov pomocou rýchlych webov.", hero_subtitle: "Väčšina webov je len pekná vizitka. Ja tvorím nástroje, ktoré sú rýchle, prehľadné a končia objednávkou.", hero_btn_1: "Chcem web, čo zarába →", hero_btn_2: "Pozrieť výsledky",
+                pain_title: "Väčšina webov dnes:", pain_1: "sa načítava pomaly (klient odchádza)", pain_2: "je neprehľadná a chaotická", pain_3: "nefunguje dobre na mobile", pain_4: "firme neprináša žiadne dopyty", pain_note: "\"Vidím to bohužiaľ pri 80% webov, ktoré mi klienti posielajú na redizajn.\"",
                 sol_title: "Moje riešenie", sol_1: "Rýchle načítanie", sol_1_res: "viac ľudí zostane na webe", sol_2: "Čistý kód", sol_2_res: "web sa nerozpadne o rok", sol_3: "Mobilná optimalizácia", sol_3_res: "neprídeš o klientov na telefóne", sol_4: "Dizajn pre predaj", sol_4_res: "návštevník vie, kam kliknúť",
-                proj_1_title: "E-shop s oblečením", proj_1_desc: "Kompletný redesign s cieľom zjednodušiť nákupný proces.", proj_1_res: "Výsledok: O 30% viac dokončených objednávok.",
-                proj_2_title: "Realitný Portál", proj_2_desc: "Prehľadný katalóg nehnuteľností s pokročilým filtrovaním.", proj_2_res: "Výsledok: Prehľadná štruktúra a rýchle načítanie fotiek.",
-                proj_3_title: "Startup Landing Page", proj_3_desc: "Minimalistická stránka pre IT firmu budujúca dôveru.", proj_3_res: "Výsledok: Profesionálny imidž pre zahraničných investorov.",
+                proj_1_title: "E-shop s oblečením", proj_1_desc: "Kompletný redesign s cieľom zjednodušiť nákupný proces.", proj_1_res: "Výsledok: O 30% viac dokončených objednávok.", proj_2_title: "Realitný Portál", proj_2_desc: "Prehľadný katalóg nehnuteľností s pokročilým filtrovaním.", proj_2_res: "Výsledok: Prehľadná štruktúra a rýchle načítanie fotiek.", proj_3_title: "Startup Landing Page", proj_3_desc: "Minimalistická stránka pre IT firmu budujúca dôveru.", proj_3_res: "Výsledok: Profesionálny imidž pre zahraničných investorov.",
                 price_title: "Investícia do webu", price_1_desc: "Ideálne riešenie, ak chceš web rýchlo a bez zbytočných výdavkov.", badge_popular: "⭐ Najčastejšia voľba", price_2_desc: "Web navrhnutý tak, aby návštevníkov viedol k akcii (kontakt, objednávka).", price_3_desc: "Pre projekty, ktoré chcú ísť nad rámec a potrebujú špeciálne funkcie.", btn_choose: "Vybrať", price_note: "Uvedené ceny sú orientačné. Finálna cena závisí od rozsahu a náročnosti projektu.",
-                contact_title: "Máš záujem o web?", contact_sub: "Napíš mi. Stačí pár informácií. Odpíšem ti úprimne, či a ako viem pomôcť.", form_name: "Meno", form_package: "O aký web / balík ide?", form_msg: "Stručný popis projektu", form_gdpr: "Súhlasím so spracovaním mojich osobných údajov (meno, email) za účelom vypracovania ponuky a komunikácie ohľadom projektu. Vaše údaje sú u mňa v bezpečí a nebudú poskytnuté tretím stranám.", form_btn: "Odoslať nezáväzný dopyt", form_secure: "Odpoveď do 24 hodín. Žiadne spamovanie.",
+                contact_title: "Máš záujem o web?", contact_sub: "Napíš mi. Stačí pár informácií. Odpíšem ti úprimne, či a ako viem pomôcť.", form_name: "Meno", form_package: "O aký web / balík ide?", form_msg: "Stručný popis projektu", form_gdpr: "Súhlasím so spracovaním osobných údajov za účelom komunikácie.", form_btn: "Odoslať nezáväzný dopyt", form_secure: "Odpoveď do 24 hodín. Žiadne spamovanie.",
                 footer_quote: "\"Ak chceš moderný web bez zbytočných komplikácií, si na správnom mieste.\"",
-                cookie_text: "Používame súbory cookies na zlepšenie vášho zážitku z prehliadania, zobrazovanie personalizovaného obsahu a analýzu návštevnosti. Kliknutím na „Prijať“ vyjadrujete súhlas s ich používaním.", cookie_btn: "PRIJAŤ",
+                cookie_text: "Používame cookies na zlepšenie vášho zážitku. Kliknutím na „Prijať“ súhlasíte s ich používaním.", cookie_accept: "PRIJAŤ", cookie_reject: "ODMIETNUŤ", cookie_policy: "Zásady ochrany súkromia",
                 promo_title: "🎁 Tip pre vás", promo_text: "Ešte váhate? Dohodnite si so mnou rýchly hovor. Zadarmo sa pozriem na vašu situáciu.", promo_btn: "Chcem konzultáciu →",
                 ph_name: "Tvoje meno", ph_email: "tvoj@email.com", ph_select: "Vyber možnosť...", ph_msg: "..."
             },
@@ -684,9 +509,9 @@
                 sol_title: "My Solution", sol_1: "Fast loading", sol_1_res: "more people stay", sol_2: "Clean code", sol_2_res: "site won't break in a year", sol_3: "Mobile optimization", sol_3_res: "you won't lose phone users", sol_4: "Sales design", sol_4_res: "visitor knows where to click",
                 proj_1_title: "Clothing E-shop", proj_1_desc: "Complete redesign to simplify the purchasing process.", proj_1_res: "Result: 30% more completed orders.", proj_2_title: "Real Estate Portal", proj_2_desc: "Clear property catalog with advanced filtering.", proj_2_res: "Result: Clear structure and fast photo loading.", proj_3_title: "Startup Landing Page", proj_3_desc: "Minimalist page for an IT firm building trust.", proj_3_res: "Result: Professional image for foreign investors.",
                 price_title: "Website Investment", price_1_desc: "Ideal solution if you want a web fast and without unnecessary costs.", badge_popular: "⭐ Most Popular", price_2_desc: "Designed to lead visitors to action (contact, order).", price_3_desc: "For projects that want to go beyond and need special functions.", btn_choose: "Select", price_note: "Prices are indicative. Final price depends on project scope and complexity.",
-                contact_title: "Interested in a website?", contact_sub: "Write to me. Just a few details. I'll reply honestly if and how I can help.", form_name: "Name", form_package: "Which package?", form_msg: "Brief project description", form_gdpr: "I agree to the processing of my personal data (name, email) for the purpose of preparing an offer and project communication. Your data is safe with me.", form_btn: "Send non-binding inquiry", form_secure: "Reply within 24 hours. No spam.",
+                contact_title: "Interested in a website?", contact_sub: "Write to me. Just a few details. I'll reply honestly if and how I can help.", form_name: "Name", form_package: "Which package?", form_msg: "Brief project description", form_gdpr: "I agree to the processing of my personal data for communication purposes.", form_btn: "Send non-binding inquiry", form_secure: "Reply within 24 hours. No spam.",
                 footer_quote: "\"If you want a modern website without unnecessary complications, you are in the right place.\"",
-                cookie_text: "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking \"Accept\", you consent to our use of cookies.", cookie_btn: "ACCEPT",
+                cookie_text: "We use cookies to enhance your browsing experience. By clicking \"Accept\", you consent to our use of cookies.", cookie_accept: "ACCEPT", cookie_reject: "REJECT", cookie_policy: "Privacy Policy",
                 promo_title: "🎁 Tip for you", promo_text: "Still hesitating? Schedule a quick call. I'll look at your situation for free.", promo_btn: "Get free consultation →",
                 ph_name: "Your Name", ph_email: "your@email.com", ph_select: "Choose option...", ph_msg: "..."
             },
@@ -697,9 +522,9 @@
                 sol_title: "Meine Lösung", sol_1: "Schnelles Laden", sol_1_res: "mehr Besucher bleiben", sol_2: "Sauberer Code", sol_2_res: "stabil auch in Zukunft", sol_3: "Mobile Optimierung", sol_3_res: "keine Kundenverluste am Handy", sol_4: "Verkaufsdesign", sol_4_res: "Besucher weiß, wohin klicken",
                 proj_1_title: "Mode E-Shop", proj_1_desc: "Komplettes Redesign zur Vereinfachung des Kaufprozesses.", proj_1_res: "Ergebnis: 30% mehr Bestellungen.", proj_2_title: "Immobilienportal", proj_2_desc: "Übersichtlicher Katalog mit erweiterten Filtern.", proj_2_res: "Ergebnis: Klare Struktur, schnelle Fotos.", proj_3_title: "Startup Landing Page", proj_3_desc: "Minimalistische Seite für IT-Firma, die Vertrauen aufbaut.", proj_3_res: "Ergebnis: Professionelles Image für Investoren.",
                 price_title: "Investition", price_1_desc: "Ideal, wenn Sie schnell und günstig eine Website brauchen.", badge_popular: "⭐ Beste Wahl", price_2_desc: "Design, das Besucher zur Handlung führt (Kontakt, Bestellung).", price_3_desc: "Für Projekte, die spezielle Funktionen benötigen.", btn_choose: "Wählen", price_note: "Preise sind Richtwerte. Endpreis hängt vom Projektumfang ab.",
-                contact_title: "Interesse?", contact_sub: "Schreiben Sie mir. Ich antworte ehrlich, wie ich helfen kann.", form_name: "Name", form_package: "Welches Paket?", form_msg: "Projektbeschreibung", form_gdpr: "Ich stimme der Verarbeitung meiner personenbezogenen Daten zu. Ihre Daten sind bei mir sicher.", form_btn: "Unverbindliche Anfrage senden", form_secure: "Antwort innerhalb 24 Std. Kein Spam.",
+                contact_title: "Interesse?", contact_sub: "Schreiben Sie mir. Ich antworte ehrlich, wie ich helfen kann.", form_name: "Name", form_package: "Welches Paket?", form_msg: "Projektbeschreibung", form_gdpr: "Ich stimme der Verarbeitung meiner personenbezogenen Daten zu.", form_btn: "Unverbindliche Anfrage senden", form_secure: "Antwort innerhalb 24 Std. Kein Spam.",
                 footer_quote: "\"Wenn Sie eine moderne Website ohne Komplikationen wollen, sind Sie hier richtig.\"",
-                cookie_text: "Wir verwenden Cookies, um Ihr Surferlebnis zu verbessern, personalisierte Inhalte bereitzustellen und unseren Datenverkehr zu analysieren. Durch Klicken auf „Akzeptieren“ stimmen Sie unserer Verwendung von Cookies zu.", cookie_btn: "AKZEPTIEREN",
+                cookie_text: "Wir verwenden Cookies, um Ihr Erlebnis zu verbessern. Durch Klicken auf „Akzeptieren“ stimmen Sie zu.", cookie_accept: "AKZEPTIEREN", cookie_reject: "ABLEHNEN", cookie_policy: "Datenschutzrichtlinie",
                 promo_title: "🎁 Tipp für Sie", promo_text: "Noch unsicher? Vereinbaren Sie ein kurzes Gespräch. Ich schaue mir Ihre Situation kostenlos an.", promo_btn: "Kostenlose Beratung →",
                 ph_name: "Ihr Name", ph_email: "ihre@email.com", ph_select: "Option wählen...", ph_msg: "..."
             },
@@ -710,9 +535,9 @@
                 sol_title: "Mi solución", sol_1: "Carga rápida", sol_1_res: "más gente se queda", sol_2: "Código limpio", sol_2_res: "web estable a largo plazo", sol_3: "Optimización móvil", sol_3_res: "no pierdes clientes en celular", sol_4: "Diseño de ventas", sol_4_res: "el visitante sabe dónde hacer clic",
                 proj_1_title: "Tienda de ropa", proj_1_desc: "Rediseño completo para simplificar la compra.", proj_1_res: "Resultado: 30% más pedidos.", proj_2_title: "Portal Inmobiliario", proj_2_desc: "Catálogo claro con filtros avanzados.", proj_2_res: "Resultado: Estructura clara y carga rápida.", proj_3_title: "Startup Landing Page", proj_3_desc: "Página minimalista que genera confianza.", proj_3_res: "Resultado: Imagen profesional para inversores.",
                 price_title: "Inversión web", price_1_desc: "Solución ideal para una web rápida y económica.", badge_popular: "⭐ Más popular", price_2_desc: "Diseñada para guiar a la acción (contacto, pedido).", price_3_desc: "Para proyectos que necesitan funciones especiales.", btn_choose: "Seleccionar", price_note: "Precios orientativos. El precio final depende del proyecto.",
-                contact_title: "¿Interesado?", contact_sub: "Escríbeme. Responderé honestamente si puedo ayudar.", form_name: "Nombre", form_package: "¿Qué paquete?", form_msg: "Descripción del proyecto", form_gdpr: "Acepto el procesamiento de mis datos personales para la oferta. Tus datos están seguros.", form_btn: "Enviar consulta", form_secure: "Respuesta en 24h. Sin spam.",
+                contact_title: "¿Interesado?", contact_sub: "Escríbeme. Responderé honestamente si puedo ayudar.", form_name: "Nombre", form_package: "¿Qué paquete?", form_msg: "Descripción del proyecto", form_gdpr: "Acepto el procesamiento de mis datos personales para la comunicación.", form_btn: "Enviar consulta", form_secure: "Respuesta en 24h. Sin spam.",
                 footer_quote: "\"Si quieres una web moderna sin complicaciones, estás en el lugar correcto.\"",
-                cookie_text: "Utilizamos cookies para mejorar su experiencia de navegación, ofrecer contenido personalizado y analizar nuestro tráfico. Al hacer clic en 'Aceptar', acepta nuestro uso de cookies.", cookie_btn: "ACEPTAR",
+                cookie_text: "Usamos cookies para mejorar su experiencia. Al hacer clic en 'Aceptar', acepta nuestro uso.", cookie_accept: "ACEPTAR", cookie_reject: "RECHAZAR", cookie_policy: "Política de privacidad",
                 promo_title: "🎁 Consejo", promo_text: "¿Dudas? Agenda una llamada rápida. Analizaré tu situación gratis.", promo_btn: "Consulta gratis →",
                 ph_name: "Tu nombre", ph_email: "tu@email.com", ph_select: "Elige opción...", ph_msg: "..."
             },
@@ -723,131 +548,105 @@
                 sol_title: "Ma solution", sol_1: "Chargement rapide", sol_1_res: "plus de visiteurs restent", sol_2: "Code propre", sol_2_res: "site stable", sol_3: "Optimisation mobile", sol_3_res: "ne perdez pas les utilisateurs mobiles", sol_4: "Design de vente", sol_4_res: "le visiteur sait où cliquer",
                 proj_1_title: "E-shop Vêtements", proj_1_desc: "Refonte complète pour simplifier l'achat.", proj_1_res: "Résultat: +30% de commandes.", proj_2_title: "Portail Immobilier", proj_2_desc: "Catalogue clair avec filtres avancés.", proj_2_res: "Résultat: Structure claire, photos rapides.", proj_3_title: "Startup Page", proj_3_desc: "Page minimaliste inspirant confiance.", proj_3_res: "Résultat: Image professionnelle pour investisseurs.",
                 price_title: "Investissement", price_1_desc: "Idéal pour un site rapide et économique.", badge_popular: "⭐ Meilleur choix", price_2_desc: "Conçu pour inciter à l'action (contact, commande).", price_3_desc: "Pour les projets nécessitant des fonctions spéciales.", btn_choose: "Choisir", price_note: "Prix indicatifs. Le prix final dépend du projet.",
-                contact_title: "Intéressé?", contact_sub: "Écrivez-moi. Je répondrai honnêtement.", form_name: "Nom", form_package: "Quel forfait?", form_msg: "Description du projet", form_gdpr: "J'accepte le traitement de mes données personnelles. Vos données sont en sécurité.", form_btn: "Envoyer la demande", form_secure: "Réponse sous 24h. Pas de spam.",
+                contact_title: "Intéressé?", contact_sub: "Écrivez-moi. Je répondrai honnêtement.", form_name: "Nom", form_package: "Quel forfait?", form_msg: "Description du projet", form_gdpr: "J'accepte le traitement de mes données personnelles.", form_btn: "Envoyer la demande", form_secure: "Réponse sous 24h. Pas de spam.",
                 footer_quote: "\"Si vous voulez un site moderne sans complications, vous êtes au bon endroit.\"",
-                cookie_text: "Nous utilisons des cookies pour améliorer votre expérience de navigation, diffuser du contenu personnalisé et analyser notre trafic. En cliquant sur « Accepter », vous consentez à notre utilisation de cookies.", cookie_btn: "ACCEPTER",
+                cookie_text: "Nous utilisons des cookies pour améliorer votre expérience. En cliquant sur « Accepter », vous consentez.", cookie_accept: "ACCEPTER", cookie_reject: "REFUSER", cookie_policy: "Politique de confidentialité",
                 promo_title: "🎁 Conseil", promo_text: "Vous hésitez? Prenons rendez-vous. J'analyserai votre situation gratuitement.", promo_btn: "Consultation gratuite →",
                 ph_name: "Votre nom", ph_email: "votre@email.com", ph_select: "Choisir...", ph_msg: "..."
             }
         };
 
-        function changeLanguage(lang) {
-            const elements = document.querySelectorAll('[data-i18n]');
-            elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang] && translations[lang][key]) {
-                    el.innerText = translations[lang][key];
-                }
-            });
+        const flags = { sk: "https://flagcdn.com/w40/sk.png", en: "https://flagcdn.com/w40/gb.png", de: "https://flagcdn.com/w40/de.png", es: "https://flagcdn.com/w40/es.png", fr: "https://flagcdn.com/w40/fr.png" };
 
-            const inputs = document.querySelectorAll('[data-i18n-placeholder]');
-            inputs.forEach(el => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                if (translations[lang] && translations[lang][key]) {
-                    el.placeholder = translations[lang][key];
-                }
+        function changeLanguage(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) el.innerText = translations[lang][key];
             });
-            
-            if(translations[lang]) {
-               const cookieText = document.querySelector('.cookie-text');
-               if(cookieText) cookieText.innerText = translations[lang]['cookie_text'];
-               const cookieBtn = document.querySelector('.cookie-btn');
-               if(cookieBtn) cookieBtn.innerText = translations[lang]['cookie_btn'];
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) el.placeholder = translations[lang][key];
+            });
+            document.getElementById('current-lang').innerText = lang.toUpperCase();
+            document.getElementById('current-flag').src = flags[lang];
+        }
+
+        function toggleLangMenu() { document.getElementById('lang-menu').classList.toggle('show'); }
+        window.onclick = function(event) {
+            if (!event.target.matches('.lang-btn') && !event.target.matches('.lang-btn *')) {
+                var dropdowns = document.getElementsByClassName("lang-dropdown");
+                for (var i = 0; i < dropdowns.length; i++) { if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show'); }
             }
         }
 
         document.addEventListener('DOMContentLoaded', () => { changeLanguage('en'); });
-
+        window.addEventListener("scroll", reveal);
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
+                if (reveals[i].getBoundingClientRect().top < window.innerHeight - 150) reveals[i].classList.add("active");
             }
         }
-        window.addEventListener("scroll", reveal);
         reveal();
 
-        function toggleMenu() {
-            const nav = document.querySelector('.nav-links');
-            nav.classList.toggle('active');
-        }
-
+        function toggleMenu() { document.querySelector('.nav-links').classList.toggle('active'); }
         function prefillForm(plan) {
             const select = document.getElementById('project-type');
-            let optionExists = [...select.options].some(o => o.value === plan);
-            if(!optionExists && plan !== 'Iné') {
-                document.querySelector('textarea').value = "Mám záujem o: " + plan;
-                select.value = "Iné";
-            } else {
-                select.value = plan;
-            }
+            if(![...select.options].some(o => o.value === plan) && plan !== 'Iné') { document.querySelector('textarea').value = "Mám záujem o: " + plan; select.value = "Iné"; } else { select.value = plan; }
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
 
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            const form = e.target;
-            const name = form.querySelector('input[type="text"]').value;
-            const email = form.querySelector('input[type="email"]').value;
-            const type = document.getElementById('project-type').value;
-            const message = form.querySelector('textarea').value;
-            const btn = form.querySelector('.submit-btn');
-            const originalBtnText = btn.innerText;
-            btn.innerText = "Odosielam...";
-            btn.disabled = true;
-
+            const btn = document.querySelector('.submit-btn');
+            const originalText = btn.innerText;
+            btn.innerText = "Odosielam..."; btn.disabled = true;
+            
             const payload = {
                 username: "JK Design Bot",
-                embeds: [{
-                    title: "🚀 Nový dopyt z webu!", color: 16766720,
-                    fields: [{ name: "👤 Meno", value: name, inline: true }, { name: "📧 Email", value: email, inline: true }, { name: "💼 Balík", value: type }, { name: "📝 Správa", value: message || "Bez popisu" }, { name: "🔒 GDPR Súhlas", value: "✅ ÁNO" }],
-                    footer: { text: "Odoslané z webstránky" }, timestamp: new Date().toISOString()
-                }]
+                embeds: [{ title: "🚀 Nový dopyt!", color: 16766720, fields: [
+                    { name: "Meno", value: this.querySelector('input[type="text"]').value },
+                    { name: "Email", value: this.querySelector('input[type="email"]').value },
+                    { name: "Balík", value: document.getElementById('project-type').value },
+                    { name: "Správa", value: this.querySelector('textarea').value || " - " }
+                ]}]
             };
-            const webhookURL = 'https://discord.com/api/webhooks/1461308081555374133/KNV9VyK4mFJz_3WVWm9T9or0I3BKuULNn0dcNWBAZ0pBAmtJDtCZftxh4Ls2KB1Qk_vc';
 
-            fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-            .then(response => {
-                if (response.ok) {
-                    Swal.fire({ title: 'Odoslané!', text: 'Ozvem sa ti čoskoro.', icon: 'success', confirmButtonText: 'OK', buttonsStyling: false, customClass: { confirmButton: 'btn btn-primary' }});
-                    form.reset();
-                } else {
-                    Swal.fire({ title: 'Chyba!', text: 'Skús mi napísať email.', icon: 'error', confirmButtonText: 'OK', buttonsStyling: false, customClass: { confirmButton: 'btn btn-primary' }});
-                }
-            }).finally(() => { btn.innerText = originalBtnText; btn.disabled = false; });
+            fetch('https://discord.com/api/webhooks/1461308081555374133/KNV9VyK4mFJz_3WVWm9T9or0I3BKuULNn0dcNWBAZ0pBAmtJDtCZftxh4Ls2KB1Qk_vc', {
+                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+            }).then(r => {
+                if(r.ok) { Swal.fire({ title: 'Odoslané!', icon: 'success', confirmButtonText: 'OK', buttonsStyling: false, customClass: { confirmButton: 'btn btn-primary' }}); this.reset(); }
+                else throw new Error();
+            }).catch(() => Swal.fire({ title: 'Chyba!', icon: 'error', confirmButtonText: 'OK', buttonsStyling: false, customClass: { confirmButton: 'btn btn-primary' }}))
+            .finally(() => { btn.innerText = originalText; btn.disabled = false; });
         });
 
+        // --- COOKIE LOGIC (GDPR) ---
         const cookieBar = document.getElementById('cookie-bar');
-        const acceptBtn = document.getElementById('accept-cookies');
-        if (!localStorage.getItem('cookiesAccepted')) {
-            setTimeout(() => { cookieBar.classList.add('active'); }, 100); 
-        }
-        acceptBtn.addEventListener('click', () => {
+        const consent = localStorage.getItem('cookieConsent');
+
+        if (!consent) { setTimeout(() => cookieBar.classList.add('active'), 500); }
+        else if (consent === 'accepted') { enableTracking(); }
+
+        document.getElementById('accept-cookies').addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'accepted');
             cookieBar.classList.remove('active');
-            localStorage.setItem('cookiesAccepted', 'true'); 
+            enableTracking();
         });
 
-        const promoNotification = document.getElementById('promo-notification');
-        setTimeout(() => {
-            if (!sessionStorage.getItem('promoClosed')) { promoNotification.classList.add('show'); }
-        }, 8000);
-        function closePromo() {
-            promoNotification.classList.remove('show');
-            sessionStorage.setItem('promoClosed', 'true');
+        document.getElementById('reject-cookies').addEventListener('click', () => {
+            localStorage.setItem('cookieConsent', 'rejected');
+            cookieBar.classList.remove('active');
+        });
+
+        function enableTracking() {
+            // SEM VLOŽ SVOJE SKRIPTY (Google Analytics, Pixel atď.)
+            console.log("Tracking enabled");
         }
-    </script>
-    <script>
-        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123) return false;
-            if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
-        }
+
+        const promo = document.getElementById('promo-notification');
+        setTimeout(() => { if (!sessionStorage.getItem('promoClosed')) promo.classList.add('show'); }, 8000);
+        function closePromo() { promo.classList.remove('show'); sessionStorage.setItem('promoClosed', 'true'); }
     </script>
 </body>
 </html>
