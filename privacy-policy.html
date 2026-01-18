@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy | JK Design</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- ZDIEĽANÉ ŠTÝLY S HLAVNÝM WEBOM --- */
+        :root {
+            --bg: #ffffff;
+            --text: #0b0b0b;
+            --text-secondary: #555555;
+            --accent: #000000;
+            --highlight: #FFD700; 
+            --light-gray: #f4f4f6;
+            --border: #e5e5e5;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.8;
+            overflow-x: hidden;
+            -webkit-user-select: none; user-select: none; /* Ochrana */
+        }
+
+        /* Povolíme kopírovanie textu v podmienkach, aby si to ľudia mohli prečítať/uložiť */
+        .policy-container { -webkit-user-select: text !important; user-select: text !important; }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        
+        /* HEADER */
+        header {
+            padding: 20px 0; border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000;
+        }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        .nav-container { display: flex; justify-content: space-between; align-items: center; }
+        .logo img { height: 40px; width: auto; }
+
+        /* JAZYKOVÝ PREPÍNAČ */
+        .language-selector { position: relative; z-index: 2000; min-width: 90px; }
+        .lang-btn {
+            background: #000; color: #fff; border: 1px solid #333; border-radius: 8px;
+            padding: 8px 12px; display: flex; align-items: center; gap: 8px;
+            cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: 0.3s;
+        }
+        .lang-btn:hover { transform: scale(1.05); }
+        .lang-dropdown {
+            position: absolute; top: 120%; right: 0; background: #000;
+            border: 1px solid #333; border-radius: 8px; overflow: hidden;
+            display: none; flex-direction: column; width: 100%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .lang-dropdown.show { display: flex; }
+        .lang-option {
+            padding: 10px 12px; display: flex; align-items: center; gap: 8px;
+            color: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
+        }
+        .lang-option:hover { background: #333; color: var(--highlight); }
+        .lang-option img, .lang-btn img { width: 20px; height: 15px; object-fit: cover; border-radius: 2px; }
+
+        /* OBSAH PODMIENOK */
+        .policy-section { padding: 60px 0 100px 0; }
+        h1 { font-size: 2.5rem; font-weight: 800; margin-bottom: 30px; letter-spacing: -0.03em; }
+        h2 { font-size: 1.5rem; margin-top: 40px; margin-bottom: 15px; font-weight: 700; }
+        p { margin-bottom: 15px; color: var(--text-secondary); }
+        ul { list-style: disc; padding-left: 20px; margin-bottom: 20px; color: var(--text-secondary); }
+        li { margin-bottom: 8px; }
+        
+        .back-btn {
+            display: inline-block; margin-bottom: 40px; font-weight: 700;
+            font-size: 0.9rem; color: var(--accent); border-bottom: 2px solid var(--border);
+        }
+        .back-btn:hover { border-color: var(--accent); }
+
+        /* SKRÝVANIE JAZYKOV */
+        .lang-content { display: none; }
+        .lang-content.active { display: block; animation: fadeIn 0.5s ease; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* FOOTER */
+        footer { background: #000; color: white; padding: 40px 0; text-align: center; margin-top: auto; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <img src="https://github.com/jakubinoosd/jkdesign/blob/main/logo%20jk%20design.jpg?raw=true" alt="JK Design">
+            </a>
+            
+            <div class="language-selector" id="lang-selector">
+                <div class="lang-btn" onclick="toggleLangMenu()">
+                    <img id="current-flag" src="https://flagcdn.com/w40/gb.png" alt="EN">
+                    <span id="current-lang">EN</span>
+                </div>
+                <div class="lang-dropdown" id="lang-menu">
+                    <div class="lang-option" onclick="changeLanguage('sk'); toggleLangMenu()"><img src="https://flagcdn.com/w40/sk.png"> SK</div>
+                    <div class="lang-option" onclick="changeLanguage('en'); toggleLangMenu()"><img src="https://flagcdn.com/w40/gb.png"> EN</div>
+                    <div class="lang-option" onclick="changeLanguage('de'); toggleLangMenu()"><img src="https://flagcdn.com/w40/de.png"> DE</div>
+                    <div class="lang-option" onclick="changeLanguage('es'); toggleLangMenu()"><img src="https://flagcdn.com/w40/es.png"> ES</div>
+                    <div class="lang-option" onclick="changeLanguage('fr'); toggleLangMenu()"><img src="https://flagcdn.com/w40/fr.png"> FR</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="policy-section">
+        <div class="container policy-container">
+            <a href="index.html" class="back-btn">← Back to Home</a>
+
+            <div id="content-sk" class="lang-content">
+                <h1>Zásady ochrany osobných údajov</h1>
+                <p><strong>Posledná aktualizácia:</strong> 24. 01. 2026</p>
+                
+                <p>Vaše súkromie je pre JK Design ("my", "nás") prioritou. Tieto zásady vysvetľujú, ako zhromažďujeme, používame a chránime vaše osobné údaje pri používaní našej webovej stránky.</p>
+
+                <h2>1. Kto je prevádzkovateľom?</h2>
+                <p>Prevádzkovateľom vašich osobných údajov je:<br>
+                <strong>JK Design</strong><br>
+                Email: (Doplň svoj email)<br>
+                (Tu môžeš doplniť IČO a adresu, ak máš živnosť)</p>
+
+                <h2>2. Aké údaje zbierame?</h2>
+                <ul>
+                    <li><strong>Kontaktné údaje:</strong> Meno, e-mailová adresa a text správy, ktoré nám pošlete cez kontaktný formulár.</li>
+                    <li><strong>Technické údaje (Cookies):</strong> IP adresa, typ prehliadača, informácie o zariadení (viac v sekcii Cookies).</li>
+                </ul>
+
+                <h2>3. Prečo údaje spracúvame?</h2>
+                <ul>
+                    <li>Na komunikáciu s vami a odpovedanie na vaše dopyty (právny základ: oprávnený záujem alebo plnenie zmluvy).</li>
+                    <li>Na analýzu návštevnosti webu a zlepšovanie našich služieb (len s vaším súhlasom cez Cookie lištu).</li>
+                </ul>
+
+                <h2>4. Súbory Cookies</h2>
+                <p>Používame cookies na zabezpečenie funkčnosti webu. Analytické/marketingové cookies používame iba vtedy, ak ste nám udelili súhlas kliknutím na "PRIJAŤ". Svoj súhlas môžete kedykoľvek odvolať vymazaním cookies vo vašom prehliadači.</p>
+
+                <h2>5. Vaše práva</h2>
+                <p>Podľa GDPR máte právo na:</p>
+                <ul>
+                    <li>Prístup k vašim údajom.</li>
+                    <li>Opravu alebo vymazanie údajov ("právo na zabudnutie").</li>
+                    <li>Obmedzenie spracúvania.</li>
+                    <li>Odvolať súhlas so spracovaním (napr. pri cookies).</li>
+                </ul>
+                <p>Pre uplatnenie práv nás kontaktujte na uvedenom emaile.</p>
+            </div>
+
+            <div id="content-en" class="lang-content active">
+                <h1>Privacy Policy</h1>
+                <p><strong>Last Updated:</strong> January 24, 2026</p>
+                
+                <p>Your privacy is a priority for JK Design ("we", "us"). This policy explains how we collect, use, and protect your personal data when you use our website.</p>
+
+                <h2>1. Who is the Controller?</h2>
+                <p>The controller of your personal data is:<br>
+                <strong>JK Design</strong><br>
+                Email: (Insert your email)<br>
+                (Insert Business ID/Address if applicable)</p>
+
+                <h2>2. What Data Do We Collect?</h2>
+                <ul>
+                    <li><strong>Contact Data:</strong> Name, email address, and message content sent via our contact form.</li>
+                    <li><strong>Technical Data (Cookies):</strong> IP address, browser type, device information.</li>
+                </ul>
+
+                <h2>3. Why Do We Process Data?</h2>
+                <ul>
+                    <li>To communicate with you and respond to your inquiries (Legal basis: Legitimate interest or Contract performance).</li>
+                    <li>To analyze website traffic and improve our services (Only with your consent via the Cookie Banner).</li>
+                </ul>
+
+                <h2>4. Cookies</h2>
+                <p>We use cookies to ensure website functionality. We use analytics/marketing cookies only if you have granted consent by clicking "ACCEPT". You can withdraw your consent at any time by clearing cookies in your browser.</p>
+
+                <h2>5. Your Rights</h2>
+                <p>Under GDPR, you have the right to:</p>
+                <ul>
+                    <li>Access your data.</li>
+                    <li>Rectify or erase data ("Right to be forgotten").</li>
+                    <li>Restrict processing.</li>
+                    <li>Withdraw consent at any time.</li>
+                </ul>
+                <p>To exercise your rights, please contact us via email.</p>
+            </div>
+
+            <div id="content-de" class="lang-content">
+                <h1>Datenschutzerklärung</h1>
+                <p><strong>Letzte Aktualisierung:</strong> 24. 01. 2026</p>
+                
+                <p>Der Schutz Ihrer Daten hat für JK Design ("wir", "uns") Priorität. Diese Richtlinie erklärt, wie wir Ihre personenbezogenen Daten erheben und schützen.</p>
+
+                <h2>1. Verantwortlicher</h2>
+                <p>Verantwortlich für die Datenverarbeitung ist:<br>
+                <strong>JK Design</strong><br>
+                E-Mail: (Ihre E-Mail einfügen)</p>
+
+                <h2>2. Welche Daten erfassen wir?</h2>
+                <ul>
+                    <li><strong>Kontaktdaten:</strong> Name, E-Mail-Adresse und Nachrichtentext aus dem Kontaktformular.</li>
+                    <li><strong>Technische Daten (Cookies):</strong> IP-Adresse, Browsertyp, Geräteinformationen.</li>
+                </ul>
+
+                <h2>3. Zweck der Verarbeitung</h2>
+                <ul>
+                    <li>Kommunikation und Beantwortung von Anfragen (Rechtsgrundlage: Berechtigtes Interesse oder Vertragserfüllung).</li>
+                    <li>Webanalyse zur Verbesserung unserer Dienste (Nur mit Ihrer Zustimmung über das Cookie-Banner).</li>
+                </ul>
+
+                <h2>4. Cookies</h2>
+                <p>Wir verwenden Cookies für die Funktionalität der Website. Analyse-Cookies verwenden wir nur, wenn Sie durch Klicken auf "AKZEPTIEREN" zugestimmt haben.</p>
+
+                <h2>5. Ihre Rechte</h2>
+                <p>Gemäß DSGVO haben Sie das Recht auf:</p>
+                <ul>
+                    <li>Auskunft über Ihre Daten.</li>
+                    <li>Berichtigung oder Löschung.</li>
+                    <li>Einschränkung der Verarbeitung.</li>
+                    <li>Widerruf der Einwilligung.</li>
+                </ul>
+            </div>
+
+            <div id="content-es" class="lang-content">
+                <h1>Política de Privacidad</h1>
+                <p><strong>Última actualización:</strong> 24. 01. 2026</p>
+                
+                <p>Su privacidad es una prioridad para JK Design ("nosotros"). Esta política explica cómo recopilamos y protegemos sus datos personales.</p>
+
+                <h2>1. Responsable del tratamiento</h2>
+                <p>El responsable de sus datos personales es:<br>
+                <strong>JK Design</strong><br>
+                Email: (Insertar email)</p>
+
+                <h2>2. ¿Qué datos recopilamos?</h2>
+                <ul>
+                    <li><strong>Datos de contacto:</strong> Nombre, email y mensaje enviado a través del formulario.</li>
+                    <li><strong>Datos técnicos (Cookies):</strong> Dirección IP, navegador, dispositivo.</li>
+                </ul>
+
+                <h2>3. ¿Por qué procesamos los datos?</h2>
+                <ul>
+                    <li>Para comunicarnos con usted y responder consultas (Base legal: Interés legítimo o Contrato).</li>
+                    <li>Para analizar el tráfico web (Solo con su consentimiento en el banner de cookies).</li>
+                </ul>
+
+                <h2>4. Cookies</h2>
+                <p>Usamos cookies para que la web funcione. Usamos cookies de análisis solo si hace clic en "ACEPTAR".</p>
+
+                <h2>5. Sus derechos</h2>
+                <p>Según el RGPD, usted tiene derecho a:</p>
+                <ul>
+                    <li>Acceder a sus datos.</li>
+                    <li>Rectificar o eliminar datos.</li>
+                    <li>Limitar el procesamiento.</li>
+                    <li>Retirar el consentimiento.</li>
+                </ul>
+            </div>
+
+            <div id="content-fr" class="lang-content">
+                <h1>Politique de Confidentialité</h1>
+                <p><strong>Dernière mise à jour:</strong> 24. 01. 2026</p>
+                
+                <p>Votre vie privée est une priorité pour JK Design ("nous"). Cette politique explique comment nous collectons et protégeons vos données.</p>
+
+                <h2>1. Responsable du traitement</h2>
+                <p>Le responsable de vos données personnelles est :<br>
+                <strong>JK Design</strong><br>
+                Email : (Insérez votre email)</p>
+
+                <h2>2. Quelles données collectons-nous ?</h2>
+                <ul>
+                    <li><strong>Données de contact :</strong> Nom, email et message envoyés via le formulaire.</li>
+                    <li><strong>Données techniques (Cookies) :</strong> Adresse IP, navigateur, appareil.</li>
+                </ul>
+
+                <h2>3. Pourquoi traitons-nous les données ?</h2>
+                <ul>
+                    <li>Pour communiquer avec vous (Base légale : Intérêt légitime ou Contrat).</li>
+                    <li>Pour analyser le trafic web (Uniquement avec votre consentement).</li>
+                </ul>
+
+                <h2>4. Cookies</h2>
+                <p>Nous utilisons des cookies pour le fonctionnement du site. Nous n'utilisons des cookies d'analyse que si vous cliquez sur « ACCEPTER ».</p>
+
+                <h2>5. Vos droits</h2>
+                <p>En vertu du RGPD, vous avez le droit de :</p>
+                <ul>
+                    <li>Accéder à vos données.</li>
+                    <li>Rectifier ou effacer des données.</li>
+                    <li>Limiter le traitement.</li>
+                    <li>Retirer votre consentement.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 JK Design. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FLAGS CONFIG
+        const flags = {
+            sk: "https://flagcdn.com/w40/sk.png",
+            en: "https://flagcdn.com/w40/gb.png",
+            de: "https://flagcdn.com/w40/de.png",
+            es: "https://flagcdn.com/w40/es.png",
+            fr: "https://flagcdn.com/w40/fr.png"
+        };
+
+        const backTexts = {
+            sk: "← Späť na domov",
+            en: "← Back to Home",
+            de: "← Zurück zur Startseite",
+            es: "← Volver al inicio",
+            fr: "← Retour à l'accueil"
+        };
+
+        // ZMENA JAZYKA
+        function changeLanguage(lang) {
+            // 1. Skryť všetky sekcie
+            document.querySelectorAll('.lang-content').forEach(el => el.classList.remove('active'));
+            
+            // 2. Zobraziť vybranú
+            const activeEl = document.getElementById(`content-${lang}`);
+            if(activeEl) activeEl.classList.add('active');
+
+            // 3. Update hlavičky
+            document.getElementById('current-lang').innerText = lang.toUpperCase();
+            document.getElementById('current-flag').src = flags[lang];
+
+            // 4. Update tlačidla Späť
+            document.querySelector('.back-btn').innerText = backTexts[lang];
+        }
+
+        // Dropdown logika
+        function toggleLangMenu() { document.getElementById('lang-menu').classList.toggle('show'); }
+        
+        window.onclick = function(event) {
+            if (!event.target.matches('.lang-btn') && !event.target.matches('.lang-btn *')) {
+                var dropdowns = document.getElementsByClassName("lang-dropdown");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show');
+                }
+            }
+        }
+
+        // Zákaz pravého tlačidla
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        
+        // Default EN
+        document.addEventListener('DOMContentLoaded', () => { changeLanguage('en'); });
+    </script>
+
+</body>
+</html>
