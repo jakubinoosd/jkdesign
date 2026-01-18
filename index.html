@@ -18,7 +18,7 @@
             --text-secondary: #555555;
             --accent: #000000;
             --accent-hover: #333333;
-            --highlight: #FFD700; /* Žltá pre psychologický efekt */
+            --highlight: #FFD700; 
             --light-gray: #f4f4f6;
             --border: #e5e5e5;
             --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -266,6 +266,97 @@
         }
         .lock-icon { font-size: 1rem; }
 
+        /* --- GDPR CHECKBOX --- */
+        .gdpr-checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 25px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .gdpr-checkbox-wrapper input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        /* --- COOKIE BAR (Spodná lišta) --- */
+        .cookie-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: #111; /* Takmer čierna */
+            color: #fff;
+            padding: 15px 20px;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            transform: translateY(100%); /* Skryté dole */
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .cookie-bar.active { transform: translateY(0); }
+        
+        .cookie-text { font-size: 0.9rem; max-width: 800px; }
+        .cookie-btn {
+            background: #fff;
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+        .cookie-btn:hover { background: #ddd; }
+
+        /* --- PROMO NOTIFIKÁCIA (Toast - Nenápadná) --- */
+        .promo-notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            border-radius: 12px;
+            width: 320px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            border: 1px solid var(--border);
+            z-index: 9998; /* Pod cookies ak by sa prekryli */
+            transform: translateY(150%);
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .promo-notification.show { transform: translateY(0); }
+
+        .promo-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 5px;
+        }
+        .promo-title { font-weight: 800; font-size: 1rem; color: var(--text); }
+        .promo-close { cursor: pointer; color: #999; font-weight: bold; font-size: 1.2rem; line-height: 1; }
+        .promo-close:hover { color: #000; }
+        
+        .promo-body { font-size: 0.9rem; color: var(--text-secondary); line-height: 1.4; }
+        .promo-action {
+            margin-top: 5px;
+            align-self: flex-start;
+            font-size: 0.85rem; font-weight: 700;
+            color: var(--accent);
+            border-bottom: 2px solid var(--highlight);
+        }
+        .promo-action:hover { color: #555; }
+
+
         /* --- FOOTER --- */
         footer { background: #000; color: white; padding: 60px 0; text-align: center; }
         .footer-quote { font-size: 1.5rem; font-weight: 600; max-width: 600px; margin: 0 auto 40px auto; line-height: 1.4; }
@@ -304,6 +395,10 @@
             .hero { text-align: center; justify-content: center; }
             .hero-btns { justify-content: center; }
             .form-wrapper { padding: 30px 20px; }
+            
+            /* Mobilná úprava pre Cookies a Promo */
+            .cookie-bar { flex-direction: column; text-align: center; gap: 10px; padding-bottom: 25px; }
+            .promo-notification { left: 20px; right: 20px; width: auto; bottom: 90px; } /* Aby neprekrývala cookies */
         }
     </style>
 </head>
@@ -508,6 +603,13 @@
                         <label>Stručný popis projektu</label>
                         <textarea rows="4" placeholder="Čo potrebujeme vyriešiť?"></textarea>
                     </div>
+
+                    <div class="gdpr-checkbox-wrapper">
+                        <input type="checkbox" id="gdpr-consent" required>
+                        <label for="gdpr-consent">
+                            Súhlasím so spracovaním mojich osobných údajov (meno, email) za účelom vypracovania ponuky a komunikácie ohľadom projektu. Vaše údaje sú u mňa v bezpečí a nebudú poskytnuté tretím stranám.
+                        </label>
+                    </div>
                     
                     <button type="submit" class="submit-btn">Odoslať nezáväzný dopyt</button>
                     
@@ -526,6 +628,22 @@
         </div>
     </footer>
 
+    <div id="cookie-bar" class="cookie-bar">
+        <div class="cookie-text">
+            Používam cookies, aby web fungoval tip-top a aby som vedel, čo sa vám páči. Prehliadaním súhlasíte s ich používaním.
+        </div>
+        <button id="accept-cookies" class="cookie-btn">Súhlasím</button>
+    </div>
+
+    <div id="promo-notification" class="promo-notification">
+        <div class="promo-header">
+            <div class="promo-title">🎁 Tip pre vás</div>
+            <div class="promo-close" onclick="closePromo()">✖</div>
+        </div>
+        <p class="promo-body">Ešte váhate? Dohodnite si so mnou rýchly hovor. Zadarmo sa pozriem na vašu situáciu.</p>
+        <a href="#contact" class="promo-action" onclick="closePromo(); prefillForm('Konzultácia ZDARMA')">Chcem konzultáciu →</a>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
@@ -542,7 +660,7 @@
             }
         }
         window.addEventListener("scroll", reveal);
-        reveal(); // Spustiť pri načítaní
+        reveal();
 
         // --- 2. MOBILNÉ MENU ---
         function toggleMenu() {
@@ -550,16 +668,22 @@
             nav.classList.toggle('active');
         }
 
-        // --- 3. PREFILL FORM (Automatický výber balíka) ---
+        // --- 3. PREFILL FORM ---
         function prefillForm(plan) {
             const select = document.getElementById('project-type');
-            select.value = plan;
+            let optionExists = [...select.options].some(o => o.value === plan);
+            if(!optionExists && plan !== 'Iné') {
+                document.querySelector('textarea').value = "Mám záujem o: " + plan;
+                select.value = "Iné";
+            } else {
+                select.value = plan;
+            }
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // --- 4. ODOSLANIE NA DISCORD (WEBHOOK) + MODERNÝ ALERT ---
+        // --- 4. ODOSLANIE NA DISCORD ---
         document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault(); // Zabráni bežnému odoslaniu
+            e.preventDefault();
 
             const form = e.target;
             const name = form.querySelector('input[type="text"]').value;
@@ -568,23 +692,22 @@
             const message = form.querySelector('textarea').value;
             const btn = form.querySelector('.submit-btn');
 
-            // Zmena tlačidla
             const originalBtnText = btn.innerText;
             btn.innerText = "Odosielam...";
             btn.disabled = true;
 
-            // Príprava dát pre Discord
             const payload = {
                 username: "JK Design Bot",
                 embeds: [
                     {
                         title: "🚀 Nový dopyt z webu!",
-                        color: 16766720, // Zlatá farba
+                        color: 16766720,
                         fields: [
                             { name: "👤 Meno", value: name, inline: true },
                             { name: "📧 Email", value: email, inline: true },
                             { name: "💼 Balík", value: type },
-                            { name: "📝 Správa", value: message || "Bez popisu" }
+                            { name: "📝 Správa", value: message || "Bez popisu" },
+                            { name: "🔒 GDPR Súhlas", value: "✅ ÁNO" }
                         ],
                         footer: { text: "Odoslané z webstránky" },
                         timestamp: new Date().toISOString()
@@ -592,10 +715,7 @@
                 ]
             };
 
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // SEM DOLE VLOŽ SVOJ WEBHOOK URL (v úvodzovkách)
             const webhookURL = 'https://discord.com/api/webhooks/1461308081555374133/KNV9VyK4mFJz_3WVWm9T9or0I3BKuULNn0dcNWBAZ0pBAmtJDtCZftxh4Ls2KB1Qk_vc';
-            // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
             fetch(webhookURL, {
                 method: 'POST',
@@ -604,16 +724,13 @@
             })
             .then(response => {
                 if (response.ok) {
-                    // --- MODERNÝ ALERT (SweetAlert2) ---
                     Swal.fire({
                         title: 'Odoslané!',
                         text: 'Tvoj dopyt bol úspešne odoslaný. Ozvem sa ti čoskoro.',
                         icon: 'success',
                         confirmButtonText: 'OK',
                         buttonsStyling: false,
-                        customClass: {
-                            confirmButton: 'btn btn-primary' // Použijeme tvoju CSS triedu
-                        }
+                        customClass: { confirmButton: 'btn btn-primary' }
                     });
                     form.reset();
                 } else {
@@ -623,80 +740,73 @@
                         icon: 'error',
                         confirmButtonText: 'Rozumiem',
                         buttonsStyling: false,
-                        customClass: {
-                            confirmButton: 'btn btn-primary'
-                        }
+                        customClass: { confirmButton: 'btn btn-primary' }
                     });
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                 Swal.fire({
-                        title: 'Chyba pripojenia!',
-                        text: 'Nepodarilo sa odoslať dáta. Skontroluj pripojenie k internetu.',
-                        icon: 'error',
-                        confirmButtonText: 'Rozumiem',
-                        buttonsStyling: false,
-                        customClass: {
-                            confirmButton: 'btn btn-primary'
-                        }
-                    });
+                Swal.fire({
+                    title: 'Chyba pripojenia!',
+                    text: 'Nepodarilo sa odoslať dáta. Skontroluj pripojenie k internetu.',
+                    icon: 'error',
+                    confirmButtonText: 'Rozumiem',
+                    buttonsStyling: false,
+                    customClass: { confirmButton: 'btn btn-primary' }
+                });
             })
             .finally(() => {
                 btn.innerText = originalBtnText;
                 btn.disabled = false;
             });
         });
+
+        // --- 5. COOKIE LOGIKA (Spodná lišta) ---
+        const cookieBar = document.getElementById('cookie-bar');
+        const acceptBtn = document.getElementById('accept-cookies');
+
+        // Zobraziť po 1 sekunde, ak nie sú prijaté
+        if (!localStorage.getItem('cookiesAccepted')) {
+            setTimeout(() => {
+                cookieBar.classList.add('active');
+            }, 1000);
+        }
+
+        acceptBtn.addEventListener('click', () => {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBar.classList.remove('active');
+        });
+
+        // --- 6. PROMO NOTIFIKÁCIA (Toast) ---
+        const promoNotification = document.getElementById('promo-notification');
+        
+        // Zobraziť po 8 sekundách (aby to nebolo hneď)
+        setTimeout(() => {
+            if (!sessionStorage.getItem('promoClosed')) {
+                promoNotification.classList.add('show');
+            }
+        }, 8000);
+
+        function closePromo() {
+            promoNotification.classList.remove('show');
+            sessionStorage.setItem('promoClosed', 'true'); // Zapamätá si pre túto reláciu
+        }
+
     </script>
 <style>
-        /* 1. Zákaz označovania textu a obrázkov */
         body {
-            -webkit-user-select: none; /* Chrome/Safari */
-            -moz-user-select: none; /* Firefox */
-            -ms-user-select: none; /* IE */
-            user-select: none; /* Standard */
-            -webkit-touch-callout: none; /* iOS Safari */
+            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none;
         }
-        
-        /* Povolenie písania do inputov (aby fungoval newsletter a search) */
         input, textarea {
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-            user-select: text !important;
+            -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;
         }
     </style>
 
     <script>
-        // 2. Zákaz pravého kliknutia (Context Menu)
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            // Voliteľné: Môžeš tu dať SweetAlert, ak chceš byť drzí :D
-            // Swal.fire('Protected', 'Tento obsah je chránený autorským právom.', 'warning');
-        });
-
-        // 3. Zákaz klávesových skratiek pre inšpektorov kódu
+        document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
         document.onkeydown = function(e) {
-            // F12
-            if(e.keyCode == 123) {
-                return false;
-            }
-            // Ctrl+I (DevTools)
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) {
-                return false;
-            }
-            // Ctrl+J (Console)
-            if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) {
-                return false;
-            }
-            // Ctrl+U (Zdrojový kód)
-            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) {
-                return false;
-            }
-            // Ctrl+C (Kopírovanie) - voliteľné, ak chceš byť extra prísny
-            if(e.ctrlKey && e.keyCode == 'C'.charCodeAt(0)) {
-                 return false;
-            }
+            if(e.keyCode == 123) return false;
+            if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
+            if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
         }
     </script>
     
