@@ -102,13 +102,44 @@
         .nav-container { display: flex; justify-content: space-between; align-items: center; }
         .logo img { height: 40px; width: auto; }
 
-        .nav-links { display: flex; gap: 40px; }
+        /* OVLÁDACIE PRVKY VPRAVO */
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .nav-links { display: flex; gap: 30px; align-items: center; }
         .nav-links a { font-weight: 600; font-size: 0.95rem; position: relative; }
-        .nav-links a::after {
+        .nav-links a.nav-item::after {
             content: ''; position: absolute; width: 0; height: 2px;
             bottom: -5px; left: 0; background: var(--accent); transition: 0.3s;
         }
-        .nav-links a:hover::after { width: 100%; }
+        .nav-links a.nav-item:hover::after { width: 100%; }
+
+        /* Jazykový prepínač - ČIERNY DIZAJN */
+        .lang-switch {
+            appearance: none;
+            -webkit-appearance: none;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            background-color: #000000; /* Čierne pozadie */
+            color: #ffffff; /* Biely text */
+            font-family: inherit;
+            text-align: center;
+            transition: 0.3s;
+            min-width: 70px;
+        }
+        .lang-switch:hover {
+            border-color: #ffffff; /* Biela obruba pri hoveri */
+            transform: scale(1.05);
+        }
+        .lang-switch:focus { outline: none; border-color: var(--highlight); }
+
 
         /* Hamburger */
         .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
@@ -289,35 +320,38 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: #111; /* Takmer čierna */
+            background: #000;
             color: #fff;
-            padding: 15px 20px;
+            padding: 20px 30px;
             z-index: 9999;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
-            transform: translateY(100%); /* Skryté dole */
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            gap: 40px;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-top: 1px solid #333;
         }
         .cookie-bar.active { transform: translateY(0); }
         
-        .cookie-text { font-size: 0.9rem; max-width: 800px; }
+        .cookie-text { font-size: 0.85rem; max-width: 900px; line-height: 1.5; color: #ccc; }
         .cookie-btn {
             background: #fff;
             color: #000;
-            padding: 8px 20px;
+            padding: 10px 25px;
             border-radius: 4px;
-            font-weight: 700;
+            font-weight: 800;
             border: none;
             cursor: pointer;
             font-size: 0.85rem;
             white-space: nowrap;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
-        .cookie-btn:hover { background: #ddd; }
+        .cookie-btn:hover { background: var(--highlight); }
 
-        /* --- PROMO NOTIFIKÁCIA (Toast - Nenápadná) --- */
+        /* --- PROMO NOTIFIKÁCIA (Toast) --- */
         .promo-notification {
             position: fixed;
             bottom: 30px;
@@ -328,7 +362,7 @@
             padding: 20px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.15);
             border: 1px solid var(--border);
-            z-index: 9998; /* Pod cookies ak by sa prekryli */
+            z-index: 9998;
             transform: translateY(150%);
             transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: flex;
@@ -361,7 +395,7 @@
         footer { background: #000; color: white; padding: 60px 0; text-align: center; }
         .footer-quote { font-size: 1.5rem; font-weight: 600; max-width: 600px; margin: 0 auto 40px auto; line-height: 1.4; }
 
-        /* --- SweetAlert2 Customizácia --- */
+        /* --- SweetAlert2 --- */
         .swal2-popup {
             font-family: 'Plus Jakarta Sans', sans-serif !important;
             border-radius: 16px !important;
@@ -377,7 +411,6 @@
              box-shadow: none !important;
         }
 
-
         /* --- MEDIA QUERIES --- */
         @media (max-width: 900px) {
             .split-grid { grid-template-columns: 1fr; }
@@ -389,6 +422,8 @@
                 position: fixed; top: 70px; right: -100%; width: 100%;
                 height: calc(100vh - 70px); background: white; flex-direction: column;
                 justify-content: center; align-items: center; transition: 0.4s var(--ease);
+                gap: 20px;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             }
             .nav-links.active { right: 0; }
             .hamburger { display: flex; }
@@ -396,9 +431,11 @@
             .hero-btns { justify-content: center; }
             .form-wrapper { padding: 30px 20px; }
             
-            /* Mobilná úprava pre Cookies a Promo */
-            .cookie-bar { flex-direction: column; text-align: center; gap: 10px; padding-bottom: 25px; }
-            .promo-notification { left: 20px; right: 20px; width: auto; bottom: 90px; } /* Aby neprekrývala cookies */
+            .cookie-bar { flex-direction: column; text-align: center; gap: 15px; padding: 20px; bottom: 0; }
+            .promo-notification { left: 20px; right: 20px; width: auto; bottom: 90px; }
+            
+            /* Prispôsobenie jazyka na mobile */
+            .lang-switch { padding: 6px 10px; font-size: 0.8rem; }
         }
     </style>
 </head>
@@ -409,17 +446,29 @@
             <a href="#" class="logo">
                 <img src="https://github.com/jakubinoosd/jkdesign/blob/main/logo%20jk%20design.jpg?raw=true" alt="JK Design">
             </a>
-            <div class="hamburger" onclick="toggleMenu()">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
+            
+            <div class="header-controls">
+                <select id="language-selector" class="lang-switch" onchange="changeLanguage(this.value)">
+                    <option value="sk">🇸🇰 SK</option>
+                    <option value="en" selected>🇬🇧 EN</option>
+                    <option value="de">🇩🇪 DE</option>
+                    <option value="es">🇪🇸 ES</option>
+                    <option value="fr">🇫🇷 FR</option>
+                </select>
+
+                <div class="hamburger" onclick="toggleMenu()">
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                    <div class="bar"></div>
+                </div>
             </div>
+
             <nav>
                 <ul class="nav-links">
-                    <li><a href="#why" onclick="toggleMenu()">Prečo ja</a></li>
-                    <li><a href="#portfolio" onclick="toggleMenu()">Ukážky</a></li>
-                    <li><a href="#pricing" onclick="toggleMenu()">Cenník</a></li>
-                    <li><a href="#contact" class="btn btn-primary" style="padding: 10px 20px;" onclick="toggleMenu()">Kontakt</a></li>
+                    <li><a href="#why" class="nav-item" onclick="toggleMenu()" data-i18n="nav_why">Prečo ja</a></li>
+                    <li><a href="#portfolio" class="nav-item" onclick="toggleMenu()" data-i18n="nav_portfolio">Ukážky</a></li>
+                    <li><a href="#pricing" class="nav-item" onclick="toggleMenu()" data-i18n="nav_pricing">Cenník</a></li>
+                    <li><a href="#contact" class="btn btn-primary" style="padding: 10px 20px;" onclick="toggleMenu()" data-i18n="nav_contact">Kontakt</a></li>
                 </ul>
             </nav>
         </div>
@@ -427,11 +476,11 @@
 
     <section class="hero">
         <div class="container hero-content reveal">
-            <h1>Pomáham firmám získať viac dopytov <br><span style="color: var(--text-secondary); opacity: 0.6; font-size: 0.8em;">pomocou rýchlych webov.</span></h1>
-            <p class="subheadline">Väčšina webov je len pekná vizitka. Ja tvorím nástroje, ktoré sú rýchle, prehľadné a končia objednávkou.</p>
+            <h1 data-i18n="hero_title">Pomáham firmám získať viac dopytov <br><span style="color: var(--text-secondary); opacity: 0.6; font-size: 0.8em;">pomocou rýchlych webov.</span></h1>
+            <p class="subheadline" data-i18n="hero_subtitle">Väčšina webov je len pekná vizitka. Ja tvorím nástroje, ktoré sú rýchle, prehľadné a končia objednávkou.</p>
             <div class="hero-btns">
-                <a href="#contact" class="btn btn-primary">Chcem web, čo zarába →</a>
-                <a href="#portfolio" class="btn btn-secondary">Pozrieť výsledky</a>
+                <a href="#contact" class="btn btn-primary" data-i18n="hero_btn_1">Chcem web, čo zarába →</a>
+                <a href="#portfolio" class="btn btn-secondary" data-i18n="hero_btn_2">Pozrieť výsledky</a>
             </div>
         </div>
     </section>
@@ -439,25 +488,25 @@
     <section id="why" class="pain-points">
         <div class="container split-grid">
             <div class="pain-text reveal">
-                <h2>Väčšina webov dnes:</h2>
+                <h2 data-i18n="pain_title">Väčšina webov dnes:</h2>
                 <ul class="pain-list">
-                    <li>sa načítava pomaly (klient odchádza)</li>
-                    <li>je neprehľadná a chaotická</li>
-                    <li>nefunguje dobre na mobile</li>
-                    <li>firme neprináša žiadne dopyty</li>
+                    <li data-i18n="pain_1">sa načítava pomaly (klient odchádza)</li>
+                    <li data-i18n="pain_2">je neprehľadná a chaotická</li>
+                    <li data-i18n="pain_3">nefunguje dobre na mobile</li>
+                    <li data-i18n="pain_4">firme neprináša žiadne dopyty</li>
                 </ul>
-                <div class="authority-note">
+                <div class="authority-note" data-i18n="pain_note">
                     "Vidím to bohužiaľ pri 80% webov, ktoré mi klienti posielajú na redizajn."
                 </div>
             </div>
             
             <div class="solution-box reveal">
-                <h3>Moje riešenie</h3>
+                <h3 data-i18n="sol_title">Moje riešenie</h3>
                 <ul class="solution-list">
-                    <li>Rýchle načítanie <span class="benefit-arrow">→</span> viac ľudí zostane na webe</li>
-                    <li>Čistý kód <span class="benefit-arrow">→</span> web sa nerozpadne o rok</li>
-                    <li>Mobilná optimalizácia <span class="benefit-arrow">→</span> neprídeš o klientov na telefóne</li>
-                    <li>Dizajn pre predaj <span class="benefit-arrow">→</span> návštevník vie, kam kliknúť</li>
+                    <li><span data-i18n="sol_1">Rýchle načítanie</span> <span class="benefit-arrow">→</span> <span data-i18n="sol_1_res">viac ľudí zostane na webe</span></li>
+                    <li><span data-i18n="sol_2">Čistý kód</span> <span class="benefit-arrow">→</span> <span data-i18n="sol_2_res">web sa nerozpadne o rok</span></li>
+                    <li><span data-i18n="sol_3">Mobilná optimalizácia</span> <span class="benefit-arrow">→</span> <span data-i18n="sol_3_res">neprídeš o klientov na telefóne</span></li>
+                    <li><span data-i18n="sol_4">Dizajn pre predaj</span> <span class="benefit-arrow">→</span> <span data-i18n="sol_4_res">návštevník vie, kam kliknúť</span></li>
                 </ul>
             </div>
         </div>
@@ -465,44 +514,44 @@
 
     <section id="portfolio">
         <div class="container">
-            <h2 class="section-title reveal">Moje práce</h2>
+            <h2 class="section-title reveal" data-i18n="nav_portfolio">Moje práce</h2>
             <div class="grid portfolio-grid">
                 
                 <a href="https://jakubinoosd.github.io/aura/" target="_blank" class="project-card reveal">
                     <div class="card-img p1">
-                        <span style="font-size: 1.2rem; color: #555;">E-shop Oblečenie</span>
+                        <span style="font-size: 1.2rem; color: #555;">E-shop</span>
                     </div>
                     <div class="card-body">
-                        <h3>E-shop s oblečením</h3>
-                        <p>Kompletný redesign s cieľom zjednodušiť nákupný proces.</p>
+                        <h3 data-i18n="proj_1_title">E-shop s oblečením</h3>
+                        <p data-i18n="proj_1_desc">Kompletný redesign s cieľom zjednodušiť nákupný proces.</p>
                         <div class="result-box">
-                            ✅ Výsledok: O 30% viac dokončených objednávok.
+                            ✅ <span data-i18n="proj_1_res">Výsledok: O 30% viac dokončených objednávok.</span>
                         </div>
                     </div>
                 </a>
 
                 <a href="https://jakubinoosd.github.io/nexoreality/" target="_blank" class="project-card reveal">
                     <div class="card-img p2">
-                        <span style="font-size: 1.2rem; color: #555;">Realitný Portál</span>
+                        <span style="font-size: 1.2rem; color: #555;">Reality</span>
                     </div>
                     <div class="card-body">
-                        <h3>Realitný Portál</h3>
-                        <p>Prehľadný katalóg nehnuteľností s pokročilým filtrovaním.</p>
+                        <h3 data-i18n="proj_2_title">Realitný Portál</h3>
+                        <p data-i18n="proj_2_desc">Prehľadný katalóg nehnuteľností s pokročilým filtrovaním.</p>
                         <div class="result-box">
-                            ✅ Výsledok: Prehľadná štruktúra a rýchle načítanie fotiek.
+                            ✅ <span data-i18n="proj_2_res">Výsledok: Prehľadná štruktúra a rýchle načítanie fotiek.</span>
                         </div>
                     </div>
                 </a>
 
                 <a href="#" target="_blank" class="project-card reveal">
                     <div class="card-img p3">
-                        <span style="font-size: 1.2rem; color: #555;">Tech Startup</span>
+                        <span style="font-size: 1.2rem; color: #555;">Startup</span>
                     </div>
                     <div class="card-body">
-                        <h3>Startup Landing Page</h3>
-                        <p>Minimalistická stránka pre IT firmu budujúca dôveru.</p>
+                        <h3 data-i18n="proj_3_title">Startup Landing Page</h3>
+                        <p data-i18n="proj_3_desc">Minimalistická stránka pre IT firmu budujúca dôveru.</p>
                         <div class="result-box">
-                            ✅ Výsledok: Profesionálny imidž pre zahraničných investorov.
+                            ✅ <span data-i18n="proj_3_res">Výsledok: Profesionálny imidž pre zahraničných investorov.</span>
                         </div>
                     </div>
                 </a>
@@ -513,7 +562,7 @@
 
     <section id="pricing" style="background: var(--light-gray);">
         <div class="container">
-            <h2 class="section-title reveal">Investícia do webu</h2>
+            <h2 class="section-title reveal" data-i18n="price_title">Investícia do webu</h2>
             
             <div class="pricing-grid">
                 <div class="price-card reveal">
@@ -521,35 +570,35 @@
                         <div class="price-header">
                             <h3>START</h3>
                             <div class="price">250 <span class="currency">€</span></div>
-                            <p class="price-desc">Ideálne riešenie, ak chceš web rýchlo a bez zbytočných výdavkov.</p>
+                            <p class="price-desc" data-i18n="price_1_desc">Ideálne riešenie, ak chceš web rýchlo a bez zbytočných výdavkov.</p>
                         </div>
                         <ul class="features-list">
-                            <li><span class="check-icon">✓</span> Jednostránkový web</li>
-                            <li><span class="check-icon">✓</span> Moderný dizajn na mieru</li>
-                            <li><span class="check-icon">✓</span> Responzívnosť (Mobil/Tablet)</li>
-                            <li><span class="check-icon">✓</span> Kontaktný formulár</li>
+                            <li><span class="check-icon">✓</span> One-page web</li>
+                            <li><span class="check-icon">✓</span> Modern design</li>
+                            <li><span class="check-icon">✓</span> Mobile / Tablet</li>
+                            <li><span class="check-icon">✓</span> Contact Form</li>
                         </ul>
                     </div>
-                    <a href="javascript:void(0)" onclick="prefillForm('START')" class="btn btn-secondary btn-full">Vybrať START</a>
+                    <a href="javascript:void(0)" onclick="prefillForm('START')" class="btn btn-secondary btn-full" data-i18n="btn_choose">Vybrať</a>
                 </div>
 
                 <div class="price-card featured reveal">
-                    <div class="badge">⭐ Najčastejšia voľba</div>
+                    <div class="badge" data-i18n="badge_popular">⭐ Najčastejšia voľba</div>
                     <div>
                         <div class="price-header">
                             <h3>PRO</h3>
                             <div class="price">500 <span class="currency">€</span></div>
-                            <p class="price-desc">Web navrhnutý tak, aby návštevníkov viedol k akcii (kontakt, objednávka).</p>
+                            <p class="price-desc" data-i18n="price_2_desc">Web navrhnutý tak, aby návštevníkov viedol k akcii (kontakt, objednávka).</p>
                         </div>
                         <ul class="features-list">
-                            <li><span class="check-icon">✓</span> 3–5 podstránok</li>
-                            <li><span class="check-icon">✓</span> Plynulé animácie (dôvera)</li>
-                            <li><span class="check-icon">✓</span> UX Dizajn zameraný na predaj</li>
-                            <li><span class="check-icon">✓</span> Optimalizácia rýchlosti</li>
-                            <li><span class="check-icon">✓</span> Základné SEO</li>
+                            <li><span class="check-icon">✓</span> 3–5 pages</li>
+                            <li><span class="check-icon">✓</span> Animations</li>
+                            <li><span class="check-icon">✓</span> Sales UX Design</li>
+                            <li><span class="check-icon">✓</span> Speed Optimization</li>
+                            <li><span class="check-icon">✓</span> Basic SEO</li>
                         </ul>
                     </div>
-                    <a href="javascript:void(0)" onclick="prefillForm('PRO')" class="btn btn-primary btn-full" style="background: black; border-color: black;">Vybrať PRO</a>
+                    <a href="javascript:void(0)" onclick="prefillForm('PRO')" class="btn btn-primary btn-full" style="background: black; border-color: black;" data-i18n="btn_choose">Vybrať</a>
                 </div>
 
                 <div class="price-card reveal">
@@ -557,64 +606,64 @@
                         <div class="price-header">
                             <h3>PREMIUM</h3>
                             <div class="price">700 <span class="currency">€</span></div>
-                            <p class="price-desc">Pre projekty, ktoré chcú ísť nad rámec a potrebujú špeciálne funkcie.</p>
+                            <p class="price-desc" data-i18n="price_3_desc">Pre projekty, ktoré chcú ísť nad rámec a potrebujú špeciálne funkcie.</p>
                         </div>
                         <ul class="features-list">
-                            <li><span class="check-icon">✓</span> Individuálne riešenie</li>
-                            <li><span class="check-icon">✓</span> Komplexné animácie</li>
-                            <li><span class="check-icon">✓</span> UX Konzultácia</li>
-                            <li><span class="check-icon">✓</span> Prioritná komunikácia</li>
+                            <li><span class="check-icon">✓</span> Custom Solution</li>
+                            <li><span class="check-icon">✓</span> Complex Animations</li>
+                            <li><span class="check-icon">✓</span> UX Consultation</li>
+                            <li><span class="check-icon">✓</span> Priority Support</li>
                         </ul>
                     </div>
-                    <a href="javascript:void(0)" onclick="prefillForm('PREMIUM')" class="btn btn-secondary btn-full">Vybrať PREMIUM</a>
+                    <a href="javascript:void(0)" onclick="prefillForm('PREMIUM')" class="btn btn-secondary btn-full" data-i18n="btn_choose">Vybrať</a>
                 </div>
             </div>
             
-            <p class="price-note reveal">Uvedené ceny sú orientačné. Finálna cena závisí od rozsahu a náročnosti projektu.</p>
+            <p class="price-note reveal" data-i18n="price_note">Uvedené ceny sú orientačné. Finálna cena závisí od rozsahu a náročnosti projektu.</p>
         </div>
     </section>
 
     <section id="contact" class="contact-section">
         <div class="container">
             <div class="form-wrapper reveal">
-                <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Máš záujem o web?</h2>
-                <p style="margin-bottom: 30px; color: var(--text-secondary);">Napíš mi. Stačí pár informácií. Odpíšem ti úprimne, či a ako viem pomôcť.</p>
+                <h2 style="font-size: 2.5rem; margin-bottom: 10px;" data-i18n="contact_title">Máš záujem o web?</h2>
+                <p style="margin-bottom: 30px; color: var(--text-secondary);" data-i18n="contact_sub">Napíš mi. Stačí pár informácií. Odpíšem ti úprimne, či a ako viem pomôcť.</p>
                 
                 <form id="contact-form">
                     <div class="form-group">
-                        <label>Meno</label>
-                        <input type="text" placeholder="Tvoje meno" required>
+                        <label data-i18n="form_name">Meno</label>
+                        <input type="text" placeholder="Tvoje meno" data-i18n-placeholder="ph_name" required>
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="email" placeholder="tvoj@email.com" required>
+                        <input type="email" placeholder="tvoj@email.com" data-i18n-placeholder="ph_email" required>
                     </div>
                     <div class="form-group">
-                        <label>O aký web / balík ide?</label>
+                        <label data-i18n="form_package">O aký web / balík ide?</label>
                         <select id="project-type">
-                            <option value="Neurčené">Vyber možnosť...</option>
-                            <option value="START">Balík START (250€)</option>
-                            <option value="PRO">Balík PRO (500€)</option>
-                            <option value="PREMIUM">Balík PREMIUM (700€)</option>
+                            <option value="Neurčené" data-i18n="ph_select">Vyber možnosť...</option>
+                            <option value="START">START (250€)</option>
+                            <option value="PRO">PRO (500€)</option>
+                            <option value="PREMIUM">PREMIUM (700€)</option>
                             <option value="Iné">Iné / Špeciálny projekt</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Stručný popis projektu</label>
-                        <textarea rows="4" placeholder="Čo potrebujeme vyriešiť?"></textarea>
+                        <label data-i18n="form_msg">Stručný popis projektu</label>
+                        <textarea rows="4" placeholder="..." data-i18n-placeholder="ph_msg"></textarea>
                     </div>
 
                     <div class="gdpr-checkbox-wrapper">
                         <input type="checkbox" id="gdpr-consent" required>
-                        <label for="gdpr-consent">
+                        <label for="gdpr-consent" data-i18n="form_gdpr">
                             Súhlasím so spracovaním mojich osobných údajov (meno, email) za účelom vypracovania ponuky a komunikácie ohľadom projektu. Vaše údaje sú u mňa v bezpečí a nebudú poskytnuté tretím stranám.
                         </label>
                     </div>
                     
-                    <button type="submit" class="submit-btn">Odoslať nezáväzný dopyt</button>
+                    <button type="submit" class="submit-btn" data-i18n="form_btn">Odoslať nezáväzný dopyt</button>
                     
                     <div class="risk-reduction">
-                        <span class="lock-icon">🔒</span> Odpoveď do 24 hodín. Žiadne spamovanie.
+                        <span class="lock-icon">🔒</span> <span data-i18n="form_secure">Odpoveď do 24 hodín. Žiadne spamovanie.</span>
                     </div>
                 </form>
             </div>
@@ -623,31 +672,274 @@
 
     <footer>
         <div class="container">
-            <p class="footer-quote">"Ak chceš moderný web bez zbytočných komplikácií, si na správnom mieste."</p>
-            <p style="color: #666; font-size: 0.9rem;">&copy; 2026 JK Design. Všetky práva vyhradené.</p>
+            <p class="footer-quote" data-i18n="footer_quote">"Ak chceš moderný web bez zbytočných komplikácií, si na správnom mieste."</p>
+            <p style="color: #666; font-size: 0.9rem;">&copy; 2026 JK Design. All rights reserved.</p>
         </div>
     </footer>
 
     <div id="cookie-bar" class="cookie-bar">
-        <div class="cookie-text">
-            Používam cookies, aby web fungoval tip-top a aby som vedel, čo sa vám páči. Prehliadaním súhlasíte s ich používaním.
+        <div class="cookie-text" data-i18n="cookie_text">
+            We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept", you consent to our use of cookies.
         </div>
-        <button id="accept-cookies" class="cookie-btn">Súhlasím</button>
+        <button id="accept-cookies" class="cookie-btn" data-i18n="cookie_btn">ACCEPT</button>
     </div>
 
     <div id="promo-notification" class="promo-notification">
         <div class="promo-header">
-            <div class="promo-title">🎁 Tip pre vás</div>
+            <div class="promo-title" data-i18n="promo_title">🎁 Tip pre vás</div>
             <div class="promo-close" onclick="closePromo()">✖</div>
         </div>
-        <p class="promo-body">Ešte váhate? Dohodnite si so mnou rýchly hovor. Zadarmo sa pozriem na vašu situáciu.</p>
-        <a href="#contact" class="promo-action" onclick="closePromo(); prefillForm('Konzultácia ZDARMA')">Chcem konzultáciu →</a>
+        <p class="promo-body" data-i18n="promo_text">Ešte váhate? Dohodnite si so mnou rýchly hovor. Zadarmo sa pozriem na vašu situáciu.</p>
+        <a href="#contact" class="promo-action" onclick="closePromo(); prefillForm('Konzultácia ZDARMA')" data-i18n="promo_btn">Chcem konzultáciu →</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <script>
-        // --- 1. SCROLL REVEAL ANIMÁCIA ---
+        // --- PREKLADY (JAZYKOVÝ SLOVNÍK + PLACEHOLDERY) ---
+        const translations = {
+            sk: {
+                // ... (existujúce kľúče)
+                nav_why: "Prečo ja",
+                nav_portfolio: "Ukážky",
+                nav_pricing: "Cenník",
+                nav_contact: "Kontakt",
+                hero_title: "Pomáham firmám získať viac dopytov pomocou rýchlych webov.",
+                hero_subtitle: "Väčšina webov je len pekná vizitka. Ja tvorím nástroje, ktoré sú rýchle, prehľadné a končia objednávkou.",
+                hero_btn_1: "Chcem web, čo zarába →",
+                hero_btn_2: "Pozrieť výsledky",
+                pain_title: "Väčšina webov dnes:",
+                pain_1: "sa načítava pomaly (klient odchádza)",
+                pain_2: "je neprehľadná a chaotická",
+                pain_3: "nefunguje dobre na mobile",
+                pain_4: "firme neprináša žiadne dopyty",
+                pain_note: "\"Vidím to bohužiaľ pri 80% webov, ktoré mi klienti posielajú na redizajn.\"",
+                sol_title: "Moje riešenie",
+                sol_1: "Rýchle načítanie", sol_1_res: "viac ľudí zostane na webe",
+                sol_2: "Čistý kód", sol_2_res: "web sa nerozpadne o rok",
+                sol_3: "Mobilná optimalizácia", sol_3_res: "neprídeš o klientov na telefóne",
+                sol_4: "Dizajn pre predaj", sol_4_res: "návštevník vie, kam kliknúť",
+                proj_1_title: "E-shop s oblečením", proj_1_desc: "Kompletný redesign s cieľom zjednodušiť nákupný proces.", proj_1_res: "Výsledok: O 30% viac dokončených objednávok.",
+                proj_2_title: "Realitný Portál", proj_2_desc: "Prehľadný katalóg nehnuteľností s pokročilým filtrovaním.", proj_2_res: "Výsledok: Prehľadná štruktúra a rýchle načítanie fotiek.",
+                proj_3_title: "Startup Landing Page", proj_3_desc: "Minimalistická stránka pre IT firmu budujúca dôveru.", proj_3_res: "Výsledok: Profesionálny imidž pre zahraničných investorov.",
+                price_title: "Investícia do webu",
+                price_1_desc: "Ideálne riešenie, ak chceš web rýchlo a bez zbytočných výdavkov.",
+                badge_popular: "⭐ Najčastejšia voľba",
+                price_2_desc: "Web navrhnutý tak, aby návštevníkov viedol k akcii (kontakt, objednávka).",
+                price_3_desc: "Pre projekty, ktoré chcú ísť nad rámec a potrebujú špeciálne funkcie.",
+                btn_choose: "Vybrať",
+                price_note: "Uvedené ceny sú orientačné. Finálna cena závisí od rozsahu a náročnosti projektu.",
+                contact_title: "Máš záujem o web?",
+                contact_sub: "Napíš mi. Stačí pár informácií. Odpíšem ti úprimne, či a ako viem pomôcť.",
+                form_name: "Meno",
+                form_package: "O aký web / balík ide?",
+                form_msg: "Stručný popis projektu",
+                form_gdpr: "Súhlasím so spracovaním mojich osobných údajov (meno, email) za účelom vypracovania ponuky a komunikácie ohľadom projektu. Vaše údaje sú u mňa v bezpečí a nebudú poskytnuté tretím stranám.",
+                form_btn: "Odoslať nezáväzný dopyt",
+                form_secure: "Odpoveď do 24 hodín. Žiadne spamovanie.",
+                footer_quote: "\"Ak chceš moderný web bez zbytočných komplikácií, si na správnom mieste.\"",
+                cookie_text: "Používame súbory cookies na zlepšenie vášho zážitku z prehliadania, zobrazovanie personalizovaného obsahu a analýzu návštevnosti. Kliknutím na „Prijať“ vyjadrujete súhlas s ich používaním.",
+                cookie_btn: "PRIJAŤ",
+                promo_title: "🎁 Tip pre vás",
+                promo_text: "Ešte váhate? Dohodnite si so mnou rýchly hovor. Zadarmo sa pozriem na vašu situáciu.",
+                promo_btn: "Chcem konzultáciu →",
+
+                // PLACEHOLDERY
+                ph_name: "Tvoje meno",
+                ph_email: "tvoj@email.com",
+                ph_select: "Vyber možnosť...",
+                ph_msg: "..."
+            },
+            en: {
+                nav_why: "Why Me", nav_portfolio: "Work", nav_pricing: "Pricing", nav_contact: "Contact",
+                hero_title: "Helping companies get more leads with fast websites.",
+                hero_subtitle: "Most websites are just pretty business cards. I build tools that are fast, clear, and result in orders.",
+                hero_btn_1: "I want a profitable web →", hero_btn_2: "See results",
+                pain_title: "Most websites today:",
+                pain_1: "load slowly (client leaves)", pain_2: "are messy and chaotic", pain_3: "don't work well on mobile", pain_4: "bring zero leads to the business",
+                pain_note: "\"Unfortunately, I see this in 80% of websites clients send me for a redesign.\"",
+                sol_title: "My Solution",
+                sol_1: "Fast loading", sol_1_res: "more people stay", sol_2: "Clean code", sol_2_res: "site won't break in a year",
+                sol_3: "Mobile optimization", sol_3_res: "you won't lose phone users", sol_4: "Sales design", sol_4_res: "visitor knows where to click",
+                proj_1_title: "Clothing E-shop", proj_1_desc: "Complete redesign to simplify the purchasing process.", proj_1_res: "Result: 30% more completed orders.",
+                proj_2_title: "Real Estate Portal", proj_2_desc: "Clear property catalog with advanced filtering.", proj_2_res: "Result: Clear structure and fast photo loading.",
+                proj_3_title: "Startup Landing Page", proj_3_desc: "Minimalist page for an IT firm building trust.", proj_3_res: "Result: Professional image for foreign investors.",
+                price_title: "Website Investment",
+                price_1_desc: "Ideal solution if you want a web fast and without unnecessary costs.",
+                badge_popular: "⭐ Most Popular",
+                price_2_desc: "Designed to lead visitors to action (contact, order).",
+                price_3_desc: "For projects that want to go beyond and need special functions.",
+                btn_choose: "Select",
+                price_note: "Prices are indicative. Final price depends on project scope and complexity.",
+                contact_title: "Interested in a website?",
+                contact_sub: "Write to me. Just a few details. I'll reply honestly if and how I can help.",
+                form_name: "Name", form_package: "Which package?", form_msg: "Brief project description",
+                form_gdpr: "I agree to the processing of my personal data (name, email) for the purpose of preparing an offer and project communication. Your data is safe with me.",
+                form_btn: "Send non-binding inquiry",
+                form_secure: "Reply within 24 hours. No spam.",
+                footer_quote: "\"If you want a modern website without unnecessary complications, you are in the right place.\"",
+                cookie_text: "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking \"Accept\", you consent to our use of cookies.",
+                cookie_btn: "ACCEPT",
+                promo_title: "🎁 Tip for you", promo_text: "Still hesitating? Schedule a quick call. I'll look at your situation for free.", promo_btn: "Get free consultation →",
+
+                // PLACEHOLDERS
+                ph_name: "Your Name",
+                ph_email: "your@email.com",
+                ph_select: "Choose option...",
+                ph_msg: "..."
+            },
+            de: {
+                nav_why: "Warum ich", nav_portfolio: "Portfolio", nav_pricing: "Preise", nav_contact: "Kontakt",
+                hero_title: "Mehr Kundenanfragen durch schnelle Websites.",
+                hero_subtitle: "Die meisten Websites sind nur hübsche Visitenkarten. Ich erstelle Werkzeuge, die schnell und übersichtlich sind und Aufträge generieren.",
+                hero_btn_1: "Website, die verkauft →", hero_btn_2: "Ergebnisse ansehen",
+                pain_title: "Websites heute:",
+                pain_1: "laden langsam (Kunde geht)", pain_2: "sind chaotisch", pain_3: "funktionieren nicht auf Handys", pain_4: "bringen keine Anfragen",
+                pain_note: "\"Leider sehe ich das bei 80% der Websites, die mir Kunden zum Redesign schicken.\"",
+                sol_title: "Meine Lösung",
+                sol_1: "Schnelles Laden", sol_1_res: "mehr Besucher bleiben", sol_2: "Sauberer Code", sol_2_res: "stabil auch in Zukunft",
+                sol_3: "Mobile Optimierung", sol_3_res: "keine Kundenverluste am Handy", sol_4: "Verkaufsdesign", sol_4_res: "Besucher weiß, wohin klicken",
+                proj_1_title: "Mode E-Shop", proj_1_desc: "Komplettes Redesign zur Vereinfachung des Kaufprozesses.", proj_1_res: "Ergebnis: 30% mehr Bestellungen.",
+                proj_2_title: "Immobilienportal", proj_2_desc: "Übersichtlicher Katalog mit erweiterten Filtern.", proj_2_res: "Ergebnis: Klare Struktur, schnelle Fotos.",
+                proj_3_title: "Startup Landing Page", proj_3_desc: "Minimalistische Seite für IT-Firma, die Vertrauen aufbaut.", proj_3_res: "Ergebnis: Professionelles Image für Investoren.",
+                price_title: "Investition",
+                price_1_desc: "Ideal, wenn Sie schnell und günstig eine Website brauchen.",
+                badge_popular: "⭐ Beste Wahl",
+                price_2_desc: "Design, das Besucher zur Handlung führt (Kontakt, Bestellung).",
+                price_3_desc: "Für Projekte, die spezielle Funktionen benötigen.",
+                btn_choose: "Wählen",
+                price_note: "Preise sind Richtwerte. Endpreis hängt vom Projektumfang ab.",
+                contact_title: "Interesse?",
+                contact_sub: "Schreiben Sie mir. Ich antworte ehrlich, wie ich helfen kann.",
+                form_name: "Name", form_package: "Welches Paket?", form_msg: "Projektbeschreibung",
+                form_gdpr: "Ich stimme der Verarbeitung meiner personenbezogenen Daten zu. Ihre Daten sind bei mir sicher.",
+                form_btn: "Unverbindliche Anfrage senden",
+                form_secure: "Antwort innerhalb 24 Std. Kein Spam.",
+                footer_quote: "\"Wenn Sie eine moderne Website ohne Komplikationen wollen, sind Sie hier richtig.\"",
+                cookie_text: "Wir verwenden Cookies, um Ihr Surferlebnis zu verbessern, personalisierte Inhalte bereitzustellen und unseren Datenverkehr zu analysieren. Durch Klicken auf „Akzeptieren“ stimmen Sie unserer Verwendung von Cookies zu.",
+                cookie_btn: "AKZEPTIEREN",
+                promo_title: "🎁 Tipp für Sie", promo_text: "Noch unsicher? Vereinbaren Sie ein kurzes Gespräch. Ich schaue mir Ihre Situation kostenlos an.", promo_btn: "Kostenlose Beratung →",
+
+                 // PLACEHOLDERS
+                ph_name: "Ihr Name",
+                ph_email: "ihre@email.com",
+                ph_select: "Option wählen...",
+                ph_msg: "..."
+            },
+            es: {
+                nav_why: "Por qué yo", nav_portfolio: "Trabajos", nav_pricing: "Precios", nav_contact: "Contacto",
+                hero_title: "Ayudo a empresas a obtener más clientes con webs rápidas.",
+                hero_subtitle: "La mayoría de las webs son solo tarjetas de visita. Yo creo herramientas rápidas y claras que generan ventas.",
+                hero_btn_1: "Quiero una web rentable →", hero_btn_2: "Ver resultados",
+                pain_title: "La mayoría de las webs hoy:",
+                pain_1: "cargan lento (el cliente se va)", pain_2: "son caóticas", pain_3: "no funcionan bien en móvil", pain_4: "no traen clientes",
+                pain_note: "\"Desafortunadamente, veo esto en el 80% de las webs que rediseño.\"",
+                sol_title: "Mi solución",
+                sol_1: "Carga rápida", sol_1_res: "más gente se queda", sol_2: "Código limpio", sol_2_res: "web estable a largo plazo",
+                sol_3: "Optimización móvil", sol_3_res: "no pierdes clientes en celular", sol_4: "Diseño de ventas", sol_4_res: "el visitante sabe dónde hacer clic",
+                proj_1_title: "Tienda de ropa", proj_1_desc: "Rediseño completo para simplificar la compra.", proj_1_res: "Resultado: 30% más pedidos.",
+                proj_2_title: "Portal Inmobiliario", proj_2_desc: "Catálogo claro con filtros avanzados.", proj_2_res: "Resultado: Estructura clara y carga rápida.",
+                proj_3_title: "Startup Landing Page", proj_3_desc: "Página minimalista que genera confianza.", proj_3_res: "Resultado: Imagen profesional para inversores.",
+                price_title: "Inversión web",
+                price_1_desc: "Solución ideal para una web rápida y económica.",
+                badge_popular: "⭐ Más popular",
+                price_2_desc: "Diseñada para guiar a la acción (contacto, pedido).",
+                price_3_desc: "Para proyectos que necesitan funciones especiales.",
+                btn_choose: "Seleccionar",
+                price_note: "Precios orientativos. El precio final depende del proyecto.",
+                contact_title: "¿Interesado?",
+                contact_sub: "Escríbeme. Responderé honestamente si puedo ayudar.",
+                form_name: "Nombre", form_package: "¿Qué paquete?", form_msg: "Descripción del proyecto",
+                form_gdpr: "Acepto el procesamiento de mis datos personales para la oferta. Tus datos están seguros.",
+                form_btn: "Enviar consulta",
+                form_secure: "Respuesta en 24h. Sin spam.",
+                footer_quote: "\"Si quieres una web moderna sin complicaciones, estás en el lugar correcto.\"",
+                cookie_text: "Utilizamos cookies para mejorar su experiencia de navegación, ofrecer contenido personalizado y analizar nuestro tráfico. Al hacer clic en 'Aceptar', acepta nuestro uso de cookies.",
+                cookie_btn: "ACEPTAR",
+                promo_title: "🎁 Consejo", promo_text: "¿Dudas? Agenda una llamada rápida. Analizaré tu situación gratis.", promo_btn: "Consulta gratis →",
+
+                 // PLACEHOLDERS
+                ph_name: "Tu nombre",
+                ph_email: "tu@email.com",
+                ph_select: "Elige opción...",
+                ph_msg: "..."
+            },
+            fr: {
+                nav_why: "Pourquoi moi", nav_portfolio: "Portfolio", nav_pricing: "Tarifs", nav_contact: "Contact",
+                hero_title: "J'aide les entreprises à obtenir plus de leads.",
+                hero_subtitle: "La plupart des sites ne sont que des cartes de visite. Je crée des outils rapides et clairs qui génèrent des commandes.",
+                hero_btn_1: "Je veux un site rentable →", hero_btn_2: "Voir les résultats",
+                pain_title: "La plupart des sites:",
+                pain_1: "chargent lentement", pain_2: "sont chaotiques", pain_3: "mal optimisés pour mobile", pain_4: "n'apportent aucun client",
+                pain_note: "\"Je vois cela sur 80% des sites que je refais.\"",
+                sol_title: "Ma solution",
+                sol_1: "Chargement rapide", sol_1_res: "plus de visiteurs restent", sol_2: "Code propre", sol_2_res: "site stable",
+                sol_3: "Optimisation mobile", sol_3_res: "ne perdez pas les utilisateurs mobiles", sol_4: "Design de vente", sol_4_res: "le visiteur sait où cliquer",
+                proj_1_title: "E-shop Vêtements", proj_1_desc: "Refonte complète pour simplifier l'achat.", proj_1_res: "Résultat: +30% de commandes.",
+                proj_2_title: "Portail Immobilier", proj_2_desc: "Catalogue clair avec filtres avancés.", proj_2_res: "Résultat: Structure claire, photos rapides.",
+                proj_3_title: "Startup Page", proj_3_desc: "Page minimaliste inspirant confiance.", proj_3_res: "Résultat: Image professionnelle pour investisseurs.",
+                price_title: "Investissement",
+                price_1_desc: "Idéal pour un site rapide et économique.",
+                badge_popular: "⭐ Meilleur choix",
+                price_2_desc: "Conçu pour inciter à l'action (contact, commande).",
+                price_3_desc: "Pour les projets nécessitant des fonctions spéciales.",
+                btn_choose: "Choisir",
+                price_note: "Prix indicatifs. Le prix final dépend du projet.",
+                contact_title: "Intéressé?",
+                contact_sub: "Écrivez-moi. Je répondrai honnêtement.",
+                form_name: "Nom", form_package: "Quel forfait?", form_msg: "Description du projet",
+                form_gdpr: "J'accepte le traitement de mes données personnelles. Vos données sont en sécurité.",
+                form_btn: "Envoyer la demande",
+                form_secure: "Réponse sous 24h. Pas de spam.",
+                footer_quote: "\"Si vous voulez un site moderne sans complications, vous êtes au bon endroit.\"",
+                cookie_text: "Nous utilisons des cookies pour améliorer votre expérience de navigation, diffuser du contenu personnalisé et analyser notre trafic. En cliquant sur « Accepter », vous consentez à notre utilisation de cookies.",
+                cookie_btn: "ACCEPTER",
+                promo_title: "🎁 Conseil", promo_text: "Vous hésitez? Prenons rendez-vous. J'analyserai votre situation gratuitement.", promo_btn: "Consultation gratuite →",
+
+                 // PLACEHOLDERS
+                ph_name: "Votre nom",
+                ph_email: "votre@email.com",
+                ph_select: "Choisir...",
+                ph_msg: "..."
+            }
+        };
+
+        function changeLanguage(lang) {
+            // Zmena textu elementov (data-i18n)
+            const elements = document.querySelectorAll('[data-i18n]');
+            elements.forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang] && translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+
+            // Zmena PLACEHOLDEROV inputov (data-i18n-placeholder)
+            const inputs = document.querySelectorAll('[data-i18n-placeholder]');
+            inputs.forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+            
+            // Jazykový set pre cookies (ak už beží)
+            if(translations[lang]) {
+               const cookieText = document.querySelector('.cookie-text');
+               if(cookieText) cookieText.innerText = translations[lang]['cookie_text'];
+               
+               const cookieBtn = document.querySelector('.cookie-btn');
+               if(cookieBtn) cookieBtn.innerText = translations[lang]['cookie_btn'];
+            }
+        }
+
+        // --- SPUSTENIE EN JAZYKA IHNEĎ PO NAČÍTANÍ ---
+        document.addEventListener('DOMContentLoaded', () => {
+             changeLanguage('en'); 
+        });
+
+
+        // --- 1. SCROLL REVEAL ---
         function reveal() {
             var reveals = document.querySelectorAll(".reveal");
             for (var i = 0; i < reveals.length; i++) {
@@ -662,13 +954,13 @@
         window.addEventListener("scroll", reveal);
         reveal();
 
-        // --- 2. MOBILNÉ MENU ---
+        // --- 2. MENU ---
         function toggleMenu() {
             const nav = document.querySelector('.nav-links');
             nav.classList.toggle('active');
         }
 
-        // --- 3. PREFILL FORM ---
+        // --- 3. PREFILL ---
         function prefillForm(plan) {
             const select = document.getElementById('project-type');
             let optionExists = [...select.options].some(o => o.value === plan);
@@ -681,10 +973,9 @@
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // --- 4. ODOSLANIE NA DISCORD ---
+        // --- 4. WEBHOOK ---
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-
             const form = e.target;
             const name = form.querySelector('input[type="text"]').value;
             const email = form.querySelector('input[type="email"]').value;
@@ -714,72 +1005,40 @@
                     }
                 ]
             };
-
             const webhookURL = 'https://discord.com/api/webhooks/1461308081555374133/KNV9VyK4mFJz_3WVWm9T9or0I3BKuULNn0dcNWBAZ0pBAmtJDtCZftxh4Ls2KB1Qk_vc';
 
             fetch(webhookURL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
-            })
-            .then(response => {
+            }).then(response => {
                 if (response.ok) {
-                    Swal.fire({
-                        title: 'Odoslané!',
-                        text: 'Tvoj dopyt bol úspešne odoslaný. Ozvem sa ti čoskoro.',
-                        icon: 'success',
-                        confirmButtonText: 'OK',
-                        buttonsStyling: false,
-                        customClass: { confirmButton: 'btn btn-primary' }
-                    });
+                    Swal.fire({ title: 'Odoslané!', text: 'Ozvem sa ti čoskoro.', icon: 'success', confirmButtonText: 'OK', buttonsStyling: false, customClass: { confirmButton: 'btn btn-primary' }});
                     form.reset();
                 } else {
-                    Swal.fire({
-                        title: 'Chyba!',
-                        text: 'Chyba pri odosielaní. Skús mi prosím napísať priamo na email.',
-                        icon: 'error',
-                        confirmButtonText: 'Rozumiem',
-                        buttonsStyling: false,
-                        customClass: { confirmButton: 'btn btn-primary' }
-                    });
+                    Swal.fire({ title: 'Chyba!', text: 'Skús mi napísať email.', icon: 'error', confirmButtonText: 'OK', buttonsStyling: false, customClass: { confirmButton: 'btn btn-primary' }});
                 }
-            })
-            .catch(error => {
-                Swal.fire({
-                    title: 'Chyba pripojenia!',
-                    text: 'Nepodarilo sa odoslať dáta. Skontroluj pripojenie k internetu.',
-                    icon: 'error',
-                    confirmButtonText: 'Rozumiem',
-                    buttonsStyling: false,
-                    customClass: { confirmButton: 'btn btn-primary' }
-                });
-            })
-            .finally(() => {
-                btn.innerText = originalBtnText;
-                btn.disabled = false;
-            });
+            }).finally(() => { btn.innerText = originalBtnText; btn.disabled = false; });
         });
 
-        // --- 5. COOKIE LOGIKA (Spodná lišta) ---
+        // --- 5. COOKIE LOGIKA (Trvalé zapamätanie) ---
         const cookieBar = document.getElementById('cookie-bar');
         const acceptBtn = document.getElementById('accept-cookies');
 
-        // Zobraziť po 1 sekunde, ak nie sú prijaté
+        // Ak v localStorage nie je záznam, zobrazíme lištu
         if (!localStorage.getItem('cookiesAccepted')) {
             setTimeout(() => {
                 cookieBar.classList.add('active');
-            }, 1000);
+            }, 100); 
         }
 
         acceptBtn.addEventListener('click', () => {
-            localStorage.setItem('cookiesAccepted', 'true');
             cookieBar.classList.remove('active');
+            localStorage.setItem('cookiesAccepted', 'true'); // Zapamätá si to navždy
         });
 
-        // --- 6. PROMO NOTIFIKÁCIA (Toast) ---
+        // --- 6. PROMO TOAST ---
         const promoNotification = document.getElementById('promo-notification');
-        
-        // Zobraziť po 8 sekundách (aby to nebolo hneď)
         setTimeout(() => {
             if (!sessionStorage.getItem('promoClosed')) {
                 promoNotification.classList.add('show');
@@ -788,19 +1047,10 @@
 
         function closePromo() {
             promoNotification.classList.remove('show');
-            sessionStorage.setItem('promoClosed', 'true'); // Zapamätá si pre túto reláciu
+            sessionStorage.setItem('promoClosed', 'true');
         }
 
     </script>
-<style>
-        body {
-            -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-touch-callout: none;
-        }
-        input, textarea {
-            -webkit-user-select: text !important; -moz-user-select: text !important; -ms-user-select: text !important; user-select: text !important;
-        }
-    </style>
-
     <script>
         document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
         document.onkeydown = function(e) {
@@ -809,6 +1059,5 @@
             if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
         }
     </script>
-    
 </body>
 </html>
