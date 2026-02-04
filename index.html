@@ -2,651 +2,649 @@
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JK Design | Weby, ktoré zarábajú</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#020202">
+    <meta name="description" content="JK Design - Prémiová digitálna architektúra, web development a branding.">
+    <title>JK Design | Premium Digital Studio</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <style>
-        /* --- ZÁKLADNÉ PREMENNÉ A RESET --- */
+        /* --- 0. CORE --- */
         :root {
-            --bg: #ffffff;
-            --text: #0b0b0b;
-            --text-secondary: #555555;
-            --accent: #000000;
-            --accent-hover: #333333;
-            --highlight: #FFD700; 
-            --light-gray: #f4f4f6;
-            --border: #e5e5e5;
-            --ease: cubic-bezier(0.16, 1, 0.3, 1);
+            --bg: #020202;
+            --surface: #0a0a0a;
+            --surface-hover: #121212;
+            --border: rgba(255, 255, 255, 0.08);
+            --primary: #ffffff;
+            --accent: #00ff88;
+            --text-muted: #888888;
+            --easing: cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
         
-        html { scroll-behavior: smooth; }
-
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
+            color: var(--primary);
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            
-            /* --- OCHRANA: ZÁKAZ OZNAČOVANIA TEXTU --- */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
+            -webkit-font-smoothing: antialiased;
+            line-height: 1.6;
             user-select: none;
         }
 
-        /* --- VÝNIMKA: POVOLIŤ PÍSANIE DO FORMULÁRA --- */
-        input, textarea, select {
-            -webkit-user-select: text !important;
-            -moz-user-select: text !important;
-            -ms-user-select: text !important;
-            user-select: text !important;
+        /* Allow selection in inputs */
+        input, textarea, select, .modal-content { user-select: text !important; -webkit-user-select: text !important; }
+
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+        /* --- 1. VISUAL FX --- */
+        .noise-overlay {
+            position: fixed; inset: 0; pointer-events: none; z-index: 900; opacity: 0.04;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
         }
-
-        a { text-decoration: none; color: inherit; transition: all 0.3s var(--ease); }
-        ul { list-style: none; }
-        img { max-width: 100%; display: block; -webkit-user-drag: none; user-drag: none; }
-
-        /* --- UI PRVKY --- */
-        .btn {
-            display: inline-block;
-            padding: 16px 32px;
-            font-weight: 700;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: transform 0.2s var(--ease), box-shadow 0.2s var(--ease);
-            text-align: center;
-            border: none;
+        .ambient-glow {
+            position: fixed; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,255,255,0.03), transparent 60%);
+            border-radius: 50%; pointer-events: none; z-index: -1; animation: float 15s infinite alternate;
         }
+        .glow-1 { top: -20%; left: -10%; }
+        .glow-2 { bottom: -20%; right: -10%; animation-delay: -5s; }
+        @keyframes float { 0% { transform: translate(0,0); } 100% { transform: translate(40px, 40px); } }
 
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-            border: 2px solid var(--accent);
-        }
+        /* --- 2. LAYOUT --- */
+        h1, h2, h3, h4, .font-heading { font-family: 'Space Grotesk', sans-serif; letter-spacing: -0.03em; }
+        .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+        section { padding: 120px 0; position: relative; }
 
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-            background: var(--accent-hover);
-        }
+        .section-header { margin-bottom: 60px; border-bottom: 1px solid var(--border); padding-bottom: 30px; display: flex; justify-content: space-between; align-items: flex-end; }
+        .section-title { font-size: 3rem; color: #fff; font-weight: 700; line-height: 1; }
+        .section-subtitle { color: var(--text-muted); font-size: 1rem; max-width: 400px; text-align: right; }
 
-        .btn-secondary {
-            background: transparent;
-            color: var(--text);
-            border: 2px solid var(--border);
-        }
+        /* --- 3. NAV --- */
+        .nav-fixed { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 20px 0; transition: 0.4s; }
+        .nav-fixed.scrolled { padding: 15px 0; background: rgba(2,2,2,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 1.25rem; font-weight: 700; text-transform: uppercase; color: #fff; text-decoration: none; }
+        
+        .nav-menu { display: flex; gap: 30px; background: rgba(255,255,255,0.03); padding: 10px 30px; border-radius: 100px; border: 1px solid var(--border); }
+        .nav-link { color: var(--text-muted); font-size: 0.9rem; font-weight: 500; text-decoration: none; transition: 0.3s; }
+        .nav-link:hover { color: #fff; }
+        
+        .nav-actions { display: flex; align-items: center; gap: 15px; }
+        .btn-primary { background: #fff; color: #000; padding: 12px 28px; border-radius: 100px; font-weight: 600; font-size: 0.9rem; border: 1px solid #fff; cursor: pointer; transition: 0.4s; text-decoration: none; display: inline-block; }
+        .btn-primary:hover { background: transparent; color: #fff; transform: translateY(-2px); }
 
-        .btn-secondary:hover {
-            border-color: var(--text);
-            background: var(--bg);
-        }
-
-        .btn-full { width: 100%; margin-top: 30px; }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        section { padding: 100px 0; }
-
-        /* --- ANIMÁCIE --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s var(--ease);
-        }
-        .reveal.active { opacity: 1; transform: translateY(0); }
-
-        /* --- HEADER --- */
-        header {
-            position: fixed;
-            top: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            border-bottom: 1px solid var(--border);
-            padding: 15px 0;
-        }
-
-        .nav-container { display: flex; justify-content: space-between; align-items: center; }
-        .logo img { height: 40px; width: auto; }
-
-        .header-right { display: flex; align-items: center; gap: 30px; }
-        .header-controls { display: flex; align-items: center; gap: 20px; }
-
-        .nav-links { display: flex; gap: 30px; align-items: center; }
-        .nav-links a { font-weight: 600; font-size: 0.95rem; position: relative; }
-        .nav-links a.nav-item::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -5px; left: 0; background: var(--accent); transition: 0.3s;
-        }
-        .nav-links a.nav-item:hover::after { width: 100%; }
-
-        /* Jazykový prepínač */
-        .language-selector { position: relative; z-index: 2000; min-width: 90px; }
+        /* CUSTOM LANGUAGE SWITCHER (PROFI) */
+        .lang-switcher { position: relative; }
         .lang-btn {
-            background: #000; color: #fff; border: 1px solid #333; border-radius: 8px;
-            padding: 8px 12px; display: flex; align-items: center; gap: 8px;
-            cursor: pointer; font-weight: 700; font-size: 0.9rem; transition: 0.3s;
+            background: #000; color: #fff; border: 1px solid var(--border); padding: 8px 16px; 
+            border-radius: 50px; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; gap: 8px;
+            transition: 0.3s;
         }
-        .lang-btn:hover { border-color: #fff; transform: scale(1.05); }
-        .lang-btn img { width: 20px; height: 15px; object-fit: cover; border-radius: 2px; }
-
+        .lang-btn:hover { border-color: #fff; }
         .lang-dropdown {
-            position: absolute; top: 120%; right: 0; background: #000;
-            border: 1px solid #333; border-radius: 8px; overflow: hidden;
-            display: none; flex-direction: column; width: 100%;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: absolute; top: 120%; right: 0; background: #0a0a0a; border: 1px solid var(--border);
+            border-radius: 12px; width: 140px; display: none; flex-direction: column; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); padding: 5px;
         }
-        .lang-dropdown.show { display: flex; }
-        .lang-option {
-            padding: 10px 12px; display: flex; align-items: center; gap: 8px;
-            color: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: 0.2s;
-        }
-        .lang-option:hover { background: #333; color: var(--highlight); }
-        .lang-option img { width: 20px; height: 15px; object-fit: cover; border-radius: 2px; }
-
-        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 6px; }
-        .bar { width: 25px; height: 3px; background-color: var(--text); transition: 0.3s; }
-
-        /* --- HERO --- */
-        .hero {
-            min-height: 90vh; display: flex; align-items: center; padding-top: 80px;
-            background: radial-gradient(circle at 80% 20%, #f4f4f4 0%, #ffffff 60%);
-        }
-        .hero-content { max-width: 850px; }
-        h1 {
-            font-size: clamp(3rem, 6vw, 5rem); font-weight: 800; line-height: 1.1;
-            margin-bottom: 25px; letter-spacing: -0.03em;
-        }
-        .subheadline { font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 40px; max-width: 650px; }
-        .hero-btns { display: flex; gap: 20px; flex-wrap: wrap; }
-
-        /* --- PROBLEM / RIEŠENIE --- */
-        .pain-points { background-color: #0b0b0b; color: white; }
-        .split-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: flex-start; }
-        .pain-text h2 { font-size: 2.5rem; margin-bottom: 30px; }
-        .pain-list li {
-            font-size: 1.2rem; margin-bottom: 15px; padding-left: 30px;
-            position: relative; color: #ccc;
-        }
-        .pain-list li::before { content: '✖'; position: absolute; left: 0; color: #ff4d4d; font-weight: bold; }
-        .authority-note { margin-top: 25px; font-style: italic; color: #888; border-left: 3px solid #333; padding-left: 15px; }
-
-        .solution-box { background: #1a1a1a; padding: 40px; border-radius: 16px; border: 1px solid #333; }
-        .solution-box h3 { font-size: 1.8rem; margin-bottom: 20px; color: white; }
-        .solution-list li {
-            margin-bottom: 15px; padding-left: 30px; position: relative;
-            color: #fff; font-size: 1.05rem;
-        }
-        .solution-list li::before { content: '✔'; position: absolute; left: 0; color: #00e0b0; }
-        .benefit-arrow { color: #888; margin: 0 5px; }
-
-        /* --- PORTFÓLIO & PRICING --- */
-        .section-title { font-size: 3rem; font-weight: 800; margin-bottom: 60px; text-align: center; }
-        .portfolio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 40px; }
-        .project-card {
-            background: white; border: 1px solid var(--border); border-radius: 12px;
-            overflow: hidden; transition: 0.4s var(--ease); display: block;
-        }
-        .project-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-color: var(--text); }
-        .card-img { height: 250px; background: #e5e5e5; display: flex; align-items: center; justify-content: center; font-weight: 600; color: #999; }
-        .card-img.p1 { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
-        .card-img.p2 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
-        .card-img.p3 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .card-body { padding: 30px; }
-        .card-body h3 { font-size: 1.5rem; margin-bottom: 10px; }
-        .result-box { font-size: 0.85rem; font-weight: 600; color: var(--text); background: var(--light-gray); padding: 10px; border-radius: 6px; }
-
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; align-items: flex-start; }
-        .price-card {
-            background: white; padding: 40px; border-radius: 16px; border: 1px solid var(--border);
-            transition: 0.3s; position: relative; display: flex; flex-direction: column; justify-content: space-between; height: 100%;
-        }
-        .price-card.featured { border: 3px solid var(--highlight); box-shadow: 0 20px 40px rgba(255, 215, 0, 0.15); transform: scale(1.05); z-index: 2; }
-        .badge {
-            position: absolute; top: -18px; left: 50%; transform: translateX(-50%);
-            background: var(--highlight); color: black; padding: 8px 20px; border-radius: 50px;
-            font-size: 0.85rem; font-weight: 800; text-transform: uppercase; white-space: nowrap; box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-        }
-        .price { font-size: 3rem; font-weight: 800; margin-bottom: 5px; }
-        .price-desc { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 20px; font-style: italic; }
-        .features-list li { margin-bottom: 15px; font-size: 0.95rem; display: flex; align-items: flex-start; gap: 10px; }
-        .check-icon { color: var(--text); font-weight: bold; }
-        .price-note { text-align: center; margin-top: 40px; color: var(--text-secondary); font-size: 0.9rem; }
-
-        /* --- KONTAKT --- */
-        .contact-section { background: var(--light-gray); }
-        .form-wrapper { max-width: 600px; margin: 0 auto; background: white; padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
-        input, select, textarea {
-            width: 100%; padding: 15px; border: 2px solid var(--border); border-radius: 8px;
-            font-family: inherit; font-size: 1rem; transition: 0.3s;
-        }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--text); }
-        .submit-btn {
-            width: 100%; background: var(--text); color: white; border: none; padding: 18px;
-            font-size: 1.1rem; font-weight: 700; border-radius: 8px; cursor: pointer; transition: 0.3s;
-        }
-        .submit-btn:hover { background: #333; transform: translateY(-2px); }
-        .risk-reduction { text-align: center; font-size: 0.85rem; color: #666; margin-top: 15px; display: flex; align-items: center; justify-content: center; gap: 5px; }
-        .gdpr-checkbox-wrapper { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 25px; font-size: 0.85rem; color: var(--text-secondary); }
-        .gdpr-checkbox-wrapper input[type="checkbox"] { width: 20px; height: 20px; margin-top: 2px; cursor: pointer; flex-shrink: 0; }
-
-        /* --- GDPR COOKIE LIŠTA (COMPLIANT) --- */
-        .cookie-bar {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: #000; color: #fff; padding: 25px 30px;
-            z-index: 9999; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
-            gap: 20px; box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
-            transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            border-top: 1px solid #333;
-        }
-        .cookie-bar.active { transform: translateY(0); }
+        .lang-dropdown.active { display: flex; animation: fadeIn 0.2s ease; }
+        .lang-opt { padding: 10px; cursor: pointer; font-size: 0.9rem; color: #ccc; border-radius: 8px; transition: 0.2s; display: flex; gap: 10px; }
+        .lang-opt:hover { background: #1a1a1a; color: #fff; }
         
-        .cookie-content { flex: 1; min-width: 300px; }
-        .cookie-text { font-size: 0.9rem; line-height: 1.5; color: #ddd; margin-bottom: 5px; }
-        
-        /* ODKAZ NA PRIVACY POLICY - BIELY */
-        .cookie-link { color: #fff; text-decoration: underline; font-size: 0.85rem; cursor: pointer; font-weight: 600; }
-        .cookie-link:hover { color: #ddd; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
 
-        .cookie-buttons { display: flex; gap: 15px; }
-        
-        .cookie-btn {
-            padding: 10px 25px; border-radius: 4px; font-weight: 800; border: none;
-            cursor: pointer; font-size: 0.85rem; white-space: nowrap; letter-spacing: 0.5px;
-            text-transform: uppercase; transition: 0.2s;
+        .hamburger { display: none; color: #fff; font-size: 1.5rem; cursor: pointer; z-index: 1002; }
+        .mobile-menu {
+            position: fixed; inset: 0; background: #000; z-index: 1001;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 30px;
+            opacity: 0; pointer-events: none; transition: 0.4s ease;
         }
-        
-        .cookie-accept { background: #fff; color: #000; }
-        .cookie-accept:hover { background: #ddd; }
+        .mobile-menu.active { opacity: 1; pointer-events: all; }
+        .mobile-link { font-size: 2rem; font-family: 'Space Grotesk'; font-weight: 700; color: #fff; text-decoration: none; }
 
-        .cookie-reject { background: transparent; color: #fff; border: 1px solid #666; }
-        .cookie-reject:hover { border-color: #fff; background: rgba(255,255,255,0.1); }
+        /* --- 4. HERO --- */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 100px; }
+        .status-pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 20px; border-radius: 50px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); font-size: 0.8rem; color: #ccc; margin-bottom: 30px; text-transform: uppercase; }
+        .status-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent); }
+        .hero h1 { font-size: clamp(2.8rem, 7vw, 6rem); line-height: 1.1; margin-bottom: 25px; background: radial-gradient(circle, #fff 20%, #666 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 50px; }
+        .mockup-img { width: 100%; display: block; filter: drop-shadow(0 20px 60px rgba(255,255,255,0.05)); transform: rotateX(10deg); opacity: 0; transition: 1.5s var(--easing); }
+        .mockup-img.visible { transform: rotateX(0); opacity: 1; }
 
-        /* --- PROMO TOAST --- */
-        .promo-notification {
-            position: fixed; bottom: 30px; right: 30px; background: white;
-            border-radius: 12px; width: 320px; padding: 20px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15); border: 1px solid var(--border);
-            z-index: 9998; transform: translateY(150%);
-            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            display: flex; flex-direction: column; gap: 10px;
+        /* --- 5. GRID & CARDS --- */
+        .bento-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 40px; display: flex; flex-direction: column; transition: 0.4s; }
+        .card:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-5px); background: var(--surface-hover); }
+        .card.wide { grid-column: span 2; }
+        .card h3 { font-size: 1.4rem; margin-bottom: 15px; color: #fff; }
+        .card p { color: var(--text-muted); line-height: 1.6; font-size: 0.95rem; }
+        .card-icon { font-size: 2rem; color: #fff; margin-bottom: 20px; opacity: 0.8; }
+
+        /* --- 6. PORTFOLIO & PRICING --- */
+        .portfolio-header { margin: 60px 0 30px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 15px; }
+        .portfolio-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .project-card { background: #0f0f0f; border-radius: 20px; overflow: hidden; border: 1px solid var(--border); position: relative; group; transition: 0.4s; }
+        .project-thumb { width: 100%; height: 350px; object-fit: cover; transition: 0.6s; filter: grayscale(100%); opacity: 0.8; cursor: pointer; }
+        .project-card:hover .project-thumb { filter: grayscale(0%); opacity: 1; transform: scale(1.03); }
+        .project-info { padding: 25px; border-top: 1px solid var(--border); background: var(--surface); display: flex; justify-content: space-between; align-items: center; }
+        .project-btn { width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: #fff; text-decoration: none; transition: 0.3s; }
+        .project-btn:hover { background: #fff; color: #000; transform: rotate(-45deg); }
+
+        .showcase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 40px; }
+        .showcase-item { aspect-ratio: 1/1; background: #111; border-radius: 12px; overflow: hidden; border: 1px solid var(--border); position: relative; cursor: zoom-in; }
+        .showcase-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; opacity: 0.7; }
+        .showcase-item:hover img { transform: scale(1.1); opacity: 1; }
+
+        .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+        .price-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 40px 30px; display: flex; flex-direction: column; transition: 0.3s; }
+        .price-card.featured { background: linear-gradient(180deg, #151515 0%, #0a0a0a 100%); border: 1px solid rgba(255,255,255,0.15); transform: scale(1.03); z-index: 2; }
+        .price-tag { font-size: 2.5rem; font-weight: 700; color: #fff; margin: 15px 0; font-family: 'Space Grotesk'; }
+        .price-list li { display: flex; gap: 10px; color: #ccc; margin-bottom: 12px; font-size: 0.9rem; align-items: center; }
+        .btn-full { width: 100%; padding: 14px; border: 1px solid var(--border); color: #fff; border-radius: 12px; transition: 0.3s; font-weight: 600; cursor: pointer; background: transparent; margin-top: auto; }
+        .btn-full:hover { background: #fff; color: #000; border-color: #fff; }
+
+        /* --- 8. WIDGET --- */
+        .side-widget { position: fixed; top: 50%; right: 0; transform: translateY(-50%) translateX(calc(100% - 40px)); background: rgba(15,15,15,0.95); backdrop-filter: blur(20px); border: 1px solid var(--border); border-right: none; border-radius: 20px 0 0 20px; z-index: 950; display: flex; align-items: center; transition: transform 0.5s var(--easing); padding: 5px; box-shadow: -10px 0 30px rgba(0,0,0,0.5); }
+        .side-widget.active { transform: translateY(-50%) translateX(0); }
+        .widget-trigger { width: 30px; padding: 30px 0; display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; }
+        .widget-trigger span { writing-mode: vertical-rl; transform: rotate(180deg); font-size: 0.7rem; letter-spacing: 0.15em; color: #fff; font-weight: 700; text-transform: uppercase; }
+        .widget-content { width: 280px; padding: 25px; border-left: 1px solid var(--border); opacity: 0; transition: 0.3s; }
+        .side-widget.active .widget-content { opacity: 1; }
+
+        /* --- 9. LIGHTBOX --- */
+        .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 3000; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s; cursor: zoom-out; }
+        .lightbox.active { display: flex; opacity: 1; }
+        .lightbox img { max-width: 90%; max-height: 90%; border-radius: 8px; box-shadow: 0 0 50px rgba(0,0,0,0.5); transform: scale(0.9); transition: transform 0.3s; }
+        .lightbox.active img { transform: scale(1); }
+        .lightbox-close { position: absolute; top: 20px; right: 20px; color: #fff; font-size: 2rem; cursor: pointer; }
+
+        /* --- 10. MODALS --- */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 2000; display: none; align-items: center; justify-content: center; padding: 20px; }
+        .modal.open { display: flex; }
+        .modal-content { 
+            background: #0a0a0a; border: 1px solid var(--border); padding: 50px; border-radius: 20px; 
+            max-width: 800px; width: 100%; max-height: 85vh; overflow-y: auto; text-align: left; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
-        .promo-notification.show { transform: translateY(0); }
-        .promo-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 5px; }
-        .promo-title { font-weight: 800; font-size: 1rem; color: var(--text); }
-        .promo-close { cursor: pointer; color: #999; font-weight: bold; font-size: 1.2rem; line-height: 1; }
-        .promo-action {
-            margin-top: 5px; align-self: flex-start; font-size: 0.85rem; font-weight: 700;
-            color: var(--accent); border-bottom: 2px solid var(--highlight);
-        }
+        .modal-content::-webkit-scrollbar { width: 6px; }
+        .modal-content::-webkit-scrollbar-track { background: #0a0a0a; }
+        .modal-content::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        .modal-content h3 { font-size: 1.8rem; color: #fff; margin-bottom: 25px; border-bottom: 1px solid var(--border); padding-bottom: 20px; }
+        .modal-content h4 { font-size: 1.1rem; color: #fff; margin-top: 30px; margin-bottom: 10px; font-weight: 700; }
+        .modal-content p, .modal-content li { color: #bbb; font-size: 0.95rem; line-height: 1.7; margin-bottom: 12px; }
+        .modal-content ul { padding-left: 20px; margin-bottom: 15px; }
 
-        /* --- FOOTER --- */
-        footer { background: #000; color: white; padding: 60px 0; text-align: center; }
-        .footer-quote { font-size: 1.5rem; font-weight: 600; max-width: 600px; margin: 0 auto 40px auto; line-height: 1.4; }
+        /* --- 11. COOKIE PANEL --- */
+        .cookie-panel { position: fixed; bottom: 30px; right: 30px; width: 400px; max-width: 90%; background: rgba(10,10,10,0.95); backdrop-filter: blur(15px); border: 1px solid var(--border); border-radius: 16px; padding: 25px; z-index: 2500; display: none; box-shadow: 0 20px 50px rgba(0,0,0,0.6); }
+        .cookie-header { font-size: 1.1rem; color: #fff; font-weight: 700; margin-bottom: 10px; }
+        .cookie-text { font-size: 0.85rem; color: #888; line-height: 1.5; margin-bottom: 20px; }
+        .cookie-actions { display: flex; gap: 10px; }
+        .btn-cookie-sec { background: transparent; border: 1px solid var(--border); color: #fff; padding: 10px 15px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; flex: 1; }
+        .btn-cookie-pri { background: #fff; color: #000; border: none; padding: 10px 15px; border-radius: 8px; font-size: 0.8rem; font-weight: 600; cursor: pointer; flex: 1; }
 
-        /* SweetAlert & Media */
-        .swal2-popup { font-family: 'Plus Jakarta Sans', sans-serif !important; border-radius: 16px !important; }
-        .swal2-confirm.btn-primary { background-color: var(--accent) !important; border-color: var(--accent) !important; }
-        
+        /* --- 12. FORM --- */
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        .form-input { width: 100%; background: #050505; border: 1px solid var(--border); padding: 18px; color: #fff; border-radius: 12px; font-family: inherit; font-size: 0.95rem; transition: 0.3s; }
+        .form-input:focus { border-color: #fff; background: #0a0a0a; }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            .split-grid { grid-template-columns: 1fr; }
-            .price-card.featured { transform: scale(1); border-width: 2px; }
-            h1 { font-size: 3.5rem; }
-        }
-        @media (max-width: 768px) {
-            .nav-links {
-                position: fixed; top: 70px; right: -100%; width: 100%; height: calc(100vh - 70px);
-                background: white; flex-direction: column; justify-content: center; align-items: center;
-                transition: 0.4s var(--ease); gap: 20px; box-shadow: 0 10px 20px rgba(0,0,0,0.05);
-            }
-            .nav-links.active { right: 0; }
-            .hamburger { display: flex; }
-            .hero { text-align: center; justify-content: center; }
-            .hero-btns { justify-content: center; }
-            .form-wrapper { padding: 30px 20px; }
-            
-            .cookie-bar { flex-direction: column; text-align: center; gap: 20px; padding: 25px; }
-            .cookie-buttons { width: 100%; justify-content: center; }
-            .promo-notification { left: 20px; right: 20px; width: auto; bottom: 90px; }
-            .header-right { gap: 15px; }
+            .nav-menu { display: none; }
+            .hamburger { display: block; }
+            .hero h1 { font-size: 3rem; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .section-subtitle { text-align: left; max-width: 100%; }
+            .bento-grid, .pricing-grid, .portfolio-grid, .showcase-grid { grid-template-columns: 1fr; }
+            .card.wide { grid-column: span 1; }
+            .form-row { grid-template-columns: 1fr; }
+            .side-widget { display: none; }
+            .nav-actions .btn-primary { display: none; }
+            .cookie-panel { width: 90%; right: 5%; bottom: 20px; }
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false">
 
-    <header>
-        <div class="container nav-container">
-            <a href="#" class="logo">
-                <img src="https://github.com/jakubinoosd/jkdesign/blob/main/logo%20jk%20design.jpg?raw=true" alt="JK Design">
-            </a>
-            
-            <div class="header-right">
-                <nav>
-                    <ul class="nav-links">
-                        <li><a href="#why" class="nav-item" onclick="toggleMenu()" data-i18n="nav_why">Prečo ja</a></li>
-                        <li><a href="#portfolio" class="nav-item" onclick="toggleMenu()" data-i18n="nav_portfolio">Ukážky</a></li>
-                        <li><a href="#pricing" class="nav-item" onclick="toggleMenu()" data-i18n="nav_pricing">Cenník</a></li>
-                        <li><a href="#contact" class="btn btn-primary" style="padding: 10px 20px;" onclick="toggleMenu()" data-i18n="nav_contact">Kontakt</a></li>
-                    </ul>
-                </nav>
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">×</span>
+        <img id="lightbox-img" src="" alt="Full Preview">
+    </div>
 
-                <div class="header-controls">
-                    <div class="language-selector" id="lang-selector">
-                        <div class="lang-btn" onclick="toggleLangMenu()">
-                            <img id="current-flag" src="https://flagcdn.com/w40/gb.png" alt="EN">
-                            <span id="current-lang">EN</span>
-                        </div>
-                        <div class="lang-dropdown" id="lang-menu">
-                            <div class="lang-option" onclick="changeLanguage('sk'); toggleLangMenu()"><img src="https://flagcdn.com/w40/sk.png"> SK</div>
-                            <div class="lang-option" onclick="changeLanguage('en'); toggleLangMenu()"><img src="https://flagcdn.com/w40/gb.png"> EN</div>
-                            <div class="lang-option" onclick="changeLanguage('de'); toggleLangMenu()"><img src="https://flagcdn.com/w40/de.png"> DE</div>
-                            <div class="lang-option" onclick="changeLanguage('es'); toggleLangMenu()"><img src="https://flagcdn.com/w40/es.png"> ES</div>
-                            <div class="lang-option" onclick="changeLanguage('fr'); toggleLangMenu()"><img src="https://flagcdn.com/w40/fr.png"> FR</div>
-                        </div>
+    <div class="noise-overlay"></div>
+    <div class="ambient-glow glow-1"></div>
+    <div class="ambient-glow glow-2"></div>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#web" class="mobile-link" onclick="toggleMenu()" data-i18n="nav_web">Weby</a>
+        <a href="#graphics" class="mobile-link" onclick="toggleMenu()" data-i18n="nav_design">Grafika</a>
+        <a href="#contact" class="mobile-link" onclick="toggleMenu()" data-i18n="nav_contact">Kontakt</a>
+        <button class="btn-primary" onclick="toggleMenu(); scrollToContact();" data-i18n="btn_cta">Spolupracovať</button>
+        <div style="margin-top:30px; color:#666;" onclick="toggleMenu()" data-i18n="close">✕ Zavrieť</div>
+    </div>
+
+    <div class="side-widget" id="sideWidget">
+        <div class="widget-trigger" onclick="document.getElementById('sideWidget').classList.toggle('active')">
+            <i class="ri-arrow-left-s-line" style="color:#fff; font-size:1.2rem;"></i>
+            <span data-i18n="widget_trigger">2026 INFO</span>
+        </div>
+        <div class="widget-content">
+            <h4 style="color:#fff; margin-bottom:10px;" data-i18n="widget_title">Máte víziu?</h4>
+            <p style="font-size:0.9rem; color:#888; margin-bottom:20px; line-height:1.5;" data-i18n="widget_text">Nečakajte na "vhodný čas". Kvalitný web a brand potrebujú prípravu. Začnime plánovať váš úspech ešte dnes.</p>
+            <button onclick="scrollToContact()" class="btn-primary" style="width:100%; font-size:0.85rem; padding:10px;" data-i18n="widget_btn">Mám záujem</button>
+        </div>
+    </div>
+
+    <nav class="nav-fixed">
+        <div class="container nav-inner">
+            <a href="#" class="logo">JK Design.</a>
+            <div class="nav-menu">
+                <a href="#web" class="nav-link" data-i18n="nav_web">Web Development</a>
+                <a href="#graphics" class="nav-link" data-i18n="nav_design">Creative Studio</a>
+                <a href="#contact" class="nav-link" data-i18n="nav_contact">Kontakt</a>
+            </div>
+            <div class="nav-actions">
+                <div class="lang-switcher">
+                    <div class="lang-btn" onclick="toggleLangMenu()">
+                        <span id="currentLangIcon">🇸🇰</span> <span id="currentLangCode">SK</span> <i class="ri-arrow-down-s-line"></i>
                     </div>
-                    <div class="hamburger" onclick="toggleMenu()"><div class="bar"></div><div class="bar"></div><div class="bar"></div></div>
+                    <div class="lang-dropdown" id="langDropdown">
+                        <div class="lang-opt" onclick="changeLang('sk')"><span>🇸🇰</span> Slovak</div>
+                        <div class="lang-opt" onclick="changeLang('en')"><span>🇺🇸</span> English</div>
+                        <div class="lang-opt" onclick="changeLang('de')"><span>🇩🇪</span> German</div>
+                        <div class="lang-opt" onclick="changeLang('cz')"><span>🇨🇿</span> Czech</div>
+                        <div class="lang-opt" onclick="changeLang('pl')"><span>🇵🇱</span> Polish</div>
+                        <div class="lang-opt" onclick="changeLang('hu')"><span>🇭🇺</span> Hungarian</div>
+                        <div class="lang-opt" onclick="changeLang('ua')"><span>🇺🇦</span> Ukraine</div>
+                        <div class="lang-opt" onclick="changeLang('fr')"><span>🇫🇷</span> French</div>
+                        <div class="lang-opt" onclick="changeLang('es')"><span>🇪🇸</span> Spanish</div>
+                        <div class="lang-opt" onclick="changeLang('it')"><span>🇮🇹</span> Italian</div>
+                    </div>
                 </div>
+
+                <div class="hamburger" onclick="toggleMenu()"><i class="ri-menu-4-line"></i></div>
+                <a href="#contact" class="btn-primary" data-i18n="btn_cta" style="@media(max-width:900px){display:none;}">Spolupracovať</a>
             </div>
         </div>
-    </header>
+    </nav>
 
     <section class="hero">
-        <div class="container hero-content reveal">
-            <h1 data-i18n="hero_title">Pomáham firmám získať viac dopytov <br><span style="color: var(--text-secondary); opacity: 0.6; font-size: 0.8em;">pomocou rýchlych webov.</span></h1>
-            <p class="subheadline" data-i18n="hero_subtitle">Väčšina webov je len pekná vizitka. Ja tvorím nástroje, ktoré sú rýchle, prehľadné a končia objednávkou.</p>
-            <div class="hero-btns">
-                <a href="#contact" class="btn btn-primary" data-i18n="hero_btn_1">Chcem web, čo zarába →</a>
-                <a href="#portfolio" class="btn btn-secondary" data-i18n="hero_btn_2">Pozrieť výsledky</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="why" class="pain-points">
-        <div class="container split-grid">
-            <div class="pain-text reveal">
-                <h2 data-i18n="pain_title">Väčšina webov dnes:</h2>
-                <ul class="pain-list">
-                    <li data-i18n="pain_1">sa načítava pomaly (klient odchádza)</li>
-                    <li data-i18n="pain_2">je neprehľadná a chaotická</li>
-                    <li data-i18n="pain_3">nefunguje dobre na mobile</li>
-                    <li data-i18n="pain_4">firme neprináša žiadne dopyty</li>
-                </ul>
-                <div class="authority-note" data-i18n="pain_note">"Vidím to bohužiaľ pri 80% webov, ktoré mi klienti posielajú na redizajn."</div>
-            </div>
-            <div class="solution-box reveal">
-                <h3 data-i18n="sol_title">Moje riešenie</h3>
-                <ul class="solution-list">
-                    <li><span data-i18n="sol_1">Rýchle načítanie</span> <span class="benefit-arrow">→</span> <span data-i18n="sol_1_res">viac ľudí zostane na webe</span></li>
-                    <li><span data-i18n="sol_2">Čistý kód</span> <span class="benefit-arrow">→</span> <span data-i18n="sol_2_res">web sa nerozpadne o rok</span></li>
-                    <li><span data-i18n="sol_3">Mobilná optimalizácia</span> <span class="benefit-arrow">→</span> <span data-i18n="sol_3_res">neprídeš o klientov na telefóne</span></li>
-                    <li><span data-i18n="sol_4">Dizajn pre predaj</span> <span class="benefit-arrow">→</span> <span data-i18n="sol_4_res">návštevník vie, kam kliknúť</span></li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="portfolio">
         <div class="container">
-            <h2 class="section-title reveal" data-i18n="nav_portfolio">Moje práce</h2>
-            <div class="grid portfolio-grid">
-                <a href="https://jakubinoosd.github.io/aura/" target="_blank" class="project-card reveal">
-                    <div class="card-img p1"><span style="font-size: 1.2rem; color: #555;">E-shop</span></div>
-                    <div class="card-body"><h3 data-i18n="proj_1_title">E-shop</h3><p data-i18n="proj_1_desc">Redesign.</p><div class="result-box">✅ <span data-i18n="proj_1_res">Výsledok: +30% obj.</span></div></div>
-                </a>
-                <a href="https://jakubinoosd.github.io/nexoreality/" target="_blank" class="project-card reveal">
-                    <div class="card-img p2"><span style="font-size: 1.2rem; color: #555;">Reality</span></div>
-                    <div class="card-body"><h3 data-i18n="proj_2_title">Portál</h3><p data-i18n="proj_2_desc">Katalóg.</p><div class="result-box">✅ <span data-i18n="proj_2_res">Výsledok: Prehľadnosť.</span></div></div>
-                </a>
-                <a href="#" target="_blank" class="project-card reveal">
-                    <div class="card-img p3"><span style="font-size: 1.2rem; color: #555;">Startup</span></div>
-                    <div class="card-body"><h3 data-i18n="proj_3_title">Landing</h3><p data-i18n="proj_3_desc">Dôvera.</p><div class="result-box">✅ <span data-i18n="proj_3_res">Výsledok: Imidž.</span></div></div>
-                </a>
-            </div>
+            <div class="status-pill" data-aos="fade-down"><div class="status-dot"></div> <span data-i18n="hero_status">Prijímam nové spolupráce</span></div>
+            <h1 data-aos="fade-up" data-i18n="hero_title">Digitálna Architektúra<br>pre Moderný Biznis</h1>
+            <p data-aos="fade-up" data-aos-delay="100" data-i18n="hero_desc">Pomáham firmám rásť cez prémiový webdizajn a vizuálnu identitu. Som študent a freelancer, ktorý doručuje agentúrnu kvalitu.</p>
+            <div class="mockup-stage" id="macbook"><img src="mackbook nexo.png" alt="Showcase" class="mockup-img"></div>
         </div>
     </section>
 
-    <section id="pricing" style="background: var(--light-gray);">
+    <div style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:40px 0; display:flex; justify-content:space-around; flex-wrap:wrap; gap:20px; background:rgba(255,255,255,0.01);">
+        <div style="text-align:center;"><span class="stat-num" style="font-size:2.5rem; font-weight:700; color:#fff;">3+</span><br><span class="stat-label" style="font-size:0.8rem; color:#888;" data-i18n="stat_years">ROKY PRAXE</span></div>
+        <div style="text-align:center;"><span class="stat-num" style="font-size:2.5rem; font-weight:700; color:#fff;">40+</span><br><span class="stat-label" style="font-size:0.8rem; color:#888;" data-i18n="stat_projects">PROJEKTOV</span></div>
+        <div style="text-align:center;"><span class="stat-num" style="font-size:2.5rem; font-weight:700; color:#fff;">100%</span><br><span class="stat-label" style="font-size:0.8rem; color:#888;" data-i18n="stat_satis">SPOKOJNOSŤ</span></div>
+    </div>
+
+    <section id="web">
         <div class="container">
-            <h2 class="section-title reveal" data-i18n="price_title">Investícia do webu</h2>
+            <div class="section-header" data-aos="fade-right">
+                <div><h2 class="section-title">Web Development</h2><p style="color:#00ff88; font-family:'Space Grotesk'; font-size:1.5rem; margin-top:5px;">01.</p></div>
+                <div class="section-subtitle" data-i18n="web_sub">Webstránky zamerané na rýchlosť, SEO a konverzie.</div>
+            </div>
+
+            <div class="bento-grid">
+                <div class="card wide" data-aos="fade-up"><i class="ri-rocket-2-line card-icon"></i><h3 data-i18n="feat_speed_t">Extrémna Rýchlosť</h3><p data-i18n="feat_speed_d">Optimalizácia na úrovni kódu. Rýchly web znamená lepšie pozície v Google a viac zákazníkov.</p></div>
+                <div class="card" data-aos="fade-up" data-aos-delay="100"><i class="ri-smartphone-line card-icon"></i><h3 data-i18n="feat_mobile_t">Mobile First</h3><p data-i18n="feat_mobile_d">Viac ako 75% návštevníkov príde z mobilu. Váš web bude na telefóne vyzerať perfektne.</p></div>
+                <div class="card" data-aos="fade-up"><i class="ri-seo-line card-icon"></i><h3 data-i18n="feat_seo_t">SEO Ready</h3><p data-i18n="feat_seo_d">Technická príprava pre vyhľadávače. Správna štruktúra a indexovanie.</p></div>
+                <div class="card wide" data-aos="fade-up" data-aos-delay="100"><i class="ri-layout-line card-icon"></i><h3 data-i18n="feat_cms_t">CMS na Mieru</h3><p data-i18n="feat_cms_d">Užívateľsky prívetivá administrácia. Texty a obrázky si upravíte sami.</p></div>
+            </div>
+
+            <div class="portfolio-header" style="margin-top:80px;">
+                <h3 style="font-size:2rem; color:#fff;" data-i18n="port_title">Vybrané Projekty</h3>
+            </div>
+            <div class="portfolio-grid">
+                <div class="project-card" data-aos="fade-up">
+                    <img src="nexoweb.png" class="project-thumb" alt="Web 1" onclick="openLightbox(this.src)">
+                    <div class="project-info">
+                        <div><h4 style="color:#fff;" data-i18n="proj_1_t">Moderné Bývanie</h4><p style="color:#666; font-size:0.9rem;">Real Estate Web</p></div>
+                        <a href="https://jakubinoosd.github.io/nexoreality/" target="_blank" class="project-btn"><i class="ri-arrow-right-up-line"></i></a>
+                    </div>
+                </div>
+                <div class="project-card" data-aos="fade-up" data-aos-delay="100">
+                    <img src="aurashop.png" class="project-thumb" alt="Web 2" onclick="openLightbox(this.src)">
+                    <div class="project-info">
+                        <div><h4 style="color:#fff;" data-i18n="proj_2_t">Aura Store</h4><p style="color:#666; font-size:0.9rem;">E-commerce</p></div>
+                        <a href="https://jakubinoosd.github.io/aura/" target="_blank" class="project-btn"><i class="ri-arrow-right-up-line"></i></a>
+                    </div>
+                </div>
+            </div>
+
             <div class="pricing-grid">
-                <div class="price-card reveal">
-                    <div><div class="price-header"><h3>START</h3><div class="price">250 <span class="currency">€</span></div><p class="price-desc" data-i18n="price_1_desc">Rýchly web.</p></div><ul class="features-list"><li><span class="check-icon">✓</span> One-page</li><li><span class="check-icon">✓</span> Design</li></ul></div>
-                    <a href="javascript:void(0)" onclick="prefillForm('START')" class="btn btn-secondary btn-full" data-i18n="btn_choose">Vybrať</a>
-                </div>
-                <div class="price-card featured reveal">
-                    <div class="badge" data-i18n="badge_popular">⭐ Najčastejšia voľba</div>
-                    <div><div class="price-header"><h3>PRO</h3><div class="price">500 <span class="currency">€</span></div><p class="price-desc" data-i18n="price_2_desc">Predajný web.</p></div><ul class="features-list"><li><span class="check-icon">✓</span> 3-5 pages</li><li><span class="check-icon">✓</span> SEO</li></ul></div>
-                    <a href="javascript:void(0)" onclick="prefillForm('PRO')" class="btn btn-primary btn-full" style="background: black; border-color: black;" data-i18n="btn_choose">Vybrať</a>
-                </div>
-                <div class="price-card reveal">
-                    <div><div class="price-header"><h3>PREMIUM</h3><div class="price">700 <span class="currency">€</span></div><p class="price-desc" data-i18n="price_3_desc">Na mieru.</p></div><ul class="features-list"><li><span class="check-icon">✓</span> Custom</li><li><span class="check-icon">✓</span> Support</li></ul></div>
-                    <a href="javascript:void(0)" onclick="prefillForm('PREMIUM')" class="btn btn-secondary btn-full" data-i18n="btn_choose">Vybrať</a>
-                </div>
+                <div class="price-card" data-aos="fade-up"><h4 data-i18n="price_web1_t">Web Štart</h4><div class="price-tag">350€</div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web1_f1">One-page Landing</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_web1_f2">Responzívny dizajn</span></li></ul><button class="btn-full" onclick="prefill('Web Start')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card featured" data-aos="zoom-in"><h4 data-i18n="price_web2_t">Web Biznis</h4><div class="price-tag">600€</div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web2_f1">Viac podstránok</span></li><li><i class="ri-check-line"></i> <strong>CMS Systém</strong></li></ul><button class="btn-full" onclick="prefill('Web Business')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card" data-aos="fade-up" data-aos-delay="100"><h4 data-i18n="price_web3_t">Web Premium</h4><div class="price-tag">850€+</div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web3_f1">E-shop / Portál</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_web3_f2">Funkcie na mieru</span></li></ul><button class="btn-full" onclick="prefill('Web Premium')" data-i18n="btn_consult">Konzultovať</button></div>
             </div>
-            <p class="price-note reveal" data-i18n="price_note">Orientačné ceny.</p>
         </div>
     </section>
 
-    <section id="contact" class="contact-section">
+    <div style="background:#0a0a0a; padding:40px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden;">
+        <div style="display:flex; gap:60px; width:max-content; animation:scroll 25s linear infinite;">
+            <span style="font-family:'Space Grotesk'; font-size:3.5rem; font-weight:700; color:rgba(255,255,255,0.05);">WEB DEVELOPMENT</span>
+            <span style="font-family:'Space Grotesk'; font-size:3.5rem; font-weight:700; color:rgba(255,255,255,0.05);">GRAPHIC DESIGN</span>
+            <span style="font-family:'Space Grotesk'; font-size:3.5rem; font-weight:700; color:rgba(255,255,255,0.05);">BRANDING</span>
+            <span style="font-family:'Space Grotesk'; font-size:3.5rem; font-weight:700; color:rgba(255,255,255,0.05);">SOCIAL MEDIA</span>
+        </div>
+    </div>
+    <style>@keyframes scroll { to { transform: translateX(-50%); } }</style>
+
+    <section id="graphics">
         <div class="container">
-            <div class="form-wrapper reveal">
-                <h2 style="font-size: 2.5rem; margin-bottom: 10px;" data-i18n="contact_title">Máš záujem?</h2>
-                <p style="margin-bottom: 30px; color: var(--text-secondary);" data-i18n="contact_sub">Napíš mi.</p>
-                <form id="contact-form">
-                    <div class="form-group"><label data-i18n="form_name">Meno</label><input type="text" placeholder="Meno" data-i18n-placeholder="ph_name" required></div>
-                    <div class="form-group"><label>Email</label><input type="email" placeholder="email" data-i18n-placeholder="ph_email" required></div>
-                    <div class="form-group"><label data-i18n="form_package">Balík</label><select id="project-type"><option value="Neurčené" data-i18n="ph_select">Vybrať...</option><option value="START">START</option><option value="PRO">PRO</option><option value="PREMIUM">PREMIUM</option><option value="Iné">Iné</option></select></div>
-                    <div class="form-group"><label data-i18n="form_msg">Správa</label><textarea rows="4" placeholder="..." data-i18n-placeholder="ph_msg"></textarea></div>
-                    <div class="gdpr-checkbox-wrapper"><input type="checkbox" id="gdpr-consent" required><label for="gdpr-consent" data-i18n="form_gdpr">Súhlasím so spracovaním...</label></div>
-                    <button type="submit" class="submit-btn" data-i18n="form_btn">Odoslať</button>
-                    <div class="risk-reduction"><span class="lock-icon">🔒</span> <span data-i18n="form_secure">Bez spamu.</span></div>
-                </form>
+            <div class="section-header" data-aos="fade-right">
+                <div><h2 class="section-title">Creative Studio</h2><p style="color:#00ff88; font-family:'Space Grotesk'; font-size:1.5rem; margin-top:5px;">02.</p></div>
+                <div class="section-subtitle" data-i18n="graph_sub">Vizuálna identita, ktorá predáva. Od loga až po správu sietí.</div>
             </div>
+
+            <div class="bento-grid">
+                <div class="card" data-aos="fade-up"><i class="ri-pen-nib-line card-icon"></i><h3 data-i18n="feat_brand_t">Branding</h3><p data-i18n="feat_brand_d">Minimalistické a nadčasové logá s kompletným manuálom.</p></div>
+                <div class="card" data-aos="fade-up" data-aos-delay="100"><i class="ri-advertisement-line card-icon"></i><h3 data-i18n="feat_ads_t">Ads Grafika</h3><p data-i18n="feat_ads_d">Bannery pre Meta a Google s vysokým CTR.</p></div>
+                <div class="card" data-aos="fade-up" data-aos-delay="200"><i class="ri-instagram-line card-icon"></i><h3 data-i18n="feat_soc_t">Social Media</h3><p data-i18n="feat_soc_d">Správa profilov, tvorba Reels a plánovanie.</p></div>
+            </div>
+
+            <div class="portfolio-header" style="margin-top:80px;"><h3 style="font-size:2rem; color:#fff;" data-i18n="showcase_title">Ukážky Dizajnu</h3></div>
+            <div class="showcase-grid">
+                <div class="showcase-item" data-aos="zoom-in"><img src="nexo.png" onclick="openLightbox(this.src)" alt="Logo"></div>
+                <div class="showcase-item" data-aos="zoom-in" data-aos-delay="100"><img src="17575.png" onclick="openLightbox(this.src)" alt="Social"></div>
+                <div class="showcase-item" data-aos="zoom-in" data-aos-delay="200"><img src="17576.png" onclick="openLightbox(this.src)" alt="Banner"></div>
+                <div class="showcase-item" data-aos="zoom-in" data-aos-delay="300"><img src="logo jk design.jpg" onclick="openLightbox(this.src)" alt="Print"></div>
+            </div>
+
+            <div class="pricing-grid">
+                <div class="price-card" data-aos="fade-up"><h4 data-i18n="price_g1_t">Logo Štart</h4><div class="price-tag">50€</div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g1_f1">2 Koncepty loga</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_g1_f2">Exporty (SVG, PNG)</span></li></ul><button class="btn-full" onclick="prefill('Logo Start')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card featured" data-aos="zoom-in"><h4 data-i18n="price_g2_t">Brand Identita</h4><div class="price-tag">120€</div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g2_f1">3 Koncepty loga</span></li><li><i class="ri-check-line"></i> <strong>Brand Manuál</strong></li></ul><button class="btn-full" onclick="prefill('Brand Identity')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card" data-aos="fade-up" data-aos-delay="100"><h4 data-i18n="price_g3_t">Social / Ads</h4><div class="price-tag">250€+</div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g3_f1">Set 10 bannerov</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_g3_f2">Správa sietí</span></li></ul><button class="btn-full" onclick="prefill('Social/Ads')" data-i18n="btn_select">Vybrať</button></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container contact-wrapper">
+            <h2 style="text-align:center; color:#fff; margin-bottom:10px; font-size:3rem;" data-i18n="contact_title">Napíšte mi</h2>
+            <p style="text-align:center; color:#888; margin-bottom:50px;" data-i18n="contact_sub">Nezáväzná konzultácia zdarma.</p>
+            <form id="contactForm">
+                <div class="form-row">
+                    <input type="text" id="name" class="form-input" data-i18n="form_name" placeholder="Meno a Priezvisko" required>
+                    <input type="email" id="email" class="form-input" data-i18n="form_email" placeholder="Váš Email" required>
+                </div>
+                <div class="form-row">
+                    <select id="service" class="form-input">
+                        <option value="Web">Web Development</option><option value="Graphics">Grafika</option><option value="Social">Social Media</option><option value="Combo">Combo</option>
+                    </select>
+                    <input type="text" id="budget" class="form-input" data-i18n="form_budget" placeholder="Približný rozpočet (nepovinné)">
+                </div>
+                <textarea id="msg" rows="5" class="form-input" data-i18n="form_msg" placeholder="Popis projektu..."></textarea>
+                <div style="margin-bottom:30px; display:flex; gap:10px; color:#666; font-size:0.9rem;">
+                    <input type="checkbox" required style="width:20px; accent-color:#fff;">
+                    <span data-i18n="form_agree">Súhlasím so spracovaním údajov a podmienkami.</span>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%; font-size:1.1rem; padding:18px;" data-i18n="btn_send">Odoslať dopyt</button>
+            </form>
         </div>
     </section>
 
     <footer>
-        <div class="container">
-            <p class="footer-quote" data-i18n="footer_quote">"Web bez komplikácií."</p>
-            <p style="color: #666; font-size: 0.9rem;">&copy; 2026 JK Design.</p>
+        <div class="container" style="text-align:center; padding:60px 0; border-top:1px solid var(--border); margin-top:100px; color:#666;">
+            <h4 style="color:#fff; font-size:1.8rem; margin-bottom:30px; font-weight:700;">JK DESIGN.</h4>
+            <div style="display:flex; justify-content:center; gap:30px; flex-wrap:wrap; margin-bottom:40px;">
+                <a onclick="openModal('vop')" style="cursor:pointer; color:#fff;" data-i18n="footer_vop">Všeobecné obchodné podmienky</a>
+                <a onclick="openModal('gdpr')" style="cursor:pointer; color:#fff;" data-i18n="footer_gdpr">Ochrana súkromia (GDPR)</a>
+                <a onclick="openModal('gdpr')" style="cursor:pointer; color:#fff;" data-i18n="footer_cookies">Cookies</a>
+            </div>
+            <div style="font-size:0.9rem; opacity:0.5;" data-i18n="footer_rights">&copy; 2026 JK Design. Student Freelancer.</div>
         </div>
     </footer>
 
-    <div id="cookie-bar" class="cookie-bar">
-        <div class="cookie-content">
-            <p class="cookie-text" data-i18n="cookie_text">We use cookies to improve your experience. By clicking "Accept", you agree to our use of cookies.</p>
-            <a href="privacy-policy.html" class="cookie-link" data-i18n="cookie_policy">Privacy Policy</a>
-        </div>
-        <div class="cookie-buttons">
-            <button id="reject-cookies" class="cookie-btn cookie-reject" data-i18n="cookie_reject">Reject</button>
-            <button id="accept-cookies" class="cookie-btn cookie-accept" data-i18n="cookie_accept">Accept</button>
+    <div class="cookie-panel" id="cookieBar">
+        <div class="cookie-header" data-i18n="cookie_head">🍪 Nastavenie Súkromia</div>
+        <p class="cookie-text" data-i18n="cookie_text">Používame cookies na zabezpečenie funkčnosti webu a analýzu návštevnosti. Vaše dáta sú u nás v bezpečí.</p>
+        <div class="cookie-actions">
+            <button class="btn-cookie-sec" onclick="hideCookies(false)" data-i18n="cookie_btn_nec">Len nevyhnutné</button>
+            <button class="btn-cookie-pri" onclick="hideCookies(true)" data-i18n="cookie_btn_all">Prijať všetko</button>
         </div>
     </div>
 
-    <div id="promo-notification" class="promo-notification">
-        <div class="promo-header"><div class="promo-title" data-i18n="promo_title">🎁 Tip</div><div class="promo-close" onclick="closePromo()">✖</div></div>
-        <p class="promo-body" data-i18n="promo_text">Váhate?</p>
-        <a href="#contact" class="promo-action" onclick="closePromo(); prefillForm('Konzultácia ZDARMA')" data-i18n="promo_btn">Konzultácia →</a>
+    <div id="vop" class="modal" onclick="if(event.target===this) closeModal('vop')">
+        <div class="modal-content">
+            <h3 data-i18n="vop_title">Všeobecné obchodné podmienky</h3>
+            <p>Platné od 1.1.2026</p>
+            <h4>I. Úvodné ustanovenia</h4>
+            <p>1. Tieto Všeobecné obchodné podmienky (ďalej len „VOP“) upravujú právne vzťahy, práva a povinnosti medzi poskytovateľom služieb <strong>Jakub Naod</strong>, so sídlom Prievidza, Slovenská republika (ďalej len „Dodávateľ“) a objednávateľom služieb (ďalej len „Objednávateľ“).</p>
+            <p>2. Tieto VOP sú neoddeliteľnou súčasťou každej zmluvy o dielo alebo záväznej objednávky uzatvorenej medzi Dodávateľom a Objednávateľom. Odchylné dojednania v písomnej zmluve majú prednosť pred znením týchto VOP.</p>
+            <p>3. Predmetom plnenia je poskytovanie služieb v oblasti digitálneho dizajnu, vývoja webových aplikácií, tvorby vizuálnej identity a správy sociálnych médií (ďalej len „Dielo“).</p>
+            <h4>II. Objednávka a vznik zmluvného vzťahu</h4>
+            <p>1. Zmluvný vzťah vzniká momentom písomného potvrdenia (postačuje e-mailová forma) cenovej ponuky Objednávateľom, alebo úhradou zálohovej faktúry vystavenej Dodávateľom.</p>
+            <p>2. Objednávka musí obsahovať špecifikáciu požiadaviek, identifikačné údaje Objednávateľa a dohodnutý rozsah prác. Dodávateľ si vyhradzuje právo odmietnuť objednávku bez udania dôvodu.</p>
+            <h4>III. Cenové podmienky a Platba</h4>
+            <p>1. Ceny za služby sú stanovené individuálne v cenovej ponuke na základe náročnosti a rozsahu projektu. Dodávateľ nie je platcom DPH; všetky uvedené ceny sú konečné.</p>
+            <p>2. <strong>Platobné podmienky:</strong> Pokiaľ nie je dohodnuté inak, Dodávateľ je oprávnený požadovať zálohovú platbu vo výške <strong>50 % z celkovej ceny Diela</strong> pred začatím prác. Zvyšných 50 % je splatných po schválení vizuálu/funkčnosti Diela, najneskôr však pred odovzdaním zdrojových súborov a prístupových údajov.</p>
+            <p>3. V prípade omeškania Objednávateľa s úhradou faktúry má Dodávateľ právo pozastaviť ďalšie práce na Diele a odmietnuť odovzdanie Diela až do úplného vyrovnania záväzkov.</p>
+            <h4>IV. Dodacie podmienky a Súčinnosť</h4>
+            <p>1. Termíny dodania uvedené v cenovej ponuke sú orientačné a začínajú plynúť až momentom pripísania zálohy na účet Dodávateľa a dodania všetkých potrebných podkladov zo strany Objednávateľa.</p>
+            <p>2. <strong>Súčinnosť Objednávateľa:</strong> Objednávateľ sa zaväzuje dodať podklady (texty, logá, obrázky, prístupy k hostingu) bez zbytočného odkladu. V prípade omeškania Objednávateľa s dodaním podkladov sa termín odovzdania Diela automaticky predlžuje o dobu tohto omeškania.</p>
+            <h4>V. Autorské práva a Licencia</h4>
+            <p>1. Všetky výstupy vytvorené Dodávateľom (grafické návrhy, zdrojový kód, logá) sú autorským dielom v zmysle Autorského zákona.</p>
+            <p>2. <strong>Výhrada vlastníctva:</strong> Majetkové práva k Dielu a licencia na jeho použitie prechádzajú na Objednávateľa <strong>výlučne až po úplnom zaplatení</strong> celkovej dohodnutej odmeny.</p>
+            <p>3. Do momentu úplného zaplatenia zostáva Dielo výhradným vlastníctvom Dodávateľa a Objednávateľ nie je oprávnený ho komerčne využívať, zverejňovať ani upravovať. Porušenie tohto ustanovenia podlieha zmluvnej pokute vo výške 100% ceny Diela.</p>
+            <p>4. Dodávateľ si vyhradzuje právo uvádzať realizované Dielo vo svojom portfóliu (web, sociálne siete) za účelom vlastnej propagácie, pokiaľ nebola uzatvorená dohoda o mlčanlivosti (NDA).</p>
+            <h4>VI. Pripomienkovanie a Úpravy</h4>
+            <p>1. V základnej cene Diela sú zahrnuté <strong>dve (2) kolá revízií</strong> (pripomienok). Pripomienky musia byť zaslané konsolidovane v písomnej forme.</p>
+            <p>2. Práce nad rámec dohodnutého rozsahu alebo pripomienky uplatnené po schválení finálneho dizajnu/funkčnosti sú považované za viacpráce a sú spoplatnené hodinovou sadzbou 30 € / hod.</p>
+            <button class="btn-primary" onclick="closeModal('vop')" style="margin-top:30px;" data-i18n="btn_close">Zavrieť dokument</button>
+        </div>
     </div>
 
+    <div id="gdpr" class="modal" onclick="if(event.target===this) closeModal('gdpr')">
+        <div class="modal-content">
+            <h3 data-i18n="gdpr_title">Ochrana Osobných Údajov a Cookies</h3>
+            
+            <h4>1. Identifikácia prevádzkovateľa</h4>
+            <p>Prevádzkovateľom informačných systémov, v ktorých sa spracúvajú Vaše osobné údaje, je <strong>Jakub Naod</strong>, e-mail: jkdesignmarket@gmail.com (ďalej len „Prevádzkovateľ“). Pri spracúvaní osobných údajov postupujeme v súlade s Nariadením Európskeho parlamentu a Rady (EÚ) 2016/679 (GDPR) a zákonom č. 18/2018 Z. z. o ochrane osobných údajov.</p>
+
+            <h4>2. Účel a právny základ spracúvania</h4>
+            <p>Vaše osobné údaje spracúvame na nasledujúce účely:</p>
+            <ul>
+                <li><strong>Plnenie zmluvy a predzmluvné vzťahy:</strong> Spracúvanie je nevyhnutné na vypracovanie cenovej ponuky, komunikáciu ohľadom projektu a dodanie služby. (Právny základ: čl. 6 ods. 1 písm. b GDPR).</li>
+                <li><strong>Fakturácia a účtovníctvo:</strong> Plnenie zákonných povinností pri vystavovaní daňových dokladov. (Právny základ: čl. 6 ods. 1 písm. c GDPR).</li>
+                <li><strong>Oprávnený záujem:</strong> Uplatňovanie právnych nárokov a ochrana pred IT bezpečnostnými incidentmi.</li>
+            </ul>
+
+            <h4>3. Rozsah spracúvaných údajov</h4>
+            <p>Spracúvame len nevyhnutné údaje: Meno, Priezvisko, E-mailová adresa, Telefónne číslo, a v prípade podnikateľov Obchodné meno, IČO, DIČ a Sídlo.</p>
+
+            <h4>4. Doba uchovávania údajov</h4>
+            <p>Osobné údaje uchovávame po dobu trvania zmluvného vzťahu. Účtovné doklady sú v zmysle zákona archivované po dobu 10 rokov. Údaje získané z kontaktného formulára, ktoré neviedli k uzatvoreniu zmluvy, sú vymazané do 12 mesiacov.</p>
+
+            <h4>5. Príjemcovia údajov</h4>
+            <p>Vaše údaje považujeme za dôverné. Môžu byť sprístupnené iba subjektom, ktoré nám poskytujú technické a podporné služby (napr. poskytovateľ webhostingu, účtovný systém, e-mailové služby), pričom títo sprostredkovatelia sú viazaní mlčanlivosťou.</p>
+
+            <h4>6. Práva dotknutej osoby</h4>
+            <p>Ako dotknutá osoba máte právo požadovať prístup k svojim osobným údajom, na opravu nesprávnych údajov, na vymazanie („právo na zabudnutie“), na obmedzenie spracúvania a namietanie proti spracúvaniu.</p>
+
+            <hr style="border:0; border-top:1px solid #333; margin: 30px 0;">
+
+            <h3>Zásady používania súborov Cookies</h3>
+            <h4>Čo sú cookies?</h4>
+            <p>Cookies sú malé textové súbory, ktoré webová lokalita ukladá vo vašom prehliadači pri jej návšteve. Umožňujú webu zapamätať si vaše úkony a preferencie (napr. jazyk, zobrazenie) počas určitého časového obdobia.</p>
+
+            <h4>Aké cookies používame?</h4>
+            <ul>
+                <li><strong>Technické (Nevyhnutné) cookies:</strong> Sú potrebné pre správne fungovanie webstránky (napr. odoslanie kontaktného formulára, prepínanie jazykových mutácií). Bez týchto cookies by stránka nefungovala správne.</li>
+                <li><strong>Analytické cookies:</strong> Slúžia na anonymizované sledovanie návštevnosti a správania používateľov, čo nám pomáha zlepšovať naše služby. Tieto cookies používame len s vaším súhlasom.</li>
+            </ul>
+
+            <button class="btn-primary" onclick="closeModal('gdpr')" style="margin-top:30px;" data-i18n="btn_close">Zavrieť dokument</button>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+
     <script>
-        // --- OCHRANA ---
-        document.addEventListener('contextmenu', event => event.preventDefault());
-        document.onkeydown = function(e) {
-            if(e.keyCode == 123 || (e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0))) || (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0))) return false;
+        AOS.init({ duration: 800, once: true });
+        const lenis = new Lenis();
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+
+        // Ochrana
+        document.addEventListener('contextmenu', e => e.preventDefault());
+        document.addEventListener('keydown', e => { if(e.ctrlKey && (e.key==='u'||e.key==='s'||e.key==='c')) e.preventDefault(); });
+
+        // Logic
+        window.onload = () => document.querySelector('.mockup-img').classList.add('visible');
+        function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('active'); }
+        function scrollToContact(){ lenis.scrollTo('#contact'); document.getElementById('sideWidget').classList.remove('active'); document.getElementById('mobileMenu').classList.remove('active'); }
+        function openModal(id){ document.getElementById(id).classList.add('open'); }
+        function closeModal(id){ document.getElementById(id).classList.remove('open'); }
+        
+        // Custom Lang Switcher Logic
+        function toggleLangMenu() {
+            document.getElementById('langDropdown').classList.toggle('active');
+        }
+        
+        // Kliknutie mimo zatvorí menu
+        window.onclick = function(e) {
+            if (!e.target.closest('.lang-switcher')) {
+                document.getElementById('langDropdown').classList.remove('active');
+            }
         }
 
-        // --- PREKLADY ---
+        // Change Language Function
+        function changeLang(lang) {
+            // Update icon and code
+            const flags = {
+                sk: "🇸🇰", en: "🇺🇸", de: "🇩🇪", cz: "🇨🇿", pl: "🇵🇱",
+                hu: "🇭🇺", ua: "🇺🇦", fr: "🇫🇷", es: "🇪🇸", it: "🇮🇹"
+            };
+            const codes = {
+                sk: "SK", en: "EN", de: "DE", cz: "CZ", pl: "PL",
+                hu: "HU", ua: "UA", fr: "FR", es: "ES", it: "IT"
+            };
+            
+            document.getElementById('currentLangIcon').innerText = flags[lang];
+            document.getElementById('currentLangCode').innerText = codes[lang];
+            
+            setLanguage(lang);
+            document.getElementById('langDropdown').classList.remove('active');
+        }
+
+        // Lightbox
+        function openLightbox(src) {
+            const lb = document.getElementById('lightbox');
+            const img = document.getElementById('lightbox-img');
+            img.src = src;
+            lb.classList.add('active');
+        }
+        function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+
+        // Cookies
+        function hideCookies(accept) {
+            document.getElementById('cookieBar').style.display='none';
+            localStorage.setItem('cookieConsent', accept ? 'full' : 'necessary');
+        }
+        if(!localStorage.getItem('cookieConsent')) setTimeout(()=>document.getElementById('cookieBar').style.display='block', 2000);
+
+        function prefill(v){ document.getElementById('service').value = v.includes('Web')?'Web':'Graphics'; scrollToContact(); }
+
+        // --- TRANSLATIONS (10 Languages) ---
         const translations = {
             sk: {
-                nav_why: "Prečo ja", nav_portfolio: "Ukážky", nav_pricing: "Cenník", nav_contact: "Kontakt",
-                hero_title: "Pomáham firmám získať viac dopytov pomocou rýchlych webov.", hero_subtitle: "Väčšina webov je len pekná vizitka. Ja tvorím nástroje, ktoré sú rýchle, prehľadné a končia objednávkou.", hero_btn_1: "Chcem web, čo zarába →", hero_btn_2: "Pozrieť výsledky",
-                pain_title: "Väčšina webov dnes:", pain_1: "sa načítava pomaly (klient odchádza)", pain_2: "je neprehľadná a chaotická", pain_3: "nefunguje dobre na mobile", pain_4: "firme neprináša žiadne dopyty", pain_note: "\"Vidím to bohužiaľ pri 80% webov, ktoré mi klienti posielajú na redizajn.\"",
-                sol_title: "Moje riešenie", sol_1: "Rýchle načítanie", sol_1_res: "viac ľudí zostane na webe", sol_2: "Čistý kód", sol_2_res: "web sa nerozpadne o rok", sol_3: "Mobilná optimalizácia", sol_3_res: "neprídeš o klientov na telefóne", sol_4: "Dizajn pre predaj", sol_4_res: "návštevník vie, kam kliknúť",
-                proj_1_title: "E-shop s oblečením", proj_1_desc: "Kompletný redesign s cieľom zjednodušiť nákupný proces.", proj_1_res: "Výsledok: O 30% viac dokončených objednávok.", proj_2_title: "Realitný Portál", proj_2_desc: "Prehľadný katalóg nehnuteľností s pokročilým filtrovaním.", proj_2_res: "Výsledok: Prehľadná štruktúra a rýchle načítanie fotiek.", proj_3_title: "Startup Landing Page", proj_3_desc: "Minimalistická stránka pre IT firmu budujúca dôveru.", proj_3_res: "Výsledok: Profesionálny imidž pre zahraničných investorov.",
-                price_title: "Investícia do webu", price_1_desc: "Ideálne riešenie, ak chceš web rýchlo a bez zbytočných výdavkov.", badge_popular: "⭐ Najčastejšia voľba", price_2_desc: "Web navrhnutý tak, aby návštevníkov viedol k akcii (kontakt, objednávka).", price_3_desc: "Pre projekty, ktoré chcú ísť nad rámec a potrebujú špeciálne funkcie.", btn_choose: "Vybrať", price_note: "Uvedené ceny sú orientačné. Finálna cena závisí od rozsahu a náročnosti projektu.",
-                contact_title: "Máš záujem o web?", contact_sub: "Napíš mi. Stačí pár informácií. Odpíšem ti úprimne, či a ako viem pomôcť.", form_name: "Meno", form_package: "O aký web / balík ide?", form_msg: "Stručný popis projektu", form_gdpr: "Súhlasím so spracovaním osobných údajov za účelom komunikácie.", form_btn: "Odoslať nezáväzný dopyt", form_secure: "Odpoveď do 24 hodín. Žiadne spamovanie.",
-                footer_quote: "\"Ak chceš moderný web bez zbytočných komplikácií, si na správnom mieste.\"",
-                cookie_text: "Používame cookies na zlepšenie vášho zážitku. Kliknutím na „Prijať“ súhlasíte s ich používaním.", cookie_accept: "PRIJAŤ", cookie_reject: "ODMIETNUŤ", cookie_policy: "Zásady ochrany súkromia",
-                promo_title: "🎁 Tip pre vás", promo_text: "Ešte váhate? Dohodnite si so mnou rýchly hovor. Zadarmo sa pozriem na vašu situáciu.", promo_btn: "Chcem konzultáciu →",
-                ph_name: "Tvoje meno", ph_email: "tvoj@email.com", ph_select: "Vyber možnosť...", ph_msg: "..."
+                nav_web: "Weby", nav_design: "Grafika", nav_contact: "Kontakt", btn_cta: "Spolupracovať", hero_status: "Prijímam nové spolupráce", hero_title: "Digitálna Architektúra<br>pre Moderný Biznis", hero_desc: "Pomáham firmám rásť cez prémiový webdizajn a vizuálnu identitu. Som študent a freelancer, ktorý doručuje agentúrnu kvalitu.",
+                stat_years: "ROKY PRAXE", stat_projects: "PROJEKTOV", stat_satis: "SPOKOJNOSŤ", web_sub: "Webstránky zamerané na rýchlosť, SEO a konverzie.",
+                feat_speed_t: "Extrémna Rýchlosť", feat_speed_d: "Optimalizácia na úrovni kódu. Rýchly web znamená lepšie pozície v Google.", feat_mobile_t: "Mobile First", feat_mobile_d: "Web vyzerá na telefóne perfektne.",
+                feat_seo_t: "SEO Ready", feat_seo_d: "Technická príprava pre vyhľadávače.", feat_cms_t: "CMS na Mieru", feat_cms_d: "Užívateľsky prívetivá administrácia.",
+                port_title: "Vybrané Projekty", proj_1_t: "Moderné Bývanie", proj_2_t: "Aura Store",
+                price_web1_t: "Web Štart", price_web1_f1: "One-page Landing", price_web1_f2: "Responzívny dizajn",
+                price_web2_t: "Web Biznis", price_web2_f1: "Viac podstránok",
+                price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portál", price_web3_f2: "Funkcie na mieru",
+                graph_sub: "Vizuálna identita, ktorá predáva.", feat_brand_t: "Branding", feat_brand_d: "Nadčasové logá s manuálom.", feat_ads_t: "Ads Grafika", feat_ads_d: "Bannery s vysokým CTR.", feat_soc_t: "Social Media", feat_soc_d: "Správa profilov a Reels.",
+                showcase_title: "Ukážky Dizajnu", price_g1_t: "Logo Štart", price_g1_f1: "2 Koncepty loga", price_g1_f2: "Exporty (SVG, PNG)",
+                price_g2_t: "Brand Identita", price_g2_f1: "3 Koncepty loga",
+                price_g3_t: "Social / Ads", price_g3_f1: "Set 10 bannerov", price_g3_f2: "Správa sietí",
+                contact_title: "Napíšte mi", contact_sub: "Nezáväzná konzultácia zdarma.", form_name: "Meno a Priezvisko", form_email: "Váš Email", form_budget: "Rozpočet (nepovinné)", form_msg: "Popis projektu...", form_agree: "Súhlasím so spracovaním údajov a podmienkami.", btn_send: "Odoslať dopyt", btn_select: "Vybrať", btn_consult: "Konzultovať",
+                footer_vop: "Všeobecné obchodné podmienky", footer_gdpr: "Ochrana súkromia (GDPR)", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. Student Freelancer.",
+                cookie_head: "🍪 Nastavenie Súkromia", cookie_text: "Používame cookies na zabezpečenie funkčnosti webu a analýzu.", cookie_btn_nec: "Len nevyhnutné", cookie_btn_all: "Prijať všetko",
+                widget_trigger: "2026 INFO", widget_title: "Máte víziu?", widget_text: "Nečakajte na vhodný čas. Kvalitný web a brand potrebujú prípravu.", widget_btn: "Mám záujem",
+                vop_title: "Všeobecné obchodné podmienky", gdpr_title: "Ochrana Osobných Údajov", btn_close: "Zavrieť dokument", close: "✕ Zavřít"
             },
             en: {
-                nav_why: "Why Me", nav_portfolio: "Work", nav_pricing: "Pricing", nav_contact: "Contact",
-                hero_title: "Helping companies get more leads with fast websites.", hero_subtitle: "Most websites are just pretty business cards. I build tools that are fast, clear, and result in orders.", hero_btn_1: "I want a profitable web →", hero_btn_2: "See results",
-                pain_title: "Most websites today:", pain_1: "load slowly (client leaves)", pain_2: "are messy and chaotic", pain_3: "don't work well on mobile", pain_4: "bring zero leads to the business", pain_note: "\"Unfortunately, I see this in 80% of websites clients send me for a redesign.\"",
-                sol_title: "My Solution", sol_1: "Fast loading", sol_1_res: "more people stay", sol_2: "Clean code", sol_2_res: "site won't break in a year", sol_3: "Mobile optimization", sol_3_res: "you won't lose phone users", sol_4: "Sales design", sol_4_res: "visitor knows where to click",
-                proj_1_title: "Clothing E-shop", proj_1_desc: "Complete redesign to simplify the purchasing process.", proj_1_res: "Result: 30% more completed orders.", proj_2_title: "Real Estate Portal", proj_2_desc: "Clear property catalog with advanced filtering.", proj_2_res: "Result: Clear structure and fast photo loading.", proj_3_title: "Startup Landing Page", proj_3_desc: "Minimalist page for an IT firm building trust.", proj_3_res: "Result: Professional image for foreign investors.",
-                price_title: "Website Investment", price_1_desc: "Ideal solution if you want a web fast and without unnecessary costs.", badge_popular: "⭐ Most Popular", price_2_desc: "Designed to lead visitors to action (contact, order).", price_3_desc: "For projects that want to go beyond and need special functions.", btn_choose: "Select", price_note: "Prices are indicative. Final price depends on project scope and complexity.",
-                contact_title: "Interested in a website?", contact_sub: "Write to me. Just a few details. I'll reply honestly if and how I can help.", form_name: "Name", form_package: "Which package?", form_msg: "Brief project description", form_gdpr: "I agree to the processing of my personal data for communication purposes.", form_btn: "Send non-binding inquiry", form_secure: "Reply within 24 hours. No spam.",
-                footer_quote: "\"If you want a modern website without unnecessary complications, you are in the right place.\"",
-                cookie_text: "We use cookies to enhance your browsing experience. By clicking \"Accept\", you consent to our use of cookies.", cookie_accept: "ACCEPT", cookie_reject: "REJECT", cookie_policy: "Privacy Policy",
-                promo_title: "🎁 Tip for you", promo_text: "Still hesitating? Schedule a quick call. I'll look at your situation for free.", promo_btn: "Get free consultation →",
-                ph_name: "Your Name", ph_email: "your@email.com", ph_select: "Choose option...", ph_msg: "..."
+                nav_web: "Websites", nav_design: "Graphics", nav_contact: "Contact", btn_cta: "Let's Talk", hero_status: "Accepting New Projects", hero_title: "Digital Architecture<br>for Modern Business", hero_desc: "I help businesses grow through premium web design and visual identity. Student & freelancer delivering agency quality.",
+                stat_years: "YEARS EXP", stat_projects: "PROJECTS", stat_satis: "SATISFACTION", web_sub: "Websites focused on speed, SEO, and conversions.",
+                feat_speed_t: "Extreme Speed", feat_speed_d: "Code-level optimization. Fast web means better Google ranking.", feat_mobile_t: "Mobile First", feat_mobile_d: "Looks perfect on phones.",
+                feat_seo_t: "SEO Ready", feat_seo_d: "Technical setup for search engines.", feat_cms_t: "Custom CMS", feat_cms_d: "User-friendly administration.",
+                port_title: "Featured Projects", proj_1_t: "Modern Living", proj_2_t: "Aura Store",
+                price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Responsive design",
+                price_web2_t: "Web Business", price_web2_f1: "Multi-page",
+                price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portal", price_web3_f2: "Custom features",
+                graph_sub: "Visual identity that sells.", feat_brand_t: "Branding", feat_brand_d: "Timeless logos with manual.", feat_ads_t: "Ads Graphics", feat_ads_d: "High CTR banners.", feat_soc_t: "Social Media", feat_soc_d: "Profile management & Reels.",
+                showcase_title: "Design Showcase", price_g1_t: "Logo Start", price_g1_f1: "2 Logo concepts", price_g1_f2: "Exports (SVG, PNG)",
+                price_g2_t: "Brand Identity", price_g2_f1: "3 Logo concepts",
+                price_g3_t: "Social / Ads", price_g3_f1: "10 Banners set", price_g3_f2: "Social management",
+                contact_title: "Get in Touch", contact_sub: "Free consultation.", form_name: "Name", form_email: "Your Email", form_budget: "Budget (optional)", form_msg: "Project description...", form_agree: "I agree to data processing and terms.", btn_send: "Send Request", btn_select: "Select", btn_consult: "Consult",
+                footer_vop: "Terms & Conditions", footer_gdpr: "Privacy Policy", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. All rights reserved.",
+                cookie_head: "🍪 Privacy Settings", cookie_text: "We use cookies for functionality and analysis.", cookie_btn_nec: "Necessary only", cookie_btn_all: "Accept all",
+                widget_trigger: "2026 INFO", widget_title: "Have a vision?", widget_text: "Don't wait. Quality web and brand need preparation.", widget_btn: "I'm interested",
+                vop_title: "Terms and Conditions", gdpr_title: "Privacy Policy", btn_close: "Close Document", close: "✕ Close"
             },
-            de: {
-                nav_why: "Warum ich", nav_portfolio: "Portfolio", nav_pricing: "Preise", nav_contact: "Kontakt",
-                hero_title: "Mehr Kundenanfragen durch schnelle Websites.", hero_subtitle: "Die meisten Websites sind nur hübsche Visitenkarten. Ich erstelle Werkzeuge, die schnell und übersichtlich sind und Aufträge generieren.", hero_btn_1: "Website, die verkauft →", hero_btn_2: "Ergebnisse ansehen",
-                pain_title: "Websites heute:", pain_1: "laden langsam (Kunde geht)", pain_2: "sind chaotisch", pain_3: "funktionieren nicht auf Handys", pain_4: "bringen keine Anfragen", pain_note: "\"Leider sehe ich das bei 80% der Websites, die mir Kunden zum Redesign schicken.\"",
-                sol_title: "Meine Lösung", sol_1: "Schnelles Laden", sol_1_res: "mehr Besucher bleiben", sol_2: "Sauberer Code", sol_2_res: "stabil auch in Zukunft", sol_3: "Mobile Optimierung", sol_3_res: "keine Kundenverluste am Handy", sol_4: "Verkaufsdesign", sol_4_res: "Besucher weiß, wohin klicken",
-                proj_1_title: "Mode E-Shop", proj_1_desc: "Komplettes Redesign zur Vereinfachung des Kaufprozesses.", proj_1_res: "Ergebnis: 30% mehr Bestellungen.", proj_2_title: "Immobilienportal", proj_2_desc: "Übersichtlicher Katalog mit erweiterten Filtern.", proj_2_res: "Ergebnis: Klare Struktur, schnelle Fotos.", proj_3_title: "Startup Landing Page", proj_3_desc: "Minimalistische Seite für IT-Firma, die Vertrauen aufbaut.", proj_3_res: "Ergebnis: Professionelles Image für Investoren.",
-                price_title: "Investition", price_1_desc: "Ideal, wenn Sie schnell und günstig eine Website brauchen.", badge_popular: "⭐ Beste Wahl", price_2_desc: "Design, das Besucher zur Handlung führt (Kontakt, Bestellung).", price_3_desc: "Für Projekte, die spezielle Funktionen benötigen.", btn_choose: "Wählen", price_note: "Preise sind Richtwerte. Endpreis hängt vom Projektumfang ab.",
-                contact_title: "Interesse?", contact_sub: "Schreiben Sie mir. Ich antworte ehrlich, wie ich helfen kann.", form_name: "Name", form_package: "Welches Paket?", form_msg: "Projektbeschreibung", form_gdpr: "Ich stimme der Verarbeitung meiner personenbezogenen Daten zu.", form_btn: "Unverbindliche Anfrage senden", form_secure: "Antwort innerhalb 24 Std. Kein Spam.",
-                footer_quote: "\"Wenn Sie eine moderne Website ohne Komplikationen wollen, sind Sie hier richtig.\"",
-                cookie_text: "Wir verwenden Cookies, um Ihr Erlebnis zu verbessern. Durch Klicken auf „Akzeptieren“ stimmen Sie zu.", cookie_accept: "AKZEPTIEREN", cookie_reject: "ABLEHNEN", cookie_policy: "Datenschutzrichtlinie",
-                promo_title: "🎁 Tipp für Sie", promo_text: "Noch unsicher? Vereinbaren Sie ein kurzes Gespräch. Ich schaue mir Ihre Situation kostenlos an.", promo_btn: "Kostenlose Beratung →",
-                ph_name: "Ihr Name", ph_email: "ihre@email.com", ph_select: "Option wählen...", ph_msg: "..."
-            },
-            es: {
-                nav_why: "Por qué yo", nav_portfolio: "Trabajos", nav_pricing: "Precios", nav_contact: "Contacto",
-                hero_title: "Ayudo a empresas a obtener más clientes con webs rápidas.", hero_subtitle: "La mayoría de las webs son solo tarjetas de visita. Yo creo herramientas rápidas y claras que generan ventas.", hero_btn_1: "Quiero una web rentable →", hero_btn_2: "Ver resultados",
-                pain_title: "La mayoría de las webs hoy:", pain_1: "cargan lento (el cliente se va)", pain_2: "son caóticas", pain_3: "no funcionan bien en móvil", pain_4: "no traen clientes", pain_note: "\"Desafortunadamente, veo esto en el 80% de las webs que rediseño.\"",
-                sol_title: "Mi solución", sol_1: "Carga rápida", sol_1_res: "más gente se queda", sol_2: "Código limpio", sol_2_res: "web estable a largo plazo", sol_3: "Optimización móvil", sol_3_res: "no pierdes clientes en celular", sol_4: "Diseño de ventas", sol_4_res: "el visitante sabe dónde hacer clic",
-                proj_1_title: "Tienda de ropa", proj_1_desc: "Rediseño completo para simplificar la compra.", proj_1_res: "Resultado: 30% más pedidos.", proj_2_title: "Portal Inmobiliario", proj_2_desc: "Catálogo claro con filtros avanzados.", proj_2_res: "Resultado: Estructura clara y carga rápida.", proj_3_title: "Startup Landing Page", proj_3_desc: "Página minimalista que genera confianza.", proj_3_res: "Resultado: Imagen profesional para inversores.",
-                price_title: "Inversión web", price_1_desc: "Solución ideal para una web rápida y económica.", badge_popular: "⭐ Más popular", price_2_desc: "Diseñada para guiar a la acción (contacto, pedido).", price_3_desc: "Para proyectos que necesitan funciones especiales.", btn_choose: "Seleccionar", price_note: "Precios orientativos. El precio final depende del proyecto.",
-                contact_title: "¿Interesado?", contact_sub: "Escríbeme. Responderé honestamente si puedo ayudar.", form_name: "Nombre", form_package: "¿Qué paquete?", form_msg: "Descripción del proyecto", form_gdpr: "Acepto el procesamiento de mis datos personales para la comunicación.", form_btn: "Enviar consulta", form_secure: "Respuesta en 24h. Sin spam.",
-                footer_quote: "\"Si quieres una web moderna sin complicaciones, estás en el lugar correcto.\"",
-                cookie_text: "Usamos cookies para mejorar su experiencia. Al hacer clic en 'Aceptar', acepta nuestro uso.", cookie_accept: "ACEPTAR", cookie_reject: "RECHAZAR", cookie_policy: "Política de privacidad",
-                promo_title: "🎁 Consejo", promo_text: "¿Dudas? Agenda una llamada rápida. Analizaré tu situación gratis.", promo_btn: "Consulta gratis →",
-                ph_name: "Tu nombre", ph_email: "tu@email.com", ph_select: "Elige opción...", ph_msg: "..."
-            },
-            fr: {
-                nav_why: "Pourquoi moi", nav_portfolio: "Portfolio", nav_pricing: "Tarifs", nav_contact: "Contact",
-                hero_title: "J'aide les entreprises à obtenir plus de leads.", hero_subtitle: "La plupart des sites ne sont que des cartes de visite. Je crée des outils rapides et clairs qui génèrent des commandes.", hero_btn_1: "Je veux un site rentable →", hero_btn_2: "Voir les résultats",
-                pain_title: "La plupart des sites:", pain_1: "chargent lentement", pain_2: "sont chaotiques", pain_3: "mal optimisés pour mobile", pain_4: "n'apportent aucun client", pain_note: "\"Je vois cela sur 80% des sites que je refais.\"",
-                sol_title: "Ma solution", sol_1: "Chargement rapide", sol_1_res: "plus de visiteurs restent", sol_2: "Code propre", sol_2_res: "site stable", sol_3: "Optimisation mobile", sol_3_res: "ne perdez pas les utilisateurs mobiles", sol_4: "Design de vente", sol_4_res: "le visiteur sait où cliquer",
-                proj_1_title: "E-shop Vêtements", proj_1_desc: "Refonte complète pour simplifier l'achat.", proj_1_res: "Résultat: +30% de commandes.", proj_2_title: "Portail Immobilier", proj_2_desc: "Catalogue clair avec filtres avancés.", proj_2_res: "Résultat: Structure claire, photos rapides.", proj_3_title: "Startup Page", proj_3_desc: "Page minimaliste inspirant confiance.", proj_3_res: "Résultat: Image professionnelle pour investisseurs.",
-                price_title: "Investissement", price_1_desc: "Idéal pour un site rapide et économique.", badge_popular: "⭐ Meilleur choix", price_2_desc: "Conçu pour inciter à l'action (contact, commande).", price_3_desc: "Pour les projets nécessitant des fonctions spéciales.", btn_choose: "Choisir", price_note: "Prix indicatifs. Le prix final dépend du projet.",
-                contact_title: "Intéressé?", contact_sub: "Écrivez-moi. Je répondrai honnêtement.", form_name: "Nom", form_package: "Quel forfait?", form_msg: "Description du projet", form_gdpr: "J'accepte le traitement de mes données personnelles.", form_btn: "Envoyer la demande", form_secure: "Réponse sous 24h. Pas de spam.",
-                footer_quote: "\"Si vous voulez un site moderne sans complications, vous êtes au bon endroit.\"",
-                cookie_text: "Nous utilisons des cookies pour améliorer votre expérience. En cliquant sur « Accepter », vous consentez.", cookie_accept: "ACCEPTER", cookie_reject: "REFUSER", cookie_policy: "Politique de confidentialité",
-                promo_title: "🎁 Conseil", promo_text: "Vous hésitez? Prenons rendez-vous. J'analyserai votre situation gratuitement.", promo_btn: "Consultation gratuite →",
-                ph_name: "Votre nom", ph_email: "votre@email.com", ph_select: "Choisir...", ph_msg: "..."
-            }
+            de: { nav_web: "Webseiten", nav_design: "Grafik", nav_contact: "Kontakt", btn_cta: "Kontaktieren", hero_status: "Neue Projekte verfügbar", hero_title: "Digitale Architektur<br>für modernes Business", hero_desc: "Ich helfe Unternehmen durch Premium-Webdesign zu wachsen.", stat_years: "JAHRE", stat_projects: "PROJEKTE", stat_satis: "ZUFRIEDENHEIT", web_sub: "Websites mit Fokus auf Geschwindigkeit und SEO.", feat_speed_t: "Extreme Geschwindigkeit", feat_speed_d: "Code-Optimierung für besseres Ranking.", feat_mobile_t: "Mobile First", feat_mobile_d: "Perfekt auf Handys.", feat_seo_t: "SEO Bereit", feat_seo_d: "Technische Vorbereitung.", feat_cms_t: "CMS nach Maß", feat_cms_d: "Einfache Verwaltung.", port_title: "Ausgewählte Projekte", proj_1_t: "Modernes Wohnen", proj_2_t: "Aura Store", price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Responsive Design", price_web2_t: "Web Business", price_web2_f1: "Mehrseitig", price_web3_t: "Web Premium", price_web3_f1: "E-Shop / Portal", price_web3_f2: "Individuelle Funktionen", graph_sub: "Visuelle Identität, die verkauft.", feat_brand_t: "Branding", feat_brand_d: "Zeitlose Logos.", feat_ads_t: "Werbegrafik", feat_ads_d: "Banner mit hohem CTR.", feat_soc_t: "Social Media", feat_soc_d: "Profilverwaltung.", showcase_title: "Design Showcase", price_g1_t: "Logo Start", price_g1_f1: "2 Konzepte", price_g1_f2: "Exporte (SVG, PNG)", price_g2_t: "Markenidentität", price_g2_f1: "3 Konzepte", price_g3_t: "Social / Ads", price_g3_f1: "10 Banner", price_g3_f2: "Verwaltung", contact_title: "Schreiben Sie mir", contact_sub: "Kostenlose Beratung.", form_name: "Name", form_email: "E-Mail", form_budget: "Budget", form_msg: "Nachricht...", form_agree: "Ich stimme der Datenverarbeitung zu.", btn_send: "Senden", btn_select: "Wählen", btn_consult: "Beraten", footer_vop: "AGB", footer_gdpr: "Datenschutz", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. Alle Rechte vorbehalten.", cookie_head: "🍪 Privatsphäre", cookie_text: "Wir verwenden Cookies.", cookie_btn_nec: "Nur notwendige", cookie_btn_all: "Alle akzeptieren", widget_trigger: "2026 INFO", widget_title: "Haben Sie eine Vision?", widget_text: "Warten Sie nicht. Qualität braucht Zeit.", widget_btn: "Interessiert", vop_title: "Allgemeine Geschäftsbedingungen", gdpr_title: "Datenschutz", btn_close: "Schließen", close: "✕ Schließen" },
+            cz: { nav_web: "Weby", nav_design: "Grafika", nav_contact: "Kontakt", btn_cta: "Spolupracovat", hero_status: "Přijímám nové spolupráce", hero_title: "Digitální Architektura<br>pro Moderní Byznys", hero_desc: "Pomáhám firmám růst přes prémiový webdesign. Jsem student a freelancer.", stat_years: "ROKY PRAXE", stat_projects: "PROJEKTŮ", stat_satis: "SPOKOJENOST", web_sub: "Webstránky zaměřené na rychlost a SEO.", feat_speed_t: "Extrémní Rychlost", feat_speed_d: "Optimalizace kódu.", feat_mobile_t: "Mobile First", feat_mobile_d: "Web vypadá na telefonu perfektně.", feat_seo_t: "SEO Ready", feat_seo_d: "Technická příprava.", feat_cms_t: "CMS na Míru", feat_cms_d: "Uživatelsky přívětivá administrace.", port_title: "Vybrané Projekty", proj_1_t: "Moderní Bydlení", proj_2_t: "Aura Store", price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Responzivní design", price_web2_t: "Web Business", price_web2_f1: "Více podstránek", price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portál", price_web3_f2: "Funkce na míru", graph_sub: "Vizuální identita, která prodává.", feat_brand_t: "Branding", feat_brand_d: "Nadčasová loga.", feat_ads_t: "Ads Grafika", feat_ads_d: "Bannery s vysokým CTR.", feat_soc_t: "Social Media", feat_soc_d: "Správa profilů.", showcase_title: "Ukázky Designu", price_g1_t: "Logo Start", price_g1_f1: "2 Koncepty", price_g1_f2: "Exporty", price_g2_t: "Brand Identita", price_g2_f1: "3 Koncepty", price_g3_t: "Social / Ads", price_g3_f1: "10 Bannerů", price_g3_f2: "Správa sítí", contact_title: "Napište mi", contact_sub: "Nezávazná konzultace.", form_name: "Jméno", form_email: "Email", form_budget: "Rozpočet", form_msg: "Zpráva...", form_agree: "Souhlasím se zpracováním údajů.", btn_send: "Odeslat", btn_select: "Vybrat", btn_consult: "Konzultovat", footer_vop: "VOP", footer_gdpr: "Ochrana soukromí", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.", cookie_head: "🍪 Soukromí", cookie_text: "Používáme cookies.", cookie_btn_nec: "Jen nutné", cookie_btn_all: "Přijmout vše", widget_trigger: "2026 INFO", widget_title: "Máte vizi?", widget_text: "Nečekejte. Kvalita chce čas.", widget_btn: "Mám zájem", vop_title: "Obchodní podmínky", gdpr_title: "Ochrana údajů", btn_close: "Zavřít", close: "✕ Zavřít" },
+            pl: { nav_web: "Strony", btn_cta: "Współpraca", hero_title: "Architektura Cyfrowa", hero_desc: "Pomagam firmom rozwijać się.", btn_send: "Wyślij", widget_btn: "Jestem zainteresowany", form_msg: "Wiadomość..." },
+            hu: { nav_web: "Weboldalak", btn_cta: "Kapcsolat", hero_title: "Digitális Építészet", hero_desc: "Segítek a vállalkozásoknak növekedni.", btn_send: "Küldés", widget_btn: "Érdekel", form_msg: "Üzenet..." },
+            ua: { nav_web: "Веб-сайти", btn_cta: "Співпраця", hero_title: "Цифрова Архітектура", hero_desc: "Допомагаю бізнесу зростати.", btn_send: "Надіслати", widget_btn: "Цікавлюсь", form_msg: "Повідомлення..." },
+            fr: { nav_web: "Sites Web", btn_cta: "Contact", hero_title: "Architecture Numérique", hero_desc: "J'aide les entreprises à croître.", btn_send: "Envoyer", widget_btn: "Intéressé", form_msg: "Message..." },
+            es: { nav_web: "Sitios Web", btn_cta: "Contacto", hero_title: "Arquitectura Digital", hero_desc: "Ayudo a las empresas a crecer.", btn_send: "Enviar", widget_btn: "Interesado", form_msg: "Mensaje..." },
+            it: { nav_web: "Siti Web", btn_cta: "Contatto", hero_title: "Architettura Digitale", hero_desc: "Aiuto le aziende a crescere.", btn_send: "Inviare", widget_btn: "Interessato", form_msg: "Messaggio..." }
         };
 
-        const flags = { sk: "https://flagcdn.com/w40/sk.png", en: "https://flagcdn.com/w40/gb.png", de: "https://flagcdn.com/w40/de.png", es: "https://flagcdn.com/w40/es.png", fr: "https://flagcdn.com/w40/fr.png" };
-
-        function changeLanguage(lang) {
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) el.innerText = translations[lang][key];
-            });
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                if (translations[lang][key]) el.placeholder = translations[lang][key];
-            });
-            document.getElementById('current-lang').innerText = lang.toUpperCase();
-            document.getElementById('current-flag').src = flags[lang];
-        }
-
-        function toggleLangMenu() { document.getElementById('lang-menu').classList.toggle('show'); }
-        window.onclick = function(event) {
-            if (!event.target.matches('.lang-btn') && !event.target.matches('.lang-btn *')) {
-                var dropdowns = document.getElementsByClassName("lang-dropdown");
-                for (var i = 0; i < dropdowns.length; i++) { if (dropdowns[i].classList.contains('show')) dropdowns[i].classList.remove('show'); }
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => { changeLanguage('en'); });
-        window.addEventListener("scroll", reveal);
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                if (reveals[i].getBoundingClientRect().top < window.innerHeight - 150) reveals[i].classList.add("active");
-            }
-        }
-        reveal();
-
-        function toggleMenu() { document.querySelector('.nav-links').classList.toggle('active'); }
-        function prefillForm(plan) {
-            const select = document.getElementById('project-type');
-            if(![...select.options].some(o => o.value === plan) && plan !== 'Iné') { document.querySelector('textarea').value = "Mám záujem o: " + plan; select.value = "Iné"; } else { select.value = plan; }
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        document.getElementById('contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const btn = document.querySelector('.submit-btn');
-            const originalText = btn.innerText;
-            btn.innerText = "Odosielam..."; btn.disabled = true;
+        function setLanguage(lang) {
+            const t = translations[lang] || translations['en']; // Fallback to EN if language incomplete
+            const base = translations['sk']; // Use SK as base for keys
             
-            const payload = {
-                username: "JK Design Bot",
-                embeds: [{ title: "🚀 Nový dopyt!", color: 16766720, fields: [
-                    { name: "Meno", value: this.querySelector('input[type="text"]').value },
-                    { name: "Email", value: this.querySelector('input[type="email"]').value },
-                    { name: "Balík", value: document.getElementById('project-type').value },
-                    { name: "Správa", value: this.querySelector('textarea').value || " - " }
-                ]}]
-            };
-
-            fetch('https://discord.com/api/webhooks/1461308081555374133/KNV9VyK4mFJz_3WVWm9T9or0I3BKuULNn0dcNWBAZ0pBAmtJDtCZftxh4Ls2KB1Qk_vc', {
-                method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
-            }).then(r => {
-                if(r.ok) { Swal.fire({ title: 'Odoslané!', icon: 'success', confirmButtonText: 'OK', buttonsStyling: false, customClass: { confirmButton: 'btn btn-primary' }}); this.reset(); }
-                else throw new Error();
-            }).catch(() => Swal.fire({ title: 'Chyba!', icon: 'error', confirmButtonText: 'OK', buttonsStyling: false, customClass: { confirmButton: 'btn btn-primary' }}))
-            .finally(() => { btn.innerText = originalText; btn.disabled = false; });
-        });
-
-        // --- COOKIE LOGIC (GDPR) ---
-        const cookieBar = document.getElementById('cookie-bar');
-        const consent = localStorage.getItem('cookieConsent');
-
-        if (!consent) { setTimeout(() => cookieBar.classList.add('active'), 500); }
-        else if (consent === 'accepted') { enableTracking(); }
-
-        document.getElementById('accept-cookies').addEventListener('click', () => {
-            localStorage.setItem('cookieConsent', 'accepted');
-            cookieBar.classList.remove('active');
-            enableTracking();
-        });
-
-        document.getElementById('reject-cookies').addEventListener('click', () => {
-            localStorage.setItem('cookieConsent', 'rejected');
-            cookieBar.classList.remove('active');
-        });
-
-        function enableTracking() {
-            // SEM VLOŽ SVOJE SKRIPTY (Google Analytics, Pixel atď.)
-            console.log("Tracking enabled");
+            // Loop through all keys in SK to ensure we cover everything
+            for (const key in base) {
+                const el = document.querySelector(`[data-i18n="${key}"]`);
+                if (el) {
+                    // Use translation if exists, otherwise fallback to English, then Slovak
+                    const text = (translations[lang] && translations[lang][key]) || (translations['en'] && translations['en'][key]) || base[key];
+                    
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.placeholder = text;
+                    } else {
+                        el.innerHTML = text;
+                    }
+                }
+            }
         }
 
-        const promo = document.getElementById('promo-notification');
-        setTimeout(() => { if (!sessionStorage.getItem('promoClosed')) promo.classList.add('show'); }, 8000);
-        function closePromo() { promo.classList.remove('show'); sessionStorage.setItem('promoClosed', 'true'); }
+        // Form Submit
+        document.getElementById('contactForm').onsubmit = function(e){
+            e.preventDefault();
+            const btn = this.querySelector('button'); btn.innerText = "...";
+            fetch('https://discord.com/api/webhooks/1461308081555374133/KNV9VyK4mFJz_3WVWm9T9or0I3BKuULNn0dcNWBAZ0pBAmtJDtCZftxh4Ls2KB1Qk_vc',{
+                method:'POST', headers:{'Content-Type':'application/json'},
+                body:JSON.stringify({username:"Bot", embeds:[{title:"Lead", fields:[{name:"Meno", value:document.getElementById('name').value},{name:"Služba", value:document.getElementById('service').value}]}]})
+            }).then(()=>{ Swal.fire({title:'Odoslané', icon:'success', background:'#111', color:'#fff', confirmButtonColor:'#fff'}); this.reset(); btn.innerText=document.querySelector('[data-i18n="btn_send"]').innerText; });
+        };
+        
+        // Navbar Scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('.nav-fixed');
+            if(window.scrollY > 50) nav.classList.add('scrolled'); else nav.classList.remove('scrolled');
+        });
     </script>
 </body>
 </html>
