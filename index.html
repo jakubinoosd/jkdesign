@@ -696,7 +696,7 @@
                 price_g3_t: "Social", price_g3_f1: "10 Banner", price_g3_f2: "Gestione",
                 contact_title: "Scrivimi", contact_sub: "Consulenza gratuita.", form_name: "Nome", form_email: "Email", form_budget: "Budget", form_msg: "Messaggio...", form_agree: "Accetto il trattamento.", btn_send: "Inviare", btn_select: "Scegliere", btn_consult: "Consultare",
                 footer_vop: "Termini", footer_gdpr: "Privacy", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.",
-                cookie_head: "🍪 Privacy", cookie_text: "Usiamo i cookie.", cookie_btn_nec: "Necessari", cookie_btn_all: "Tutti",
+                cookie_head: "🍪 Privacy", cookie_text: "Usamos i cookie.", cookie_btn_nec: "Necessari", cookie_btn_all: "Tutti",
                 widget_trigger: "INFO 2026", widget_title: "Una visione?", widget_text: "Non aspettare.", widget_btn: "Interessato",
                 vop_title: "Termini e Condizioni", gdpr_title: "Informativa sulla Privacy", btn_close: "Chiudere", close: "✕ Chiudere"
             }
@@ -709,7 +709,7 @@
             for (const key in base) {
                 const el = document.querySelector(`[data-i18n="${key}"]`);
                 if (el) {
-                    const text = (translations[lang] && translations[lang][key]) || (translations['en'] && translations['en][key]) || base[key];
+                    const text = (translations[lang] && translations[lang][key]) || (translations['en'] && translations['en'][key]) || base[key];
                     if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                         el.placeholder = text;
                     } else {
@@ -722,23 +722,52 @@
         // Form Submit
         document.getElementById('contactForm').onsubmit = function(e){
             e.preventDefault();
-            const btn = this.querySelector('button'); btn.innerText = "...";
+            const btn = this.querySelector('button'); 
+            const originalText = btn.innerText;
+            btn.innerText = "Odosielam...";
+            
+            // Získanie hodnôt
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const service = document.getElementById('service').value;
+            const budget = document.getElementById('budget').value || "Neuvedené"; // Ošetrenie prázdnej hodnoty
+            const msg = document.getElementById('msg').value || "Bez správy";    // Ošetrenie prázdnej hodnoty
+
             fetch('https://discord.com/api/webhooks/1461308081555374133/KNV9VyK4mFJz_3WVWm9T9or0I3BKuULNn0dcNWBAZ0pBAmtJDtCZftxh4Ls2KB1Qk_vc',{
-                method:'POST', headers:{'Content-Type':'application/json'},
+                method:'POST', 
+                headers:{'Content-Type':'application/json'},
                 body:JSON.stringify({
-                    username:"Bot", 
-                    embeds:[{
-                        title:"Lead", 
-                        fields:[
-                            {name:"Meno", value:document.getElementById('name').value},
-                            {name:"Email", value:document.getElementById('email').value},
-                            {name:"Služba", value:document.getElementById('service').value},
-                            {name:"Rozpočet", value:document.getElementById('budget').value},
-                            {name:"Správa", value:document.getElementById('msg').value}
-                        ]
+                    username: "JK Design Bot",
+                    embeds: [{
+                        title: "✨ Nový Dopyt z Webu",
+                        color: 5763719, // Zelená farba (hex #57F287)
+                        fields: [
+                            { name: "👤 Meno", value: name, inline: true },
+                            { name: "📧 Email", value: email, inline: true },
+                            { name: "🛠 Služba", value: service, inline: true },
+                            { name: "💰 Rozpočet", value: budget, inline: true },
+                            { name: "📝 Správa", value: msg, inline: false }
+                        ],
+                        footer: { text: "JK Design | 2026" },
+                        timestamp: new Date().toISOString()
                     }]
                 })
-            }).then(()=>{ Swal.fire({title:'Odoslané', icon:'success', background:'#111', color:'#fff', confirmButtonColor:'#fff'}); this.reset(); btn.innerText=document.querySelector('[data-i18n="btn_send"]').innerText; });
+            })
+            .then(response => {
+                if (response.ok) {
+                    Swal.fire({title:'Odoslané!', text:'Vďaka, ozvem sa čoskoro.', icon:'success', background:'#111', color:'#fff', confirmButtonColor:'#fff'}); 
+                    document.getElementById('contactForm').reset(); 
+                } else {
+                    Swal.fire({title:'Chyba', text:'Nepodarilo sa odoslať.', icon:'error', background:'#111', color:'#fff'});
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({title:'Chyba', text:'Skontrolujte pripojenie.', icon:'error', background:'#111', color:'#fff'});
+            })
+            .finally(() => {
+                btn.innerText = originalText;
+            });
         };
         
         // Navbar Scroll
