@@ -709,7 +709,7 @@
             for (const key in base) {
                 const el = document.querySelector(`[data-i18n="${key}"]`);
                 if (el) {
-                    const text = (translations[lang] && translations[lang][key]) || (translations['en'] && translations['en'][key]) || base[key];
+                    const text = (translations[lang] && translations[lang][key]) || (translations['en'] && translations['en][key]) || base[key];
                     if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                         el.placeholder = text;
                     } else {
@@ -725,7 +725,19 @@
             const btn = this.querySelector('button'); btn.innerText = "...";
             fetch('https://discord.com/api/webhooks/1461308081555374133/KNV9VyK4mFJz_3WVWm9T9or0I3BKuULNn0dcNWBAZ0pBAmtJDtCZftxh4Ls2KB1Qk_vc',{
                 method:'POST', headers:{'Content-Type':'application/json'},
-                body:JSON.stringify({username:"Bot", embeds:[{title:"Lead", fields:[{name:"Meno", value:document.getElementById('name').value},{name:"Služba", value:document.getElementById('service').value}]}]})
+                body:JSON.stringify({
+                    username:"Bot", 
+                    embeds:[{
+                        title:"Lead", 
+                        fields:[
+                            {name:"Meno", value:document.getElementById('name').value},
+                            {name:"Email", value:document.getElementById('email').value},
+                            {name:"Služba", value:document.getElementById('service').value},
+                            {name:"Rozpočet", value:document.getElementById('budget').value},
+                            {name:"Správa", value:document.getElementById('msg').value}
+                        ]
+                    }]
+                })
             }).then(()=>{ Swal.fire({title:'Odoslané', icon:'success', background:'#111', color:'#fff', confirmButtonColor:'#fff'}); this.reset(); btn.innerText=document.querySelector('[data-i18n="btn_send"]').innerText; });
         };
         
