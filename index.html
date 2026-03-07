@@ -110,8 +110,8 @@
 
         /* --- COMPONENTS --- */
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 100px; }
-        .status-pill { display: inline-flex; align-items: center; gap: 10px; padding: 8px 20px; border-radius: 50px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); font-size: 0.8rem; color: #ccc; margin-bottom: 30px; text-transform: uppercase; }
-        .status-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent); }
+        .status-pill { display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; border-radius: 50px; background: rgba(0,255,136,0.15); border: 2px solid var(--accent); font-size: 1.1rem; color: #ccc; margin-bottom: 30px; text-transform: uppercase; box-shadow: 0 0 30px rgba(0,255,136,0.4); }
+        .status-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent); }
         .hero h1 { font-size: clamp(2.8rem, 7vw, 6rem); line-height: 1.1; margin-bottom: 25px; background: radial-gradient(circle, #fff 20%, #666 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 50px; }
         .mockup-img { width: 100%; display: block; filter: drop-shadow(0 20px 60px rgba(255,255,255,0.05)); transform: rotateX(10deg); opacity: 0; transition: 1.5s var(--easing); }
@@ -262,9 +262,9 @@
 
     <section class="hero">
         <div class="container">
-            <div class="status-pill" data-aos="fade-down" style="border-color: rgba(0, 255, 136, 0.4); background: rgba(0, 255, 136, 0.05);">
+            <div class="status-pill" data-aos="fade-down">
                 <div class="status-dot"></div> 
-                <span data-i18n="hero_status" style="color: var(--accent); font-weight: 600;">JARNÉ ZĽAVY -15% (PLATÍ DO 30.4.)</span>
+                <span data-i18n="hero_status" style="color: var(--accent); font-weight: 800; letter-spacing: 1px;">JARNÉ ZĽAVY -15% (PLATÍ DO 30.4.)</span>
             </div>
             <h1 data-aos="fade-up" data-i18n="hero_title">Digitálna Architektúra<br>pre Moderný Biznis</h1>
             <p data-aos="fade-up" data-aos-delay="100" data-i18n="hero_desc">Pomáham firmám rásť cez prémiový webdizajn a vizuálnu identitu. Som študent a freelancer, ktorý doručuje agentúrnu kvalitu.</p>
@@ -313,9 +313,9 @@
             </div>
 
             <div class="pricing-grid">
-                <div class="price-card" data-aos="fade-up"><h4 data-i18n="price_web1_t">Web Štart</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">350€</s> <span style="color: var(--accent);">297€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web1_f1">One-page Landing</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_web1_f2">Responzívny dizajn</span></li></ul><button class="btn-full" onclick="prefill('Web Start')" data-i18n="btn_select">Vybrať</button></div>
-                <div class="price-card featured" data-aos="zoom-in"><h4 data-i18n="price_web2_t">Web Biznis</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">600€</s> <span style="color: var(--accent);">510€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web2_f1">Viac podstránok</span></li><li><i class="ri-check-line"></i> <strong>CMS Systém</strong></li></ul><button class="btn-full" onclick="prefill('Web Business')" data-i18n="btn_select">Vybrať</button></div>
-                <div class="price-card" data-aos="fade-up" data-aos-delay="100"><h4 data-i18n="price_web3_t">Web Premium</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">850€+</s> <span style="color: var(--accent);">722€+</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web3_f1">E-shop / Portál</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_web3_f2">Funkcie na mieru</span></li></ul><button class="btn-full" onclick="prefill('Web Premium')" data-i18n="btn_consult">Konzultovať</button></div>
+                <div class="price-card" data-aos="fade-up"><h4 data-i18n="price_web1_t">Web Štart</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">350€</s> <span style="color: var(--accent);">290€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web1_f1">One-page Landing</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_web1_f2">Responzívny dizajn</span></li></ul><button class="btn-full" onclick="prefill('Web Start')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card featured" data-aos="zoom-in"><h4 data-i18n="price_web2_t">Web Biznis</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">600€</s> <span style="color: var(--accent);">490€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web2_f1">Viac podstránok</span></li><li><i class="ri-check-line"></i> <strong>CMS Systém</strong></li></ul><button class="btn-full" onclick="prefill('Web Business')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card" data-aos="fade-up" data-aos-delay="100"><h4 data-i18n="price_web3_t">Web Premium</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">850€+</s> <span style="color: var(--accent);">720€+</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web3_f1">E-shop / Portál</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_web3_f2">Funkcie na mieru</span></li></ul><button class="btn-full" onclick="prefill('Web Premium')" data-i18n="btn_consult">Konzultovať</button></div>
             </div>
         </div>
     </section>
@@ -352,9 +352,9 @@
             </div>
 
             <div class="pricing-grid">
-                <div class="price-card" data-aos="fade-up"><h4 data-i18n="price_g1_t">Logo Štart</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">50€</s> <span style="color: var(--accent);">42€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g1_f1">2 Koncepty loga</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_g1_f2">Exporty (SVG, PNG)</span></li></ul><button class="btn-full" onclick="prefill('Logo Start')" data-i18n="btn_select">Vybrať</button></div>
-                <div class="price-card featured" data-aos="zoom-in"><h4 data-i18n="price_g2_t">Brand Identita</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">120€</s> <span style="color: var(--accent);">102€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g2_f1">3 Koncepty loga</span></li><li><i class="ri-check-line"></i> <strong>Brand Manuál</strong></li></ul><button class="btn-full" onclick="prefill('Brand Identity')" data-i18n="btn_select">Vybrať</button></div>
-                <div class="price-card" data-aos="fade-up" data-aos-delay="100"><h4 data-i18n="price_g3_t">Social / Ads</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">250€+</s> <span style="color: var(--accent);">212€+</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g3_f1">Set 10 bannerov</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_g3_f2">Správa sietí</span></li></ul><button class="btn-full" onclick="prefill('Social/Ads')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card" data-aos="fade-up"><h4 data-i18n="price_g1_t">Logo Štart</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">50€</s> <span style="color: var(--accent);">39€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g1_f1">2 Koncepty loga</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_g1_f2">Exporty (SVG, PNG)</span></li></ul><button class="btn-full" onclick="prefill('Logo Start')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card featured" data-aos="zoom-in"><h4 data-i18n="price_g2_t">Brand Identita</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">120€</s> <span style="color: var(--accent);">99€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g2_f1">3 Koncepty loga</span></li><li><i class="ri-check-line"></i> <strong>Brand Manuál</strong></li></ul><button class="btn-full" onclick="prefill('Brand Identity')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card" data-aos="fade-up" data-aos-delay="100"><h4 data-i18n="price_g3_t">Social / Ads</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">250€+</s> <span style="color: var(--accent);">210€+</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g3_f1">Set 10 bannerov</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_g3_f2">Správa sietí</span></li></ul><button class="btn-full" onclick="prefill('Social/Ads')" data-i18n="btn_select">Vybrať</button></div>
             </div>
         </div>
     </section>
@@ -362,7 +362,15 @@
     <section id="contact">
         <div class="container contact-wrapper">
             <h2 style="text-align:center; color:#fff; margin-bottom:10px; font-size:3rem;" data-i18n="contact_title">Napíšte mi</h2>
-            <p style="text-align:center; color:#888; margin-bottom:50px;" data-i18n="contact_sub">Nezáväzná konzultácia zdarma.</p>
+            <p style="text-align:center; color:#888; margin-bottom:30px;" data-i18n="contact_sub">Nezáväzná konzultácia zdarma.</p>
+            
+            <div style="background: rgba(0, 255, 136, 0.05); border: 1px solid rgba(0, 255, 136, 0.2); border-radius: 12px; padding: 20px; text-align: center; margin-bottom: 40px; display: flex; flex-direction: column; align-items: center; gap: 8px; transition: 0.3s;" onmouseover="this.style.borderColor='rgba(0, 255, 136, 0.5)'; this.style.boxShadow='0 10px 30px rgba(0, 255, 136, 0.1)'" onmouseout="this.style.borderColor='rgba(0, 255, 136, 0.2)'; this.style.boxShadow='none'">
+                <span style="color: #ccc; font-size: 0.95rem;" data-i18n="contact_phone_text">Máte radšej rýchle jednanie? Preskočte formulár a poďme si o vašom projekte rovno zavolať.</span>
+                <a href="tel:+421908022479" style="color: #00ff88; font-size: 1.5rem; font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif;">
+                    <i class="ri-phone-fill"></i> +421 908 022 479
+                </a>
+            </div>
+
             <form id="contactForm">
                 <div class="form-row">
                     <input type="text" id="name" class="form-input" data-i18n="form_name" placeholder="Meno a Priezvisko" required>
@@ -511,7 +519,7 @@
 
         function prefill(v){ document.getElementById('service').value = v.includes('Web')?'Web':'Graphics'; scrollToContact(); }
 
-        // --- COMPLETE TRANSLATIONS (10 Languages) ---
+        // --- COMPLETE TRANSLATIONS ---
         const translations = {
             sk: {
                 nav_web: "Weby", nav_design: "Grafika", nav_contact: "Kontakt", btn_cta: "Spolupracovať", hero_status: "JARNÉ ZĽAVY -15% (PLATÍ DO 30.4.)", hero_title: "Digitálna Architektúra<br>pre Moderný Biznis", hero_desc: "Pomáham firmám rásť cez prémiový webdizajn a vizuálnu identitu. Som študent a freelancer, ktorý doručuje agentúrnu kvalitu.",
@@ -526,7 +534,7 @@
                 showcase_title: "Ukážky Dizajnu", price_g1_t: "Logo Štart", price_g1_f1: "2 Koncepty loga", price_g1_f2: "Exporty (SVG, PNG)",
                 price_g2_t: "Brand Identita", price_g2_f1: "3 Koncepty loga",
                 price_g3_t: "Social / Ads", price_g3_f1: "Set 10 bannerov", price_g3_f2: "Správa sietí",
-                contact_title: "Napíšte mi", contact_sub: "Nezáväzná konzultácia zdarma.", form_name: "Meno a Priezvisko", form_email: "Váš Email", form_budget: "Rozpočet (nepovinné)", form_msg: "Popis projektu...", form_agree: "Súhlasím so spracovaním údajov a podmienkami.", btn_send: "Odoslať dopyt", btn_select: "Vybrať", btn_consult: "Konzultovať",
+                contact_title: "Napíšte mi", contact_sub: "Nezáväzná konzultácia zdarma.", contact_phone_text: "Máte radšej rýchle jednanie? Preskočte formulár a poďme si o vašom projekte rovno zavolať.", form_name: "Meno a Priezvisko", form_email: "Váš Email", form_budget: "Rozpočet (nepovinné)", form_msg: "Popis projektu...", form_agree: "Súhlasím so spracovaním údajov a podmienkami.", btn_send: "Odoslať dopyt", btn_select: "Vybrať", btn_consult: "Konzultovať",
                 footer_vop: "Všeobecné obchodné podmienky", footer_gdpr: "Ochrana súkromia (GDPR)", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. Student Freelancer.",
                 cookie_head: "🍪 Nastavenie Súkromia", cookie_text: "Používame cookies na zabezpečenie funkčnosti webu a analýzu.", cookie_btn_nec: "Len nevyhnutné", cookie_btn_all: "Prijať všetko",
                 widget_trigger: "2026 INFO", widget_title: "Máte víziu?", widget_text: "Nečakajte na vhodný čas. Kvalitný web a brand potrebujú prípravu.", widget_btn: "Mám záujem",
@@ -545,13 +553,12 @@
                 showcase_title: "Design Showcase", price_g1_t: "Logo Start", price_g1_f1: "2 Logo concepts", price_g1_f2: "Exports (SVG, PNG)",
                 price_g2_t: "Brand Identity", price_g2_f1: "3 Logo concepts",
                 price_g3_t: "Social / Ads", price_g3_f1: "10 Banners set", price_g3_f2: "Social management",
-                contact_title: "Get in Touch", contact_sub: "Free consultation.", form_name: "Name", form_email: "Your Email", form_budget: "Budget (optional)", form_msg: "Project description...", form_agree: "I agree to data processing and terms.", btn_send: "Send Request", btn_select: "Select", btn_consult: "Consult",
+                contact_title: "Get in Touch", contact_sub: "Free consultation.", contact_phone_text: "Prefer a quick chat? Skip the form and let's discuss your project right now.", form_name: "Name", form_email: "Your Email", form_budget: "Budget (optional)", form_msg: "Project description...", form_agree: "I agree to data processing and terms.", btn_send: "Send Request", btn_select: "Select", btn_consult: "Consult",
                 footer_vop: "Terms & Conditions", footer_gdpr: "Privacy Policy", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. All rights reserved.",
                 cookie_head: "🍪 Privacy Settings", cookie_text: "We use cookies for functionality and analysis.", cookie_btn_nec: "Necessary only", cookie_btn_all: "Accept all",
                 widget_trigger: "2026 INFO", widget_title: "Have a vision?", widget_text: "Don't wait. Quality web and brand need preparation.", widget_btn: "I'm interested",
                 vop_title: "Terms and Conditions", gdpr_title: "Privacy Policy", btn_close: "Close Document", close: "✕ Close"
-            },
-            // Zvyšok prekladov zostáva nezmenený, len EN/SK sa menil ten hero status
+            }
         };
 
         function setLanguage(lang) {
@@ -582,8 +589,8 @@
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
             const service = document.getElementById('service').value;
-            const budget = document.getElementById('budget').value || "Neuvedené"; // Ošetrenie prázdnej hodnoty
-            const msg = document.getElementById('msg').value || "Bez správy";    // Ošetrenie prázdnej hodnoty
+            const budget = document.getElementById('budget').value || "Neuvedené";
+            const msg = document.getElementById('msg').value || "Bez správy";    
 
             fetch('https://discord.com/api/webhooks/1461308081555374133/KNV9VyK4mFJz_3WVWm9T9or0I3BKuULNn0dcNWBAZ0pBAmtJDtCZftxh4Ls2KB1Qk_vc',{
                 method:'POST', 
