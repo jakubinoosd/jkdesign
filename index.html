@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#020202">
-    <meta name="description" content="JK Design - Prémiová digitálna architektúra, web development a branding.">
-    <title>JK Design | Premium Digital Studio</title>
+    <meta name="description" content="JK Design - Prémiová digitálna architektúra, web development a správa sociálnych sietí.">
+    <title>JK Design | Web & Social Studio</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -110,8 +110,10 @@
 
         /* --- COMPONENTS --- */
         .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding-top: 100px; }
-        .status-pill { display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; border-radius: 50px; background: rgba(0,255,136,0.15); border: 2px solid var(--accent); font-size: 1.1rem; color: #ccc; margin-bottom: 30px; text-transform: uppercase; box-shadow: 0 0 30px rgba(0,255,136,0.4); }
-        .status-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent); }
+        .status-pill { display: inline-flex; align-items: center; gap: 10px; padding: 12px 30px; border-radius: 50px; background: rgba(0,255,136,0.15); border: 2px solid var(--accent); font-size: 1.1rem; color: #ccc; margin-bottom: 30px; text-transform: uppercase; box-shadow: 0 0 30px rgba(0,255,136,0.4); cursor: pointer; transition: 0.3s; }
+        .status-pill:hover { transform: scale(1.05); background: rgba(0,255,136,0.25); }
+        .status-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(0,255,136,0.7); } 70% { box-shadow: 0 0 0 10px rgba(0,255,136,0); } 100% { box-shadow: 0 0 0 0 rgba(0,255,136,0); } }
         .hero h1 { font-size: clamp(2.8rem, 7vw, 6rem); line-height: 1.1; margin-bottom: 25px; background: radial-gradient(circle, #fff 20%, #666 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto 50px; }
         .mockup-img { width: 100%; display: block; filter: drop-shadow(0 20px 60px rgba(255,255,255,0.05)); transform: rotateX(10deg); opacity: 0; transition: 1.5s var(--easing); }
@@ -210,7 +212,7 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="#web" class="mobile-link" onclick="toggleMenu()" data-i18n="nav_web">Weby</a>
-        <a href="#graphics" class="mobile-link" onclick="toggleMenu()" data-i18n="nav_design">Grafika</a>
+        <a href="#marketing" class="mobile-link" onclick="toggleMenu()" data-i18n="nav_marketing">Marketing</a>
         <a href="#contact" class="mobile-link" onclick="toggleMenu()" data-i18n="nav_contact">Kontakt</a>
         <button class="btn-primary" onclick="toggleMenu(); scrollToContact();" data-i18n="btn_cta">Spolupracovať</button>
         <div style="margin-top:30px; color:#666;" onclick="toggleMenu()" data-i18n="close">✕ Zavrieť</div>
@@ -233,7 +235,7 @@
             <a href="#" class="logo">JK Design.</a>
             <div class="nav-menu">
                 <a href="#web" class="nav-link" data-i18n="nav_web">Web Development</a>
-                <a href="#graphics" class="nav-link" data-i18n="nav_design">Creative Studio</a>
+                <a href="#marketing" class="nav-link" data-i18n="nav_marketing">Social Media</a>
                 <a href="#contact" class="nav-link" data-i18n="nav_contact">Kontakt</a>
             </div>
             <div class="nav-actions">
@@ -262,13 +264,13 @@
 
     <section class="hero">
         <div class="container">
-            <div class="status-pill" data-aos="fade-down">
+            <div class="status-pill" data-aos="fade-down" onclick="scrollToContact()">
                 <div class="status-dot"></div> 
-                <span data-i18n="hero_status" style="color: var(--accent); font-weight: 800; letter-spacing: 1px;">JARNÉ ZĽAVY -15% (PLATÍ DO 30.4.)</span>
+                <span data-i18n="hero_status" style="color: var(--accent); font-weight: 800; letter-spacing: 1px;">ZÍSKAJTE BEZPLATNÝ AUDIT WEBU A SIETÍ</span>
             </div>
             <h1 data-aos="fade-up" data-i18n="hero_title">Digitálna Architektúra<br>pre Moderný Biznis</h1>
-            <p data-aos="fade-up" data-aos-delay="100" data-i18n="hero_desc">Pomáham firmám rásť cez prémiový webdizajn a vizuálnu identitu. Som študent a freelancer, ktorý doručuje agentúrnu kvalitu.</p>
-            <div class="mockup-stage" id="macbook"><img src="mackbook nexo.png" alt="Showcase" class="mockup-img"></div>
+            <p data-aos="fade-up" data-aos-delay="100" data-i18n="hero_desc">Pomáham firmám rásť cez prémiový webdizajn a výkonnostný marketing. Som študent a freelancer, ktorý doručuje agentúrnu kvalitu.</p>
+            <div class="mockup-stage" id="macbook"><img src="mackbook nexo.png" onerror="this.src='https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&q=80'" alt="Showcase" class="mockup-img"></div>
         </div>
     </section>
 
@@ -298,7 +300,7 @@
             
             <div class="portfolio-grid">
                 <div class="project-card" data-aos="fade-up">
-                    <img src="nexoweb.png" class="project-thumb" alt="Web 1" onclick="openLightbox(this.src)">
+                    <img src="nexoweb.png" onerror="this.src='https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80'" class="project-thumb" alt="Web 1" onclick="openLightbox(this.src)">
                     <div class="project-info">
                         <div>
                             <h4 style="color:#fff;" data-i18n="proj_1_t">Moderné Bývanie</h4>
@@ -309,7 +311,7 @@
                 </div>
                 
                 <div class="project-card" data-aos="fade-up" data-aos-delay="100">
-                    <img src="aurashop.png" class="project-thumb" alt="Web 2" onclick="openLightbox(this.src)">
+                    <img src="aurashop.png" onerror="this.src='https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&q=80'" class="project-thumb" alt="Web 2" onclick="openLightbox(this.src)">
                     <div class="project-info">
                         <div>
                             <h4 style="color:#fff;" data-i18n="proj_2_t">Aura Store</h4>
@@ -340,23 +342,12 @@
                         <a href="https://jakubinoosd.github.io/helpera/" target="_blank" class="project-btn"><i class="ri-arrow-right-up-line"></i></a>
                     </div>
                 </div>
-
-                <div class="project-card" data-aos="fade-up">
-                    <img src="dentavia.png" onerror="this.src='https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=800&q=80'" class="project-thumb" alt="Web 5" onclick="openLightbox(this.src)">
-                    <div class="project-info">
-                        <div>
-                            <h4 style="color:#fff;" data-i18n="proj_5_t">Dentavia Premium</h4>
-                            <p style="color:#666; font-size:0.9rem;" data-i18n="proj_5_d">Zubná klinika</p>
-                        </div>
-                        <a href="https://jakubinoosd.github.io/Dentavia-premium-clinic/" target="_blank" class="project-btn"><i class="ri-arrow-right-up-line"></i></a>
-                    </div>
-                </div>
             </div>
 
             <div class="pricing-grid">
-                <div class="price-card" data-aos="fade-up"><h4 data-i18n="price_web1_t">Web Štart</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">350€</s> <span style="color: var(--accent);">290€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web1_f1">One-page Landing</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_web1_f2">Responzívny dizajn</span></li></ul><button class="btn-full" onclick="prefill('Web Start')" data-i18n="btn_select">Vybrať</button></div>
-                <div class="price-card featured" data-aos="zoom-in"><h4 data-i18n="price_web2_t">Web Biznis</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">600€</s> <span style="color: var(--accent);">490€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web2_f1">Viac podstránok</span></li><li><i class="ri-check-line"></i> <strong>CMS Systém</strong></li></ul><button class="btn-full" onclick="prefill('Web Business')" data-i18n="btn_select">Vybrať</button></div>
-                <div class="price-card" data-aos="fade-up" data-aos-delay="100"><h4 data-i18n="price_web3_t">Web Premium</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">850€+</s> <span style="color: var(--accent);">720€+</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web3_f1">E-shop / Portál</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_web3_f2">Funkcie na mieru</span></li></ul><button class="btn-full" onclick="prefill('Web Premium')" data-i18n="btn_consult">Konzultovať</button></div>
+                <div class="price-card" data-aos="fade-up"><h4 data-i18n="price_web1_t">Web Štart</h4><div class="price-tag"><span style="color: var(--accent);">290€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web1_f1">One-page Landing</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_web1_f2">Responzívny dizajn</span></li></ul><button class="btn-full" onclick="prefill('Web Start')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card featured" data-aos="zoom-in"><h4 data-i18n="price_web2_t">Web Biznis</h4><div class="price-tag"><span style="color: var(--accent);">490€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web2_f1">Viac podstránok</span></li><li><i class="ri-check-line"></i> <strong>CMS Systém</strong></li></ul><button class="btn-full" onclick="prefill('Web Business')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card" data-aos="fade-up" data-aos-delay="100"><h4 data-i18n="price_web3_t">Web Premium</h4><div class="price-tag"><span style="color: var(--accent);">720€+</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_web3_f1">E-shop / Portál</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_web3_f2">Funkcie na mieru</span></li></ul><button class="btn-full" onclick="prefill('Web Premium')" data-i18n="btn_consult">Konzultovať</button></div>
             </div>
         </div>
     </section>
@@ -364,38 +355,30 @@
     <div style="background:#0a0a0a; padding:40px 0; border-top:1px solid var(--border); border-bottom:1px solid var(--border); overflow:hidden;">
         <div style="display:flex; gap:60px; width:max-content; animation:scroll 25s linear infinite;">
             <span style="font-family:'Space Grotesk'; font-size:3.5rem; font-weight:700; color:rgba(255,255,255,0.05);">WEB DEVELOPMENT</span>
-            <span style="font-family:'Space Grotesk'; font-size:3.5rem; font-weight:700; color:rgba(255,255,255,0.05);">GRAPHIC DESIGN</span>
-            <span style="font-family:'Space Grotesk'; font-size:3.5rem; font-weight:700; color:rgba(255,255,255,0.05);">BRANDING</span>
             <span style="font-family:'Space Grotesk'; font-size:3.5rem; font-weight:700; color:rgba(255,255,255,0.05);">SOCIAL MEDIA</span>
+            <span style="font-family:'Space Grotesk'; font-size:3.5rem; font-weight:700; color:rgba(255,255,255,0.05);">SEO OPTIMIZATION</span>
+            <span style="font-family:'Space Grotesk'; font-size:3.5rem; font-weight:700; color:rgba(255,255,255,0.05);">META ADS</span>
         </div>
     </div>
     <style>@keyframes scroll { to { transform: translateX(-50%); } }</style>
 
-    <section id="graphics">
+    <section id="marketing">
         <div class="container">
             <div class="section-header" data-aos="fade-right">
-                <div><h2 class="section-title">Creative Studio</h2><p style="color:#00ff88; font-family:'Space Grotesk'; font-size:1.5rem; margin-top:5px;">02.</p></div>
-                <div class="section-subtitle" data-i18n="graph_sub">Vizuálna identita, ktorá predáva. Od loga až po správu sietí.</div>
+                <div><h2 class="section-title">Marketing Studio</h2><p style="color:#00ff88; font-family:'Space Grotesk'; font-size:1.5rem; margin-top:5px;">02.</p></div>
+                <div class="section-subtitle" data-i18n="mark_sub">Správa sociálnych sietí a kampane, ktoré prinášajú reálne výsledky.</div>
             </div>
 
             <div class="bento-grid">
-                <div class="card" data-aos="fade-up"><i class="ri-pen-nib-line card-icon"></i><h3 data-i18n="feat_brand_t">Branding</h3><p data-i18n="feat_brand_d">Minimalistické a nadčasové logá s kompletným manuálom.</p></div>
-                <div class="card" data-aos="fade-up" data-aos-delay="100"><i class="ri-advertisement-line card-icon"></i><h3 data-i18n="feat_ads_t">Ads Grafika</h3><p data-i18n="feat_ads_d">Bannery pre Meta a Google s vysokým CTR.</p></div>
-                <div class="card" data-aos="fade-up" data-aos-delay="200"><i class="ri-instagram-line card-icon"></i><h3 data-i18n="feat_soc_t">Social Media</h3><p data-i18n="feat_soc_d">Správa profilov, tvorba Reels a plánovanie.</p></div>
-            </div>
-
-            <div class="portfolio-header" style="margin-top:80px;"><h3 style="font-size:2rem; color:#fff;" data-i18n="showcase_title">Ukážky Dizajnu</h3></div>
-            <div class="showcase-grid">
-                <div class="showcase-item" data-aos="zoom-in"><img src="nexo.png" onclick="openLightbox(this.src)" alt="Logo"></div>
-                <div class="showcase-item" data-aos="zoom-in" data-aos-delay="100"><img src="17575.png" onclick="openLightbox(this.src)" alt="Social"></div>
-                <div class="showcase-item" data-aos="zoom-in" data-aos-delay="200"><img src="17576.png" onclick="openLightbox(this.src)" alt="Banner"></div>
-                <div class="showcase-item" data-aos="zoom-in" data-aos-delay="300"><img src="logo jk design.jpg" onclick="openLightbox(this.src)" alt="Print"></div>
+                <div class="card" data-aos="fade-up"><i class="ri-instagram-line card-icon"></i><h3 data-i18n="feat_sm_t">Social Media</h3><p data-i18n="feat_sm_d">Kompletná správa Instagram, Facebook a TikTok profilov.</p></div>
+                <div class="card" data-aos="fade-up" data-aos-delay="100"><i class="ri-bar-chart-box-line card-icon"></i><h3 data-i18n="feat_ads_t">Meta & Google Ads</h3><p data-i18n="feat_ads_d">Výkonnostné kampane zamerané priamo na predaj a leady.</p></div>
+                <div class="card" data-aos="fade-up" data-aos-delay="200"><i class="ri-video-chat-line card-icon"></i><h3 data-i18n="feat_content_t">Tvorba obsahu</h3><p data-i18n="feat_content_d">Tvorba pútavých Reels, grafiky a copywritingu, ktorý zaujme.</p></div>
             </div>
 
             <div class="pricing-grid">
-                <div class="price-card" data-aos="fade-up"><h4 data-i18n="price_g1_t">Logo Štart</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">50€</s> <span style="color: var(--accent);">39€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g1_f1">2 Koncepty loga</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_g1_f2">Exporty (SVG, PNG)</span></li></ul><button class="btn-full" onclick="prefill('Logo Start')" data-i18n="btn_select">Vybrať</button></div>
-                <div class="price-card featured" data-aos="zoom-in"><h4 data-i18n="price_g2_t">Brand Identita</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">120€</s> <span style="color: var(--accent);">99€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g2_f1">3 Koncepty loga</span></li><li><i class="ri-check-line"></i> <strong>Brand Manuál</strong></li></ul><button class="btn-full" onclick="prefill('Brand Identity')" data-i18n="btn_select">Vybrať</button></div>
-                <div class="price-card" data-aos="fade-up" data-aos-delay="100"><h4 data-i18n="price_g3_t">Social / Ads</h4><div class="price-tag"><s style="font-size: 1.2rem; color: #666;">250€+</s> <span style="color: var(--accent);">210€+</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_g3_f1">Set 10 bannerov</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_g3_f2">Správa sietí</span></li></ul><button class="btn-full" onclick="prefill('Social/Ads')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card" data-aos="fade-up"><h4 data-i18n="price_m1_t">Social Štart</h4><div class="price-tag"><span style="color: var(--accent);">Od 150€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_m1_f1">8 príspevkov / mesiac</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_m1_f2">Základná správa profilu</span></li></ul><button class="btn-full" onclick="prefill('Social Start')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card featured" data-aos="zoom-in"><h4 data-i18n="price_m2_t">Social Pro</h4><div class="price-tag"><span style="color: var(--accent);">Od 290€</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_m2_f1">12 príspevkov + 4 Reels</span></li><li><i class="ri-check-line"></i> <strong>Stratégia rastu</strong></li></ul><button class="btn-full" onclick="prefill('Social Pro')" data-i18n="btn_select">Vybrať</button></div>
+                <div class="price-card" data-aos="fade-up" data-aos-delay="100"><h4 data-i18n="price_m3_t">Ads Management</h4><div class="price-tag"><span style="color: var(--accent);">Individuálne</span></div><ul class="price-list"><li><i class="ri-check-line"></i> <span data-i18n="price_m3_f1">Správa platených kampaní</span></li><li><i class="ri-check-line"></i> <span data-i18n="price_m3_f2">Pravidelný reporting</span></li></ul><button class="btn-full" onclick="prefill('Ads Management')" data-i18n="btn_consult">Konzultovať</button></div>
             </div>
         </div>
     </section>
@@ -419,7 +402,9 @@
                 </div>
                 <div class="form-row">
                     <select id="service" class="form-input">
-                        <option value="Web">Web Development</option><option value="Graphics">Grafika</option><option value="Social">Social Media</option><option value="Combo">Combo</option>
+                        <option value="Web">Web Development</option>
+                        <option value="Marketing">Social Media & Marketing</option>
+                        <option value="Combo">Web + Marketing Combo</option>
                     </select>
                     <input type="text" id="budget" class="form-input" data-i18n="form_budget" placeholder="Približný rozpočet (nepovinné)">
                 </div>
@@ -441,7 +426,7 @@
                 <a onclick="openModal('gdpr')" style="cursor:pointer; color:#fff;" data-i18n="footer_gdpr">Ochrana súkromia (GDPR)</a>
                 <a onclick="openModal('gdpr')" style="cursor:pointer; color:#fff;" data-i18n="footer_cookies">Cookies</a>
             </div>
-            <div style="font-size:0.9rem; opacity:0.5;" data-i18n="footer_rights">&copy; 2026 JK Design. Student Freelancer.</div>
+            <div style="font-size:0.9rem; opacity:0.5;" data-i18n="footer_rights">&copy; 2026 JK Design. Web & Social Studio.</div>
         </div>
     </footer>
 
@@ -454,6 +439,7 @@
         </div>
     </div>
 
+    <!-- Modals kept identical as requested -->
     <div id="vop" class="modal" onclick="if(event.target===this) closeModal('vop')">
         <div class="modal-content">
             <h3 data-i18n="vop_title">Všeobecné obchodné podmienky</h3>
@@ -503,18 +489,15 @@
         function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
         requestAnimationFrame(raf);
 
-        // Ochrana
         document.addEventListener('contextmenu', e => e.preventDefault());
         document.addEventListener('keydown', e => { if(e.ctrlKey && (e.key==='u'||e.key==='s'||e.key==='c')) e.preventDefault(); });
 
-        // Logic
         window.onload = () => document.querySelector('.mockup-img').classList.add('visible');
         function toggleMenu(){ document.getElementById('mobileMenu').classList.toggle('active'); }
         function scrollToContact(){ lenis.scrollTo('#contact'); document.getElementById('sideWidget').classList.remove('active'); document.getElementById('mobileMenu').classList.remove('active'); }
         function openModal(id){ document.getElementById(id).classList.add('open'); }
         function closeModal(id){ document.getElementById(id).classList.remove('open'); }
         
-        // Custom Lang Switcher Logic
         function toggleLangMenu() {
             document.getElementById('langDropdown').classList.toggle('active');
         }
@@ -542,7 +525,6 @@
             document.getElementById('langDropdown').classList.remove('active');
         }
 
-        // Lightbox
         function openLightbox(src) {
             const lb = document.getElementById('lightbox');
             const img = document.getElementById('lightbox-img');
@@ -551,19 +533,18 @@
         }
         function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
 
-        // Cookies
         function hideCookies(accept) {
             document.getElementById('cookieBar').style.display='none';
             localStorage.setItem('cookieConsent', accept ? 'full' : 'necessary');
         }
         if(!localStorage.getItem('cookieConsent')) setTimeout(()=>document.getElementById('cookieBar').style.display='block', 2000);
 
-        function prefill(v){ document.getElementById('service').value = v.includes('Web')?'Web':'Graphics'; scrollToContact(); }
+        function prefill(v){ document.getElementById('service').value = v.includes('Web')?'Web':'Marketing'; scrollToContact(); }
 
-        // --- COMPLETE TRANSLATIONS ---
+        // --- ZMENENÉ PREKLADY (Grafika bola nahradená Marketingom) ---
         const translations = {
             sk: {
-                nav_web: "Weby", nav_design: "Grafika", nav_contact: "Kontakt", btn_cta: "Spolupracovať", hero_status: "JARNÉ ZĽAVY -15% (PLATÍ DO 30.4.)", hero_title: "Digitálna Architektúra<br>pre Moderný Biznis", hero_desc: "Pomáham firmám rásť cez prémiový webdizajn a vizuálnu identitu. Som študent a freelancer, ktorý doručuje agentúrnu kvalitu.",
+                nav_web: "Weby", nav_marketing: "Marketing", nav_contact: "Kontakt", btn_cta: "Spolupracovať", hero_status: "ZÍSKAJTE BEZPLATNÝ AUDIT WEBU A SIETÍ", hero_title: "Digitálna Architektúra<br>pre Moderný Biznis", hero_desc: "Pomáham firmám rásť cez prémiový webdizajn a výkonnostný marketing. Som študent a freelancer, ktorý doručuje agentúrnu kvalitu.",
                 stat_years: "ROKY PRAXE", stat_projects: "PROJEKTOV", stat_satis: "SPOKOJNOSŤ", web_sub: "Webstránky zamerané na rýchlosť, SEO a konverzie.",
                 feat_speed_t: "Extrémna Rýchlosť", feat_speed_d: "Optimalizácia na úrovni kódu. Rýchly web znamená lepšie pozície v Google.", feat_mobile_t: "Mobile First", feat_mobile_d: "Web vyzerá na telefóne perfektne.",
                 feat_seo_t: "SEO Ready", feat_seo_d: "Technická príprava pre vyhľadávače.", feat_cms_t: "CMS na Mieru", feat_cms_d: "Užívateľsky prívetivá administrácia.",
@@ -571,18 +552,18 @@
                 price_web1_t: "Web Štart", price_web1_f1: "One-page Landing", price_web1_f2: "Responzívny dizajn",
                 price_web2_t: "Web Biznis", price_web2_f1: "Viac podstránok",
                 price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portál", price_web3_f2: "Funkcie na mieru",
-                graph_sub: "Vizuálna identita, ktorá predáva.", feat_brand_t: "Branding", feat_brand_d: "Nadčasové logá s manuálom.", feat_ads_t: "Ads Grafika", feat_ads_d: "Bannery s vysokým CTR.", feat_soc_t: "Social Media", feat_soc_d: "Správa profilov a Reels.",
-                showcase_title: "Ukážky Dizajnu", price_g1_t: "Logo Štart", price_g1_f1: "2 Koncepty loga", price_g1_f2: "Exporty (SVG, PNG)",
-                price_g2_t: "Brand Identita", price_g2_f1: "3 Koncepty loga",
-                price_g3_t: "Social / Ads", price_g3_f1: "Set 10 bannerov", price_g3_f2: "Správa sietí",
+                mark_sub: "Správa sociálnych sietí a kampane, ktoré prinášajú reálne výsledky.", feat_sm_t: "Social Media", feat_sm_d: "Kompletná správa Instagram, Facebook a TikTok profilov.", feat_ads_t: "Meta & Google Ads", feat_ads_d: "Výkonnostné kampane zamerané priamo na predaj a leady.", feat_content_t: "Tvorba obsahu", feat_content_d: "Tvorba pútavých Reels, grafiky a copywritingu, ktorý zaujme.",
+                price_m1_t: "Social Štart", price_m1_f1: "8 príspevkov / mesiac", price_m1_f2: "Základná správa profilu",
+                price_m2_t: "Social Pro", price_m2_f1: "12 príspevkov + 4 Reels",
+                price_m3_t: "Ads Management", price_m3_f1: "Správa platených kampaní", price_m3_f2: "Pravidelný reporting",
                 contact_title: "Napíšte mi", contact_sub: "Nezáväzná konzultácia zdarma.", contact_phone_text: "Máte radšej rýchle jednanie? Preskočte formulár a poďme si o vašom projekte rovno zavolať.", form_name: "Meno a Priezvisko", form_email: "Váš Email", form_budget: "Rozpočet (nepovinné)", form_msg: "Popis projektu...", form_agree: "Súhlasím so spracovaním údajov a podmienkami.", btn_send: "Odoslať dopyt", btn_select: "Vybrať", btn_consult: "Konzultovať",
-                footer_vop: "Všeobecné obchodné podmienky", footer_gdpr: "Ochrana súkromia (GDPR)", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. Student Freelancer.",
+                footer_vop: "Všeobecné obchodné podmienky", footer_gdpr: "Ochrana súkromia (GDPR)", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. Web & Social Studio.",
                 cookie_head: "🍪 Nastavenie Súkromia", cookie_text: "Používame cookies na zabezpečenie funkčnosti webu a analýzu.", cookie_btn_nec: "Len nevyhnutné", cookie_btn_all: "Prijať všetko",
                 widget_trigger: "2026 INFO", widget_title: "Máte víziu?", widget_text: "Nečakajte na vhodný čas. Kvalitný web a brand potrebujú prípravu.", widget_btn: "Mám záujem",
                 vop_title: "Všeobecné obchodné podmienky", gdpr_title: "Ochrana Osobných Údajov", btn_close: "Zavrieť dokument", close: "✕ Zavrieť"
             },
             en: {
-                nav_web: "Websites", nav_design: "Graphics", nav_contact: "Contact", btn_cta: "Let's Talk", hero_status: "SPRING SALE -15% (UNTIL 30.4.)", hero_title: "Digital Architecture<br>for Modern Business", hero_desc: "I help businesses grow through premium web design and visual identity. Student & freelancer delivering agency quality.",
+                nav_web: "Websites", nav_marketing: "Marketing", nav_contact: "Contact", btn_cta: "Let's Talk", hero_status: "GET A FREE WEB & SOCIAL AUDIT", hero_title: "Digital Architecture<br>for Modern Business", hero_desc: "I help businesses grow through premium web design and performance marketing. Student & freelancer delivering agency quality.",
                 stat_years: "YEARS EXP", stat_projects: "PROJECTS", stat_satis: "SATISFACTION", web_sub: "Websites focused on speed, SEO, and conversions.",
                 feat_speed_t: "Extreme Speed", feat_speed_d: "Code-level optimization. Fast web means better Google ranking.", feat_mobile_t: "Mobile First", feat_mobile_d: "Looks perfect on phones.",
                 feat_seo_t: "SEO Ready", feat_seo_d: "Technical setup for search engines.", feat_cms_t: "Custom CMS", feat_cms_d: "User-friendly administration.",
@@ -590,136 +571,52 @@
                 price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Responsive design",
                 price_web2_t: "Web Business", price_web2_f1: "Multi-page",
                 price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portal", price_web3_f2: "Custom features",
-                graph_sub: "Visual identity that sells.", feat_brand_t: "Branding", feat_brand_d: "Timeless logos with manual.", feat_ads_t: "Ads Graphics", feat_ads_d: "High CTR banners.", feat_soc_t: "Social Media", feat_soc_d: "Profile management & Reels.",
-                showcase_title: "Design Showcase", price_g1_t: "Logo Start", price_g1_f1: "2 Logo concepts", price_g1_f2: "Exports (SVG, PNG)",
-                price_g2_t: "Brand Identity", price_g2_f1: "3 Logo concepts",
-                price_g3_t: "Social / Ads", price_g3_f1: "10 Banners set", price_g3_f2: "Social management",
+                mark_sub: "Social media management and campaigns that deliver real results.", feat_sm_t: "Social Media", feat_sm_d: "Full management of Instagram, Facebook and TikTok.", feat_ads_t: "Meta & Google Ads", feat_ads_d: "Performance campaigns focused on sales and leads.", feat_content_t: "Content Creation", feat_content_d: "Engaging Reels, graphics, and copywriting.",
+                price_m1_t: "Social Start", price_m1_f1: "8 posts / month", price_m1_f2: "Basic profile management",
+                price_m2_t: "Social Pro", price_m2_f1: "12 posts + 4 Reels",
+                price_m3_t: "Ads Management", price_m3_f1: "Paid campaign management", price_m3_f2: "Regular reporting",
                 contact_title: "Get in Touch", contact_sub: "Free consultation.", contact_phone_text: "Prefer a quick chat? Skip the form and let's discuss your project right now.", form_name: "Name", form_email: "Your Email", form_budget: "Budget (optional)", form_msg: "Project description...", form_agree: "I agree to data processing and terms.", btn_send: "Send Request", btn_select: "Select", btn_consult: "Consult",
-                footer_vop: "Terms & Conditions", footer_gdpr: "Privacy Policy", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. All rights reserved.",
+                footer_vop: "Terms & Conditions", footer_gdpr: "Privacy Policy", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. Web & Social Studio.",
                 cookie_head: "🍪 Privacy Settings", cookie_text: "We use cookies for functionality and analysis.", cookie_btn_nec: "Necessary only", cookie_btn_all: "Accept all",
                 widget_trigger: "2026 INFO", widget_title: "Have a vision?", widget_text: "Don't wait. Quality web and brand need preparation.", widget_btn: "I'm interested",
                 vop_title: "Terms and Conditions", gdpr_title: "Privacy Policy", btn_close: "Close Document", close: "✕ Close"
             },
             de: {
-                nav_web: "Websites", nav_design: "Grafik", nav_contact: "Kontakt", btn_cta: "Zusammenarbeiten", hero_status: "FRÜHLINGS-SALE -15% (BIS 30.4.)", hero_title: "Digitale Architektur<br>für modernes Business", hero_desc: "Ich helfe Unternehmen durch erstklassiges Webdesign und visuelle Identität zu wachsen. Student & Freelancer mit Agenturqualität.",
+                nav_web: "Websites", nav_marketing: "Marketing", nav_contact: "Kontakt", btn_cta: "Zusammenarbeiten", hero_status: "KOSTENLOSES WEB & SOCIAL AUDIT", hero_title: "Digitale Architektur<br>für modernes Business", hero_desc: "Ich helfe Unternehmen durch erstklassiges Webdesign und Marketing zu wachsen.",
                 stat_years: "JAHRE ERF.", stat_projects: "PROJEKTE", stat_satis: "ZUFRIEDENHEIT", web_sub: "Websites fokussiert auf Geschwindigkeit, SEO und Conversions.",
-                feat_speed_t: "Extreme Geschwindigkeit", feat_speed_d: "Optimierung auf Code-Ebene. Schnelles Web bedeutet besseres Google-Ranking.", feat_mobile_t: "Mobile First", feat_mobile_d: "Sieht auf Handys perfekt aus.",
+                feat_speed_t: "Extreme Geschwindigkeit", feat_speed_d: "Optimierung auf Code-Ebene.", feat_mobile_t: "Mobile First", feat_mobile_d: "Sieht auf Handys perfekt aus.",
                 feat_seo_t: "SEO Ready", feat_seo_d: "Technisches Setup für Suchmaschinen.", feat_cms_t: "Custom CMS", feat_cms_d: "Benutzerfreundliche Verwaltung.",
-                port_title: "Ausgewählte Projekte", proj_1_t: "Modernes Wohnen", proj_1_d: "Immobilien Web", proj_2_t: "Aura Store", proj_2_d: "E-Commerce", proj_3_t: "Savoria", proj_3_d: "Restaurant / Gastro", proj_4_t: "Helpera", proj_4_d: "Crowdfunding Portal", proj_5_t: "Dentavia Premium", proj_5_d: "Zahnklinik",
+                port_title: "Ausgewählte Projekte", proj_1_t: "Modernes Wohnen", proj_1_d: "Immobilien Web", proj_2_t: "Aura Store", proj_2_d: "E-Commerce", proj_3_t: "Savoria", proj_3_d: "Restaurant / Gastro", proj_4_t: "Helpera", proj_4_d: "Crowdfunding Portal",
                 price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Responsives Design", price_web2_t: "Web Business", price_web2_f1: "Mehrseitig", price_web3_t: "Web Premium", price_web3_f1: "E-Shop / Portal", price_web3_f2: "Individuelle Funktionen",
-                graph_sub: "Visuelle Identität, die verkauft.", feat_brand_t: "Branding", feat_brand_d: "Zeitlose Logos mit Handbuch.", feat_ads_t: "Ads Grafiken", feat_ads_d: "Banner mit hoher CTR.", feat_soc_t: "Social Media", feat_soc_d: "Profilverwaltung & Reels.",
-                showcase_title: "Design-Showcase", price_g1_t: "Logo Start", price_g1_f1: "2 Logo-Konzepte", price_g1_f2: "Exporte (SVG, PNG)", price_g2_t: "Markenidentität", price_g2_f1: "3 Logo-Konzepte", price_g3_t: "Social / Ads", price_g3_f1: "10 Banner-Set", price_g3_f2: "Social Management",
+                mark_sub: "Social-Media-Management und Kampagnen, die Ergebnisse liefern.", feat_sm_t: "Social Media", feat_sm_d: "Verwaltung von IG, FB und TikTok.", feat_ads_t: "Meta & Google Ads", feat_ads_d: "Performance-Kampagnen für Sales.", feat_content_t: "Content-Erstellung", feat_content_d: "Spannende Reels und Copywriting.",
+                price_m1_t: "Social Start", price_m1_f1: "8 Beiträge / Monat", price_m1_f2: "Basis-Management", price_m2_t: "Social Pro", price_m2_f1: "12 Beiträge + 4 Reels", price_m3_t: "Ads Management", price_m3_f1: "Kampagnenverwaltung", price_m3_f2: "Regelmäßiges Reporting",
                 contact_title: "Kontaktieren Sie mich", contact_sub: "Kostenlose Beratung.", contact_phone_text: "Bevorzugen Sie einen schnellen Anruf? Überspringen Sie das Formular.", form_name: "Name", form_email: "Ihre E-Mail", form_budget: "Budget (optional)", form_msg: "Projektbeschreibung...", form_agree: "Ich stimme der Datenverarbeitung zu.", btn_send: "Anfrage senden", btn_select: "Auswählen", btn_consult: "Beraten",
-                footer_vop: "AGB", footer_gdpr: "Datenschutzerklärung", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. Alle Rechte vorbehalten.",
+                footer_vop: "AGB", footer_gdpr: "Datenschutzerklärung", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.",
                 cookie_head: "🍪 Privatsphäre-Einstellungen", cookie_text: "Wir verwenden Cookies für Funktionalität und Analyse.", cookie_btn_nec: "Nur notwendige", cookie_btn_all: "Alle akzeptieren",
                 widget_trigger: "2026 INFO", widget_title: "Haben Sie eine Vision?", widget_text: "Warten Sie nicht. Qualität braucht Vorbereitung.", widget_btn: "Ich bin interessiert",
                 vop_title: "Allgemeine Geschäftsbedingungen", gdpr_title: "Datenschutzrichtlinie", btn_close: "Dokument schließen", close: "✕ Schließen"
             },
             cz: {
-                nav_web: "Weby", nav_design: "Grafika", nav_contact: "Kontakt", btn_cta: "Spolupracovat", hero_status: "JARNÍ SLEVY -15% (PLATÍ DO 30.4.)", hero_title: "Digitální Architektura<br>pro Moderní Byznys", hero_desc: "Pomáhám firmám růst přes prémiový webdesign a vizuální identitu. Student a freelancer doručující agenturní kvalitu.",
+                nav_web: "Weby", nav_marketing: "Marketing", nav_contact: "Kontakt", btn_cta: "Spolupracovat", hero_status: "ZÍSKEJTE BEZPLATNÝ AUDIT WEBU A SÍTÍ", hero_title: "Digitální Architektura<br>pro Moderní Byznys", hero_desc: "Pomáhám firmám růst přes prémiový webdesign a výkonnostní marketing.",
                 stat_years: "ROKY PRAXE", stat_projects: "PROJEKTŮ", stat_satis: "SPOKOJENOST", web_sub: "Webové stránky zaměřené na rychlost, SEO a konverze.",
-                feat_speed_t: "Extrémní Rychlost", feat_speed_d: "Optimalizace na úrovni kódu. Rychlý web znamená lepší pozice v Google.", feat_mobile_t: "Mobile First", feat_mobile_d: "Váš web bude na telefonu vypadat perfektně.",
+                feat_speed_t: "Extrémní Rychlost", feat_speed_d: "Optimalizace na úrovni kódu.", feat_mobile_t: "Mobile First", feat_mobile_d: "Váš web bude na telefonu vypadat perfektně.",
                 feat_seo_t: "SEO Ready", feat_seo_d: "Technická příprava pro vyhledávače.", feat_cms_t: "CMS na Míru", feat_cms_d: "Uživatelsky přívětivá administrace.",
-                port_title: "Vybrané Projekty", proj_1_t: "Moderní Bydlení", proj_1_d: "Real Estate Web", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Restaurace / Gastro", proj_4_t: "Helpera", proj_4_d: "Crowdfunding Portál", proj_5_t: "Dentavia Premium", proj_5_d: "Zubní klinika",
+                port_title: "Vybrané Projekty", proj_1_t: "Moderní Bydlení", proj_1_d: "Real Estate Web", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Restaurace / Gastro", proj_4_t: "Helpera", proj_4_d: "Crowdfunding Portál",
                 price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Responzivní design", price_web2_t: "Web Byznys", price_web2_f1: "Více podstránek", price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portál", price_web3_f2: "Funkce na míru",
-                graph_sub: "Vizuální identita, která prodává.", feat_brand_t: "Branding", feat_brand_d: "Nadčasová loga s manuálem.", feat_ads_t: "Ads Grafika", feat_ads_d: "Bannery s vysokým CTR.", feat_soc_t: "Social Media", feat_soc_d: "Správa profilů a Reels.",
-                showcase_title: "Ukázky Designu", price_g1_t: "Logo Start", price_g1_f1: "2 Koncepty loga", price_g1_f2: "Exporty (SVG, PNG)", price_g2_t: "Brand Identita", price_g2_f1: "3 Koncepty loga", price_g3_t: "Social / Ads", price_g3_f1: "Set 10 bannerů", price_g3_f2: "Správa sítí",
+                mark_sub: "Správa sociálních sítí a kampaně, které přinášejí reálné výsledky.", feat_sm_t: "Social Media", feat_sm_d: "Kompletní správa IG, FB a TikTok profilů.", feat_ads_t: "Meta & Google Ads", feat_ads_d: "Výkonnostní kampaně zaměřené na prodej.", feat_content_t: "Tvorba obsahu", feat_content_d: "Tvorba poutavých Reels a copywritingu.",
+                price_m1_t: "Social Start", price_m1_f1: "8 příspěvků / měsíc", price_m1_f2: "Základní správa", price_m2_t: "Social Pro", price_m2_f1: "12 příspěvků + 4 Reels", price_m3_t: "Ads Management", price_m3_f1: "Správa kampaní", price_m3_f2: "Pravidelný reporting",
                 contact_title: "Napište mi", contact_sub: "Nezávazná konzultace zdarma.", contact_phone_text: "Máte raději rychlé jednání? Přeskočte formulář a rovnou mi zavolejte.", form_name: "Jméno", form_email: "Váš Email", form_budget: "Rozpočet (nepovinné)", form_msg: "Popis projektu...", form_agree: "Souhlasím se zpracováním údajů.", btn_send: "Odeslat poptávku", btn_select: "Vybrat", btn_consult: "Konzultovat",
-                footer_vop: "Obchodní podmínky", footer_gdpr: "Ochrana soukromí (GDPR)", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design. Všechna práva vyhrazena.",
+                footer_vop: "Obchodní podmínky", footer_gdpr: "Ochrana soukromí (GDPR)", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.",
                 cookie_head: "🍪 Nastavení Soukromí", cookie_text: "Používáme cookies pro zajištění funkčnosti webu.", cookie_btn_nec: "Jen nezbytné", cookie_btn_all: "Přijmout vše",
                 widget_trigger: "2026 INFO", widget_title: "Máte vizi?", widget_text: "Nečekejte na vhodný čas. Kvalitní web potřebuje přípravu.", widget_btn: "Mám zájem",
                 vop_title: "Obchodní podmínky", gdpr_title: "Ochrana Osobních Údajů", btn_close: "Zavřít dokument", close: "✕ Zavřít"
             },
-            pl: {
-                nav_web: "Strony", nav_design: "Grafika", nav_contact: "Kontakt", btn_cta: "Współpraca", hero_status: "WIOSENNA WYPRZEDAŻ -15% (DO 30.4.)", hero_title: "Cyfrowa Architektura<br>dla Nowoczesnego Biznesu", hero_desc: "Pomagam firmom rosnąć poprzez projektowanie stron i identyfikację wizualną. Jakość agencyjna w cenie freelancera.",
-                stat_years: "LATA DOŚW.", stat_projects: "PROJEKTY", stat_satis: "ZADOWOLENIE", web_sub: "Strony zoptymalizowane pod kątem szybkości, SEO i konwersji.",
-                feat_speed_t: "Ekstremalna Prędkość", feat_speed_d: "Optymalizacja kodu. Szybka strona to lepsza pozycja w Google.", feat_mobile_t: "Mobile First", feat_mobile_d: "Wygląda idealnie na telefonach.",
-                feat_seo_t: "SEO Ready", feat_seo_d: "Techniczne przygotowanie pod wyszukiwarki.", feat_cms_t: "Autorski CMS", feat_cms_d: "Przyjazny w obsłudze panel.",
-                port_title: "Wybrane Projekty", proj_1_t: "Nowoczesne Życie", proj_1_d: "Strona Nieruchomości", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Restauracja / Gastro", proj_4_t: "Helpera", proj_4_d: "Portal Crowdfundingowy", proj_5_t: "Dentavia Premium", proj_5_d: "Klinika Stomatologiczna",
-                price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Responsywny design", price_web2_t: "Web Biznes", price_web2_f1: "Wiele podstron", price_web3_t: "Web Premium", price_web3_f1: "E-sklep / Portal", price_web3_f2: "Dedykowane funkcje",
-                graph_sub: "Identyfikacja wizualna, która sprzedaje.", feat_brand_t: "Branding", feat_brand_d: "Ponadczasowe logo z księgą znaku.", feat_ads_t: "Grafiki Reklamowe", feat_ads_d: "Bannery z wysokim CTR.", feat_soc_t: "Social Media", feat_soc_d: "Prowadzenie profili i Reels.",
-                showcase_title: "Portfolio Designu", price_g1_t: "Logo Start", price_g1_f1: "2 Koncepcje logo", price_g1_f2: "Eksporty (SVG, PNG)", price_g2_t: "Identyfikacja", price_g2_f1: "3 Koncepcje logo", price_g3_t: "Social / Ads", price_g3_f1: "Zestaw 10 bannerów", price_g3_f2: "Prowadzenie social",
-                contact_title: "Napisz do mnie", contact_sub: "Darmowa konsultacja.", contact_phone_text: "Wolisz szybki kontakt? Pomiń formularz i zadzwoń.", form_name: "Imię", form_email: "Twój Email", form_budget: "Budżet (opcjonalnie)", form_msg: "Opis projektu...", form_agree: "Akceptuję przetwarzanie danych.", btn_send: "Wyślij", btn_select: "Wybierz", btn_consult: "Konsultacja",
-                footer_vop: "Regulamin", footer_gdpr: "Polityka Prywatności", footer_cookies: "Ciasteczka", footer_rights: "&copy; 2026 JK Design.",
-                cookie_head: "🍪 Ustawienia Prywatności", cookie_text: "Używamy plików cookie do optymalizacji serwisu.", cookie_btn_nec: "Tylko niezbędne", cookie_btn_all: "Akceptuj wszystkie",
-                widget_trigger: "INFO 2026", widget_title: "Masz wizję?", widget_text: "Nie czekaj. Dobra strona wymaga czasu.", widget_btn: "Jestem zainteresowany",
-                vop_title: "Regulamin", gdpr_title: "Polityka Prywatności", btn_close: "Zamknij dokument", close: "✕ Zamknij"
-            },
-            hu: {
-                nav_web: "Weboldalak", nav_design: "Grafika", nav_contact: "Kapcsolat", btn_cta: "Együttműködés", hero_status: "TAVASZI AKCIÓ -15% (ÁPR 30-IG)", hero_title: "Digitális Építészet<br>Modern Üzleteknek", hero_desc: "Prémium webdizájnnal segítek a cégek növekedésében.",
-                stat_years: "ÉV TAP.", stat_projects: "PROJEKT", stat_satis: "ELÉGEDETTSÉG", web_sub: "Sebességre és konverzióra optimalizált weboldalak.",
-                feat_speed_t: "Extrém Sebesség", feat_speed_d: "Kódszintű optimalizálás.", feat_mobile_t: "Mobile First", feat_mobile_d: "Tökéletes megjelenés telefonon.",
-                feat_seo_t: "SEO Ready", feat_seo_d: "Keresőmotorokra felkészítve.", feat_cms_t: "Egyedi CMS", feat_cms_d: "Felhasználóbarát adminisztráció.",
-                port_title: "Kiemelt Projektek", proj_1_t: "Modern Lakhatás", proj_1_d: "Ingatlan Weboldal", proj_2_t: "Aura Store", proj_2_d: "Webáruház", proj_3_t: "Savoria", proj_3_d: "Étterem / Gasztro", proj_4_t: "Helpera", proj_4_d: "Közösségi Finanszírozás", proj_5_t: "Dentavia Premium", proj_5_d: "Fogászati Klinika",
-                price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Reszponzív dizájn", price_web2_t: "Web Business", price_web2_f1: "Több aloldal", price_web3_t: "Web Premium", price_web3_f1: "Webshop / Portál", price_web3_f2: "Egyedi funkciók",
-                graph_sub: "Vizuális identitás, ami elad.", feat_brand_t: "Branding", feat_brand_d: "Időtálló logók arculati kézikönyvvel.", feat_ads_t: "Reklám Grafika", feat_ads_d: "Magas CTR bannerek.", feat_soc_t: "Social Media", feat_soc_d: "Profilkezelés.",
-                showcase_title: "Dizájn Bemutató", price_g1_t: "Logo Start", price_g1_f1: "2 Logó koncepció", price_g1_f2: "Export (SVG, PNG)", price_g2_t: "Márkaidentitás", price_g2_f1: "3 Logó koncepció", price_g3_t: "Social / Ads", price_g3_f1: "10 Banner", price_g3_f2: "Közösségi média kezelés",
-                contact_title: "Írj nekem", contact_sub: "Ingyenes konzultáció.", contact_phone_text: "Inkább telefonálnál? Hívj bátran.", form_name: "Név", form_email: "E-mail", form_budget: "Költségvetés (opcionális)", form_msg: "Projekt leírása...", form_agree: "Elfogadom az adatkezelést.", btn_send: "Küldés", btn_select: "Kiválaszt", btn_consult: "Konzultáció",
-                footer_vop: "Általános Szerződési Feltételek", footer_gdpr: "Adatvédelem", footer_cookies: "Sütik", footer_rights: "&copy; 2026 JK Design.",
-                cookie_head: "🍪 Adatvédelmi Beállítások", cookie_text: "Sütiket használunk a weboldal működéséhez.", cookie_btn_nec: "Csak szükséges", cookie_btn_all: "Mindent elfogad",
-                widget_trigger: "2026 INFO", widget_title: "Van egy víziód?", widget_text: "Ne várj a megfelelő időre. A minőség előkészítést igényel.", widget_btn: "Érdekel",
-                vop_title: "Általános Szerződési Feltételek", gdpr_title: "Adatvédelem", btn_close: "Dokumentum bezárása", close: "✕ Bezárás"
-            },
-            ua: {
-                nav_web: "Сайти", nav_design: "Графіка", nav_contact: "Контакти", btn_cta: "Співпраця", hero_status: "ВЕСНЯНІ ЗНИЖКИ -15% (ДО 30.4.)", hero_title: "Цифрова Архітектура<br>для Сучасного Бізнесу", hero_desc: "Допомагаю компаніям зростати через преміальний веб-дизайн.",
-                stat_years: "РОКИ ДОСВ.", stat_projects: "ПРОЄКТИ", stat_satis: "ЗАДОВОЛЕНІСТЬ", web_sub: "Сайти з фокусом на швидкість та SEO.",
-                feat_speed_t: "Екстремальна Швидкість", feat_speed_d: "Оптимізація коду.", feat_mobile_t: "Mobile First", feat_mobile_d: "Ідеально на телефонах.",
-                feat_seo_t: "SEO Ready", feat_seo_d: "Готовність до пошукових систем.", feat_cms_t: "Власна CMS", feat_cms_d: "Зручне адміністрування.",
-                port_title: "Вибрані Проєкти", proj_1_t: "Сучасне Життя", proj_1_d: "Сайт Нерухомості", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Ресторан / Гастро", proj_4_t: "Helpera", proj_4_d: "Краудфандинговий Портал", proj_5_t: "Dentavia Premium", proj_5_d: "Стоматологічна Клініка",
-                price_web1_t: "Web Старт", price_web1_f1: "One-page Landing", price_web1_f2: "Адаптивний дизайн", price_web2_t: "Web Бізнес", price_web2_f1: "Кілька сторінок", price_web3_t: "Web Преміум", price_web3_f1: "E-shop / Портал", price_web3_f2: "Функції на замовлення",
-                graph_sub: "Візуальна ідентичність, що продає.", feat_brand_t: "Брендинг", feat_brand_d: "Логотипи з брендбуком.", feat_ads_t: "Рекламна Графіка", feat_ads_d: "Банери з високим CTR.", feat_soc_t: "Social Media", feat_soc_d: "Ведення профілів.",
-                showcase_title: "Приклади Дизайну", price_g1_t: "Лого Старт", price_g1_f1: "2 Концепції", price_g1_f2: "Експорт (SVG, PNG)", price_g2_t: "Ідентичність", price_g2_f1: "3 Концепції", price_g3_t: "Social / Ads", price_g3_f1: "Набір 10 банерів", price_g3_f2: "Ведення соцмереж",
-                contact_title: "Напишіть мені", contact_sub: "Безкоштовна консультація.", contact_phone_text: "Віддаєте перевагу дзвінку? Пропустіть форму.", form_name: "Ім'я", form_email: "Ваш Email", form_budget: "Бюджет (необов'язково)", form_msg: "Опис проєкту...", form_agree: "Згоден з обробкою даних.", btn_send: "Надіслати", btn_select: "Вибрати", btn_consult: "Консультація",
-                footer_vop: "Правила та Умови", footer_gdpr: "Політика конфіденційності", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.",
-                cookie_head: "🍪 Налаштування Конфіденційності", cookie_text: "Ми використовуємо cookies для функціональності.", cookie_btn_nec: "Тільки необхідні", cookie_btn_all: "Прийняти всі",
-                widget_trigger: "2026 ІНФО", widget_title: "Є бачення?", widget_text: "Не чекайте. Якість потребує підготовки.", widget_btn: "Мені цікаво",
-                vop_title: "Умови використання", gdpr_title: "Конфіденційність", btn_close: "Закрити документ", close: "✕ Закрити"
-            },
-            fr: {
-                nav_web: "Sites Web", nav_design: "Graphisme", nav_contact: "Contact", btn_cta: "Collaborer", hero_status: "SOLDES DE PRINTEMPS -15% (JUSQU'AU 30.4.)", hero_title: "Architecture Numérique<br>pour Entreprise Moderne", hero_desc: "J'aide les entreprises à se développer grâce au web design premium.",
-                stat_years: "ANNÉES EXP.", stat_projects: "PROJETS", stat_satis: "SATISFACTION", web_sub: "Sites optimisés pour la vitesse et le SEO.",
-                feat_speed_t: "Vitesse Extrême", feat_speed_d: "Optimisation du code.", feat_mobile_t: "Mobile First", feat_mobile_d: "Parfait sur mobile.",
-                feat_seo_t: "Prêt pour le SEO", feat_seo_d: "Configuration technique pour les moteurs de recherche.", feat_cms_t: "CMS Sur Mesure", feat_cms_d: "Administration intuitive.",
-                port_title: "Projets Phares", proj_1_t: "Modern Living", proj_1_d: "Site Immobilier", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Restaurant / Gastro", proj_4_t: "Helpera", proj_4_d: "Portail de Financement", proj_5_t: "Dentavia Premium", proj_5_d: "Clinique Dentaire",
-                price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Design responsive", price_web2_t: "Web Business", price_web2_f1: "Multi-pages", price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portail", price_web3_f2: "Fonctionnalités sur mesure",
-                graph_sub: "Une identité visuelle qui vend.", feat_brand_t: "Branding", feat_brand_d: "Logos intemporels avec charte.", feat_ads_t: "Graphisme Publicitaire", feat_ads_d: "Bannières à fort CTR.", feat_soc_t: "Réseaux Sociaux", feat_soc_d: "Gestion de profils.",
-                showcase_title: "Portfolio Design", price_g1_t: "Logo Start", price_g1_f1: "2 Concepts", price_g1_f2: "Exports (SVG, PNG)", price_g2_t: "Identité de Marque", price_g2_f1: "3 Concepts", price_g3_t: "Social / Ads", price_g3_f1: "Set 10 bannières", price_g3_f2: "Gestion réseaux",
-                contact_title: "Contactez-moi", contact_sub: "Consultation gratuite.", contact_phone_text: "Vous préférez appeler ? Passez le formulaire.", form_name: "Nom", form_email: "Votre Email", form_budget: "Budget (optionnel)", form_msg: "Description...", form_agree: "J'accepte le traitement des données.", btn_send: "Envoyer", btn_select: "Choisir", btn_consult: "Consulter",
-                footer_vop: "Conditions Générales", footer_gdpr: "Politique de confidentialité", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.",
-                cookie_head: "🍪 Paramètres de Confidentialité", cookie_text: "Nous utilisons des cookies pour le fonctionnement du site.", cookie_btn_nec: "Nécessaires", cookie_btn_all: "Tout accepter",
-                widget_trigger: "2026 INFO", widget_title: "Une vision ?", widget_text: "N'attendez pas. La qualité demande de la préparation.", widget_btn: "Je suis intéressé",
-                vop_title: "Conditions Générales", gdpr_title: "Confidentialité", btn_close: "Fermer", close: "✕ Fermer"
-            },
-            es: {
-                nav_web: "Webs", nav_design: "Diseño", nav_contact: "Contacto", btn_cta: "Colaborar", hero_status: "OFERTAS PRIMAVERA -15% (HASTA 30.4.)", hero_title: "Arquitectura Digital<br>para Negocios Modernos", hero_desc: "Ayudo a las empresas a crecer con diseño web premium.",
-                stat_years: "AÑOS EXP.", stat_projects: "PROYECTOS", stat_satis: "SATISFACCIÓN", web_sub: "Webs enfocadas en velocidad y SEO.",
-                feat_speed_t: "Velocidad Extrema", feat_speed_d: "Optimización de código.", feat_mobile_t: "Mobile First", feat_mobile_d: "Perfecto en móviles.",
-                feat_seo_t: "SEO Ready", feat_seo_d: "Preparado para buscadores.", feat_cms_t: "CMS a Medida", feat_cms_d: "Administración sencilla.",
-                port_title: "Proyectos Destacados", proj_1_t: "Vida Moderna", proj_1_d: "Web Inmobiliaria", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Restaurante / Gastro", proj_4_t: "Helpera", proj_4_d: "Portal de Crowdfunding", proj_5_t: "Dentavia Premium", proj_5_d: "Clínica Dental",
-                price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Diseño responsive", price_web2_t: "Web Business", price_web2_f1: "Varias páginas", price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portal", price_web3_f2: "Funciones personalizadas",
-                graph_sub: "Identidad visual que vende.", feat_brand_t: "Branding", feat_brand_d: "Logos atemporales con manual.", feat_ads_t: "Gráficos de Ads", feat_ads_d: "Banners de alto CTR.", feat_soc_t: "Redes Sociales", feat_soc_d: "Gestión de perfiles.",
-                showcase_title: "Muestras de Diseño", price_g1_t: "Logo Start", price_g1_f1: "2 Conceptos", price_g1_f2: "Exportaciones (SVG, PNG)", price_g2_t: "Identidad de Marca", price_g2_f1: "3 Conceptos", price_g3_t: "Social / Ads", price_g3_f1: "Set de 10 banners", price_g3_f2: "Gestión de redes",
-                contact_title: "Escríbeme", contact_sub: "Consulta gratuita.", contact_phone_text: "¿Prefieres una llamada? Omite el formulario.", form_name: "Nombre", form_email: "Tu Email", form_budget: "Presupuesto (opcional)", form_msg: "Descripción...", form_agree: "Acepto el procesamiento de datos.", btn_send: "Enviar", btn_select: "Elegir", btn_consult: "Consultar",
-                footer_vop: "Términos y Condiciones", footer_gdpr: "Privacidad", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.",
-                cookie_head: "🍪 Ajustes de Privacidad", cookie_text: "Usamos cookies para el funcionamiento del sitio.", cookie_btn_nec: "Solo necesarias", cookie_btn_all: "Aceptar todo",
-                widget_trigger: "2026 INFO", widget_title: "¿Tienes una visión?", widget_text: "No esperes. La calidad necesita preparación.", widget_btn: "Me interesa",
-                vop_title: "Términos y Condiciones", gdpr_title: "Privacidad", btn_close: "Cerrar documento", close: "✕ Cerrar"
-            },
-            it: {
-                nav_web: "Siti Web", nav_design: "Grafica", nav_contact: "Contatto", btn_cta: "Collaborare", hero_status: "SCONTI DI PRIMAVERA -15% (FINO AL 30.4.)", hero_title: "Architettura Digitale<br>per Business Moderni", hero_desc: "Aiuto le aziende a crescere attraverso web design premium.",
-                stat_years: "ANNI ESP.", stat_projects: "PROGETTI", stat_satis: "SODDISFAZIONE", web_sub: "Siti web focalizzati su velocità e SEO.",
-                feat_speed_t: "Velocità Estrema", feat_speed_d: "Ottimizzazione del codice.", feat_mobile_t: "Mobile First", feat_mobile_d: "Perfetto sui telefoni.",
-                feat_seo_t: "SEO Ready", feat_seo_d: "Setup per i motori di ricerca.", feat_cms_t: "CMS su Misura", feat_cms_d: "Amministrazione facile.",
-                port_title: "Progetti in Evidenza", proj_1_t: "Abitare Moderno", proj_1_d: "Sito Immobiliare", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Ristorante / Gastro", proj_4_t: "Helpera", proj_4_d: "Portale Crowdfunding", proj_5_t: "Dentavia Premium", proj_5_d: "Clinica Dentale",
-                price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Design responsivo", price_web2_t: "Web Business", price_web2_f1: "Pagine multiple", price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portale", price_web3_f2: "Funzioni su misura",
-                graph_sub: "Identità visiva che vende.", feat_brand_t: "Branding", feat_brand_d: "Loghi con manuale.", feat_ads_t: "Grafica Ads", feat_ads_d: "Banner ad alto CTR.", feat_soc_t: "Social Media", feat_soc_d: "Gestione profili.",
-                showcase_title: "Portfolio Design", price_g1_t: "Logo Start", price_g1_f1: "2 Concetti", price_g1_f2: "Export (SVG, PNG)", price_g2_t: "Identità", price_g2_f1: "3 Concetti", price_g3_t: "Social / Ads", price_g3_f1: "Set di 10 banner", price_g3_f2: "Gestione social",
-                contact_title: "Scrivimi", contact_sub: "Consultazione gratuita.", contact_phone_text: "Preferisci chiamare? Salta il modulo.", form_name: "Nome", form_email: "Tua Email", form_budget: "Budget (opzionale)", form_msg: "Descrizione...", form_agree: "Accetto il trattamento dei dati.", btn_send: "Invia", btn_select: "Scegliere", btn_consult: "Consultare",
-                footer_vop: "Termini e Condizioni", footer_gdpr: "Privacy", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.",
-                cookie_head: "🍪 Impostazioni Privacy", cookie_text: "Utilizziamo i cookie per il funzionamento del sito.", cookie_btn_nec: "Solo necessari", cookie_btn_all: "Accetta tutti",
-                widget_trigger: "2026 INFO", widget_title: "Hai una visione?", widget_text: "Non aspettare. La qualità richiede preparazione.", widget_btn: "Mi interessa",
-                vop_title: "Termini e Condizioni", gdpr_title: "Privacy", btn_close: "Chiudi documento", close: "✕ Chiudi"
-            }
+            pl: { nav_web: "Strony", nav_marketing: "Marketing", nav_contact: "Kontakt", btn_cta: "Współpraca", hero_status: "DARMOWY AUDYT STRONY I SOCIAL MEDIA", hero_title: "Cyfrowa Architektura<br>dla Nowoczesnego Biznesu", hero_desc: "Pomagam firmom rosnąć poprzez projektowanie stron i marketing.", stat_years: "LATA DOŚW.", stat_projects: "PROJEKTY", stat_satis: "ZADOWOLENIE", web_sub: "Strony zoptymalizowane pod kątem szybkości i SEO.", feat_speed_t: "Ekstremalna Prędkość", feat_speed_d: "Optymalizacja kodu.", feat_mobile_t: "Mobile First", feat_mobile_d: "Wygląda idealnie na telefonach.", feat_seo_t: "SEO Ready", feat_seo_d: "Techniczne przygotowanie pod wyszukiwarki.", feat_cms_t: "Autorski CMS", feat_cms_d: "Przyjazny w obsłudze panel.", port_title: "Wybrane Projekty", proj_1_t: "Nowoczesne Życie", proj_1_d: "Strona Nieruchomości", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Restauracja", proj_4_t: "Helpera", proj_4_d: "Portal Crowdfundingowy", price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Responsywny design", price_web2_t: "Web Biznes", price_web2_f1: "Wiele podstron", price_web3_t: "Web Premium", price_web3_f1: "E-sklep / Portal", price_web3_f2: "Dedykowane funkcje", mark_sub: "Zarządzanie social media i kampanie sprzedażowe.", feat_sm_t: "Social Media", feat_sm_d: "Pełne zarządzanie IG, FB i TikTok.", feat_ads_t: "Meta & Google Ads", feat_ads_d: "Kampanie nastawione na zysk.", feat_content_t: "Tworzenie Treści", feat_content_d: "Reels i profesjonalny copywriting.", price_m1_t: "Social Start", price_m1_f1: "8 postów / miesiąc", price_m1_f2: "Zarządzanie profilem", price_m2_t: "Social Pro", price_m2_f1: "12 postów + 4 Reels", price_m3_t: "Ads Management", price_m3_f1: "Zarządzanie kampaniami", price_m3_f2: "Raportowanie", contact_title: "Napisz do mnie", contact_sub: "Darmowa konsultacja.", contact_phone_text: "Wolisz szybki kontakt? Zadzwoń.", form_name: "Imię", form_email: "Twój Email", form_budget: "Budżet", form_msg: "Opis projektu...", form_agree: "Akceptuję przetwarzanie danych.", btn_send: "Wyślij", btn_select: "Wybierz", btn_consult: "Konsultacja", footer_vop: "Regulamin", footer_gdpr: "Polityka Prywatności", footer_cookies: "Ciasteczka", footer_rights: "&copy; 2026 JK Design.", cookie_head: "🍪 Ustawienia Prywatności", cookie_text: "Używamy plików cookie do optymalizacji serwisu.", cookie_btn_nec: "Tylko niezbędne", cookie_btn_all: "Akceptuj wszystkie", widget_trigger: "INFO 2026", widget_title: "Masz wizję?", widget_text: "Nie czekaj. Dobra strona wymaga czasu.", widget_btn: "Jestem zainteresowany", vop_title: "Regulamin", gdpr_title: "Polityka Prywatności", btn_close: "Zamknij dokument", close: "✕ Zamknij" },
+            hu: { nav_web: "Weboldalak", nav_marketing: "Marketing", nav_contact: "Kapcsolat", btn_cta: "Együttműködés", hero_status: "INGYENES WEB ÉS KÖZÖSSÉGI MÉDIA AUDIT", hero_title: "Digitális Építészet<br>Modern Üzleteknek", hero_desc: "Prémium webdizájnnal és marketinggel segítek a cégek növekedésében.", stat_years: "ÉV TAP.", stat_projects: "PROJEKT", stat_satis: "ELÉGEDETTSÉG", web_sub: "Sebességre és konverzióra optimalizált weboldalak.", feat_speed_t: "Extrém Sebesség", feat_speed_d: "Kódszintű optimalizálás.", feat_mobile_t: "Mobile First", feat_mobile_d: "Tökéletes megjelenés telefonon.", feat_seo_t: "SEO Ready", feat_seo_d: "Keresőmotorokra felkészítve.", feat_cms_t: "Egyedi CMS", feat_cms_d: "Felhasználóbarát adminisztráció.", port_title: "Kiemelt Projektek", proj_1_t: "Modern Lakhatás", proj_1_d: "Ingatlan Weboldal", proj_2_t: "Aura Store", proj_2_d: "Webáruház", proj_3_t: "Savoria", proj_3_d: "Étterem", proj_4_t: "Helpera", proj_4_d: "Közösségi Finanszírozás", price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Reszponzív dizájn", price_web2_t: "Web Business", price_web2_f1: "Több aloldal", price_web3_t: "Web Premium", price_web3_f1: "Webshop / Portál", price_web3_f2: "Egyedi funkciók", mark_sub: "Közösségi média kezelés és teljesítmény marketing.", feat_sm_t: "Social Media", feat_sm_d: "IG, FB és TikTok profilok kezelése.", feat_ads_t: "Meta & Google Ads", feat_ads_d: "Értékesítés-fókuszú kampányok.", feat_content_t: "Tartalomkészítés", feat_content_d: "Reels videók és copywriting.", price_m1_t: "Social Start", price_m1_f1: "8 poszt / hónap", price_m1_f2: "Profilkezelés", price_m2_t: "Social Pro", price_m2_f1: "12 poszt + 4 Reels", price_m3_t: "Ads Management", price_m3_f1: "Kampánykezelés", price_m3_f2: "Rendszeres riportok", contact_title: "Írj nekem", contact_sub: "Ingyenes konzultáció.", contact_phone_text: "Inkább telefonálnál? Hívj bátran.", form_name: "Név", form_email: "E-mail", form_budget: "Költségvetés", form_msg: "Projekt leírása...", form_agree: "Elfogadom az adatkezelést.", btn_send: "Küldés", btn_select: "Kiválaszt", btn_consult: "Konzultáció", footer_vop: "ÁSZF", footer_gdpr: "Adatvédelem", footer_cookies: "Sütik", footer_rights: "&copy; 2026 JK Design.", cookie_head: "🍪 Adatvédelmi Beállítások", cookie_text: "Sütiket használunk a weboldal működéséhez.", cookie_btn_nec: "Csak szükséges", cookie_btn_all: "Mindent elfogad", widget_trigger: "2026 INFO", widget_title: "Van egy víziód?", widget_text: "Ne várj a megfelelő időre.", widget_btn: "Érdekel", vop_title: "ÁSZF", gdpr_title: "Adatvédelem", btn_close: "Dokumentum bezárása", close: "✕ Bezárás" },
+            ua: { nav_web: "Сайти", nav_marketing: "Маркетинг", nav_contact: "Контакти", btn_cta: "Співпраця", hero_status: "БЕЗКОШТОВНИЙ АУДИТ САЙТУ ТА СОЦМЕРЕЖ", hero_title: "Цифрова Архітектура<br>для Сучасного Бізнесу", hero_desc: "Допомагаю компаніям зростати через преміальний веб-дизайн та маркетинг.", stat_years: "РОКИ ДОСВ.", stat_projects: "ПРОЄКТИ", stat_satis: "ЗАДОВОЛЕНІСТЬ", web_sub: "Сайти з фокусом на швидкість та SEO.", feat_speed_t: "Екстремальна Швидкість", feat_speed_d: "Оптимізація коду.", feat_mobile_t: "Mobile First", feat_mobile_d: "Ідеально на телефонах.", feat_seo_t: "SEO Ready", feat_seo_d: "Готовність до пошукових систем.", feat_cms_t: "Власна CMS", feat_cms_d: "Зручне адміністрування.", port_title: "Вибрані Проєкти", proj_1_t: "Сучасне Життя", proj_1_d: "Сайт Нерухомості", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Ресторан", proj_4_t: "Helpera", proj_4_d: "Краудфандинговий Портал", price_web1_t: "Web Старт", price_web1_f1: "One-page Landing", price_web1_f2: "Адаптивний дизайн", price_web2_t: "Web Бізнес", price_web2_f1: "Кілька сторінок", price_web3_t: "Web Преміум", price_web3_f1: "E-shop / Портал", price_web3_f2: "Функції на замовлення", mark_sub: "Ведення соцмереж та результативні кампанії.", feat_sm_t: "Social Media", feat_sm_d: "Управління IG, FB та TikTok.", feat_ads_t: "Meta & Google Ads", feat_ads_d: "Кампанії націлені на продажі.", feat_content_t: "Створення контенту", feat_content_d: "Створення Reels та копірайтинг.", price_m1_t: "Social Старт", price_m1_f1: "8 постів / місяць", price_m1_f2: "Базове ведення", price_m2_t: "Social Про", price_m2_f1: "12 постів + 4 Reels", price_m3_t: "Ads Management", price_m3_f1: "Ведення реклами", price_m3_f2: "Звітність", contact_title: "Напишіть мені", contact_sub: "Безкоштовна консультація.", contact_phone_text: "Віддаєте перевагу дзвінку? Пропустіть форму.", form_name: "Ім'я", form_email: "Ваш Email", form_budget: "Бюджет", form_msg: "Опис проєкту...", form_agree: "Згоден з обробкою даних.", btn_send: "Надіслати", btn_select: "Вибрати", btn_consult: "Консультація", footer_vop: "Правила та Умови", footer_gdpr: "Політика конфіденційності", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.", cookie_head: "🍪 Налаштування Конфіденційності", cookie_text: "Ми використовуємо cookies для функціональності.", cookie_btn_nec: "Тільки необхідні", cookie_btn_all: "Прийняти всі", widget_trigger: "2026 ІНФО", widget_title: "Є бачення?", widget_text: "Не чекайте. Якість потребує підготовки.", widget_btn: "Мені цікаво", vop_title: "Умови використання", gdpr_title: "Конфіденційність", btn_close: "Закрити документ", close: "✕ Закрити" },
+            fr: { nav_web: "Sites Web", nav_marketing: "Marketing", nav_contact: "Contact", btn_cta: "Collaborer", hero_status: "AUDIT WEB ET SOCIAL GRATUIT", hero_title: "Architecture Numérique<br>pour Entreprise Moderne", hero_desc: "J'aide les entreprises à se développer grâce au web design premium et au marketing.", stat_years: "ANNÉES EXP.", stat_projects: "PROJETS", stat_satis: "SATISFACTION", web_sub: "Sites optimisés pour la vitesse et le SEO.", feat_speed_t: "Vitesse Extrême", feat_speed_d: "Optimisation du code.", feat_mobile_t: "Mobile First", feat_mobile_d: "Parfait sur mobile.", feat_seo_t: "Prêt pour le SEO", feat_seo_d: "Configuration technique pour les moteurs de recherche.", feat_cms_t: "CMS Sur Mesure", feat_cms_d: "Administration intuitive.", port_title: "Projets Phares", proj_1_t: "Modern Living", proj_1_d: "Site Immobilier", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Restaurant", proj_4_t: "Helpera", proj_4_d: "Portail de Financement", price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Design responsive", price_web2_t: "Web Business", price_web2_f1: "Multi-pages", price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portail", price_web3_f2: "Fonctionnalités sur mesure", mark_sub: "Gestion des réseaux sociaux et campagnes de performance.", feat_sm_t: "Réseaux Sociaux", feat_sm_d: "Gestion IG, FB et TikTok.", feat_ads_t: "Meta & Google Ads", feat_ads_d: "Campagnes axées sur les ventes.", feat_content_t: "Création de Contenu", feat_content_d: "Reels et rédaction de textes.", price_m1_t: "Social Start", price_m1_f1: "8 posts / mois", price_m1_f2: "Gestion de profil", price_m2_t: "Social Pro", price_m2_f1: "12 posts + 4 Reels", price_m3_t: "Ads Management", price_m3_f1: "Gestion de campagnes", price_m3_f2: "Rapports réguliers", contact_title: "Contactez-moi", contact_sub: "Consultation gratuite.", contact_phone_text: "Vous préférez appeler ? Passez le formulaire.", form_name: "Nom", form_email: "Votre Email", form_budget: "Budget", form_msg: "Description...", form_agree: "J'accepte le traitement des données.", btn_send: "Envoyer", btn_select: "Choisir", btn_consult: "Consulter", footer_vop: "Conditions Générales", footer_gdpr: "Politique de confidentialité", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.", cookie_head: "🍪 Paramètres de Confidentialité", cookie_text: "Nous utilisons des cookies pour le fonctionnement du site.", cookie_btn_nec: "Nécessaires", cookie_btn_all: "Tout accepter", widget_trigger: "2026 INFO", widget_title: "Une vision ?", widget_text: "N'attendez pas. La qualité demande de la préparation.", widget_btn: "Je suis intéressé", vop_title: "Conditions Générales", gdpr_title: "Confidentialité", btn_close: "Fermer", close: "✕ Fermer" },
+            es: { nav_web: "Webs", nav_marketing: "Marketing", nav_contact: "Contacto", btn_cta: "Colaborar", hero_status: "AUDITORÍA WEB Y SOCIAL GRATUITA", hero_title: "Arquitectura Digital<br>para Negocios Modernos", hero_desc: "Ayudo a las empresas a crecer con diseño web premium y marketing.", stat_years: "AÑOS EXP.", stat_projects: "PROYECTOS", stat_satis: "SATISFACCIÓN", web_sub: "Webs enfocadas en velocidad y SEO.", feat_speed_t: "Velocidad Extrema", feat_speed_d: "Optimización de código.", feat_mobile_t: "Mobile First", feat_mobile_d: "Perfecto en móviles.", feat_seo_t: "SEO Ready", feat_seo_d: "Preparado para buscadores.", feat_cms_t: "CMS a Medida", feat_cms_d: "Administración sencilla.", port_title: "Proyectos Destacados", proj_1_t: "Vida Moderna", proj_1_d: "Web Inmobiliaria", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Restaurante", proj_4_t: "Helpera", proj_4_d: "Portal de Crowdfunding", price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Diseño responsive", price_web2_t: "Web Business", price_web2_f1: "Varias páginas", price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portal", price_web3_f2: "Funciones personalizadas", mark_sub: "Gestión de redes sociales y campañas de rendimiento.", feat_sm_t: "Redes Sociales", feat_sm_d: "Gestión de IG, FB y TikTok.", feat_ads_t: "Meta & Google Ads", feat_ads_d: "Campañas para ventas.", feat_content_t: "Creación de Contenido", feat_content_d: "Reels y copywriting.", price_m1_t: "Social Start", price_m1_f1: "8 posts / mes", price_m1_f2: "Gestión de perfil", price_m2_t: "Social Pro", price_m2_f1: "12 posts + 4 Reels", price_m3_t: "Ads Management", price_m3_f1: "Gestión de campañas", price_m3_f2: "Informes regulares", contact_title: "Escríbeme", contact_sub: "Consulta gratuita.", contact_phone_text: "¿Prefieres una llamada? Omite el formulario.", form_name: "Nombre", form_email: "Tu Email", form_budget: "Presupuesto", form_msg: "Descripción...", form_agree: "Acepto el procesamiento de datos.", btn_send: "Enviar", btn_select: "Elegir", btn_consult: "Consultar", footer_vop: "Términos y Condiciones", footer_gdpr: "Privacidad", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.", cookie_head: "🍪 Ajustes de Privacidad", cookie_text: "Usamos cookies para el funcionamiento del sitio.", cookie_btn_nec: "Solo necesarias", cookie_btn_all: "Aceptar todo", widget_trigger: "2026 INFO", widget_title: "¿Tienes una visión?", widget_text: "No esperes. La calidad necesita preparación.", widget_btn: "Me interesa", vop_title: "Términos y Condiciones", gdpr_title: "Privacidad", btn_close: "Cerrar documento", close: "✕ Cerrar" },
+            it: { nav_web: "Siti Web", nav_marketing: "Marketing", nav_contact: "Contatto", btn_cta: "Collaborare", hero_status: "AUDIT WEB & SOCIAL GRATUITO", hero_title: "Architettura Digitale<br>per Business Moderni", hero_desc: "Aiuto le aziende a crescere attraverso web design premium e marketing.", stat_years: "ANNI ESP.", stat_projects: "PROGETTI", stat_satis: "SODDISFAZIONE", web_sub: "Siti web focalizzati su velocità e SEO.", feat_speed_t: "Velocità Estrema", feat_speed_d: "Ottimizzazione del codice.", feat_mobile_t: "Mobile First", feat_mobile_d: "Perfetto sui telefoni.", feat_seo_t: "SEO Ready", feat_seo_d: "Setup per i motori di ricerca.", feat_cms_t: "CMS su Misura", feat_cms_d: "Amministrazione facile.", port_title: "Progetti in Evidenza", proj_1_t: "Abitare Moderno", proj_1_d: "Sito Immobiliare", proj_2_t: "Aura Store", proj_2_d: "E-commerce", proj_3_t: "Savoria", proj_3_d: "Ristorante", proj_4_t: "Helpera", proj_4_d: "Portale Crowdfunding", price_web1_t: "Web Start", price_web1_f1: "One-page Landing", price_web1_f2: "Design responsivo", price_web2_t: "Web Business", price_web2_f1: "Pagine multiple", price_web3_t: "Web Premium", price_web3_f1: "E-shop / Portale", price_web3_f2: "Funzioni su misura", mark_sub: "Gestione dei social media e campagne di performance.", feat_sm_t: "Social Media", feat_sm_d: "Gestione IG, FB e TikTok.", feat_ads_t: "Meta & Google Ads", feat_ads_d: "Campagne per le vendite.", feat_content_t: "Creazione Contenuti", feat_content_d: "Reels e copywriting.", price_m1_t: "Social Start", price_m1_f1: "8 post / mese", price_m1_f2: "Gestione profilo", price_m2_t: "Social Pro", price_m2_f1: "12 post + 4 Reels", price_m3_t: "Ads Management", price_m3_f1: "Gestione campagne", price_m3_f2: "Report regolari", contact_title: "Scrivimi", contact_sub: "Consultazione gratuita.", contact_phone_text: "Preferisci chiamare? Salta il modulo.", form_name: "Nome", form_email: "Tua Email", form_budget: "Budget", form_msg: "Descrizione...", form_agree: "Accetto il trattamento dei dati.", btn_send: "Invia", btn_select: "Scegliere", btn_consult: "Consultare", footer_vop: "Termini e Condizioni", footer_gdpr: "Privacy", footer_cookies: "Cookies", footer_rights: "&copy; 2026 JK Design.", cookie_head: "🍪 Impostazioni Privacy", cookie_text: "Utilizziamo i cookie per il funzionamento del sito.", cookie_btn_nec: "Solo necessari", cookie_btn_all: "Accetta tutti", widget_trigger: "2026 INFO", widget_title: "Hai una visione?", widget_text: "Non aspettare. La qualità richiede preparazione.", widget_btn: "Mi interessa", vop_title: "Termini e Condizioni", gdpr_title: "Privacy", btn_close: "Chiudi documento", close: "✕ Chiudi" }
         };
 
         function setLanguage(lang) {
@@ -760,7 +657,7 @@
                     username: "JK Design Bot",
                     embeds: [{
                         title: "✨ Nový Dopyt z Webu",
-                        color: 5763719, // Zelená farba (hex #57F287)
+                        color: 5763719,
                         fields: [
                             { name: "👤 Meno", value: name, inline: true },
                             { name: "📧 Email", value: email, inline: true },
@@ -798,3 +695,4 @@
     </script>
 </body>
 </html>
+
